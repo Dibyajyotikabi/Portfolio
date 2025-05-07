@@ -118,7 +118,7 @@
     <!-- Navigation -->
     <div class="mx-auto max-w-[1200px] bg-white rounded-lg shadow-lg overflow-hidden mt-6 mb-8">
         <!-- Header connected to content area -->
-        <div id="header-container" class="w-full z-20 bg-[#FF1D58] transition-all duration-300">
+        <div id="header-container" class="w-full z-20 bg-black transition-all duration-300">
             <div class="w-full">
                 <nav class="w-full px-6 py-3">
                     <div class="flex flex-wrap items-center justify-between">
@@ -821,6 +821,10 @@
                                         <label for="message" class="block text-sm font-medium text-[#FFF685] mb-1">Your Message</label>
                                         <textarea id="message" name="message" rows="8" required class="w-full h-full px-4 py-3 border border-notion-300 rounded-md focus:outline-none focus:ring-2 focus:ring-notion-500 focus:border-transparent transition-all duration-300 text-[#0049B7] font-medium" placeholder="How can I help you?"></textarea>
                                     </div>
+
+                                    <!-- Empty div for spacing -->
+                                    <div class="h-6"></div>
+
                                     <div class="mt-8 mb-4">
                                         <button type="submit" class="w-full bg-[#FFF685] hover:bg-[#fffaa8] text-[#0049B7] font-semibold py-3 px-6 rounded-md shadow-sm hover:shadow transition-all duration-300 ease-in-out transform hover:-translate-y-1">Send Message</button>
                                     </div>
@@ -1086,7 +1090,7 @@
             if (scrollTop > 50) {
                 // When scrolled down
                 headerContainer.classList.add('sticky', 'top-0');
-                headerContainer.style.backgroundColor = 'rgba(255, 29, 88, 0.95)'; // Using #FF1D58 with opacity
+                headerContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.95)'; // Using black with opacity
                 headerContainer.style.backdropFilter = 'blur(8px)';
                 headerContainer.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
             } else {
