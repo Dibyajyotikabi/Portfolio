@@ -5,1466 +5,849 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dibyajyoti Kabi - WordPress Developer, SEO & Digital Marketing Expert</title>
 
-    
     <!-- Favicon -->
     <link rel="icon" href="DJK_1_16_px.webp" sizes="16x16" type="image/webp">
     <link rel="icon" href="DJK_32_px.webp" sizes="32x32" type="image/webp">
 
-
-    <!-- SEO Meta Tags -->
+    <!-- SEO & Meta Tags -->
     <meta name="description" content="Dibyajyoti Kabi's portfolio: Expert in WordPress development, SEO, and digital marketing. Creating impactful, high-performance websites.">
     <meta name="keywords" content="Dibyajyoti Kabi, portfolio, web designer, web developer, WordPress developer, WordPress development, SEO specialist, SEO, digital marketing, GeneratePress, HTML, CSS, PHP">
     <meta name="author" content="Dibyajyoti Kabi">
     <link rel="canonical" href="https://dibyajyotikabi.com/index.html">
     <meta name="robots" content="index, follow">
-
-    <!-- Open Graph Meta Tags (for Facebook, LinkedIn, etc.) -->
     <meta property="og:title" content="Dibyajyoti Kabi - WordPress, SEO & Digital Marketing Portfolio">
     <meta property="og:description" content="Explore Dibyajyoti Kabi's work: Specializing in WordPress development, SEO strategies, and digital marketing solutions.">
     <meta property="og:image" content="https://dibyajyotikabi.com/profile-image.jpg">
     <meta property="og:url" content="https://dibyajyotikabi.com/index.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Dibyajyoti Kabi">
-
-
-    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Dibyajyoti Kabi - WordPress, SEO & Digital Marketing Portfolio">
-    <meta name="twitter:description" content="Explore Dibyajyoti Kabi's work: Specializing in WordPress development, SEO strategies, and digital marketing solutions.">
-    <meta name="twitter:image" content="https://dibyajyotikabi.com/profile-image.jpg">
-    <meta name="twitter:creator" content="@dibya_1994">
-    <meta name="twitter:site" content="@dibya_1994">
 
-    <!-- Favicon Link (Update path if needed) -->
-    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
-    <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
-    <!-- Add your favicon links here if you have them -->
-
+    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prevent FOUC (Flash of Unstyled Content) & Handle Device Default Settings -->
+    <script>
+        // Check local storage or system preference strictly
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        notion: {
-                            50: '#0049B7', /* Deep Blue */
-                            100: '#0055d4', /* Slightly lighter blue */
-                            200: '#00DDFF', /* Bright Cyan */
-                            300: '#F75990', /* Lighter Pink */
-                            400: '#FF1D58', /* Bright Pink/Red */
-                            500: '#FFF685', /* Light Yellow */
-                            600: '#ffffff', /* White */
-                            700: '#f8fafc', /* Off-white */
-                            800: '#f1f5f9', /* Very light gray */
-                            900: '#000000', /* Black for header/footer */
+                        theme: {
+                            bg: 'var(--bg-color)',
+                            text: 'var(--text-main)',
+                            muted: 'var(--text-muted)',
+                            border: 'var(--glass-border)',
+                            surface: 'var(--glass-surface)',
                         },
-                    },
-                    animation: {
-                        'typing': 'typing 3.5s steps(40, end), blink-caret .75s step-end infinite',
-                    },
-                    keyframes: {
-                        typing: {
-                            'from': { width: '0' },
-                            'to': { width: '100%' }
-                        },
-                        'blink-caret': {
-                            'from, to': { borderColor: 'transparent' },
-                            '50%': { borderColor: '#737373' }
+                        accent: {
+                            yellow: '#FFF685',
+                            blue: '#0049B7',
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                 },
             },
         }
     </script>
+    
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #ffffff; /* White background */
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #d4d4d4; /* Light gray */
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a3a3a3; /* Medium gray */
+        /* --- CSS VARIABLES FOR THEMIING --- */
+        :root {
+            /* Light Mode (Default variables) */
+            --bg-color: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-muted: #6e6e73;
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --glass-surface: rgba(255, 255, 255, 0.65);
+            --glass-card-bg: rgba(255, 255, 255, 0.5);
+            --glass-card-hover: rgba(255, 255, 255, 0.8);
+            --dock-bg: rgba(255, 255, 255, 0.75);
+            --dock-icon: #1d1d1f;
+            
+            /* Liquid Gradients - Light */
+            --liquid-1: rgba(0, 113, 227, 0.15);
+            --liquid-2: rgba(255, 45, 85, 0.1);
+            --liquid-3: rgba(255, 214, 10, 0.12);
+            --liquid-4: rgba(175, 82, 222, 0.1);
         }
 
-        html {
-            scroll-behavior: smooth;
+        .dark {
+            /* Dark Mode Overrides */
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --text-muted: #a1a1a6;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-surface: rgba(18, 18, 18, 0.65);
+            --glass-card-bg: rgba(255, 255, 255, 0.03);
+            --glass-card-hover: rgba(255, 255, 255, 0.08);
+            --dock-bg: rgba(10, 10, 10, 0.6);
+            --dock-icon: rgba(255, 255, 255, 0.8);
+
+            /* Liquid Gradients - Dark */
+            --liquid-1: rgba(0, 73, 183, 0.25);
+            --liquid-2: rgba(157, 78, 221, 0.2);
+            --liquid-3: rgba(255, 29, 88, 0.1);
+            --liquid-4: rgba(255, 246, 133, 0.08);
         }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff; /* White background */
-            color: #171717; /* Dark text */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
-        .notion-card {
-            background-color: #0055d4; /* Slightly lighter blue */
-            border: 1px solid #00DDFF; /* Bright Cyan border */
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            color: #f1f5f9; /* Light text for dark background */
+
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
-        .notion-card:hover {
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
+
+        /* Advanced Liquid Background */
+        .liquid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -50;
+            background: 
+                radial-gradient(circle at 15% 15%, var(--liquid-1), transparent 45%), 
+                radial-gradient(circle at 85% 85%, var(--liquid-2), transparent 45%),
+                radial-gradient(circle at 50% 50%, var(--liquid-3), transparent 60%),
+                radial-gradient(circle at 80% 20%, var(--liquid-4), transparent 30%);
+            filter: blur(80px);
+            animation: aurora 20s ease infinite alternate;
+            transition: background 1s ease;
         }
-        .typed-cursor {
-            color: #525252; /* Dark gray */
+
+        @keyframes aurora {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
         }
-        .boxed-container {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            background-color: white;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
+
+        /* --- NOTION PAGE CONTAINER --- */
+        .notion-page {
+            background: var(--glass-surface);
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        .notion-highlight {
-            background: linear-gradient(to bottom, transparent 50%, rgba(255, 246, 133, 0.4) 50%);
-            padding: 0 4px;
-        }
-        .active-nav-link {
-            background-color: #FFF685; /* Light Yellow */
-            color: #0049B7; /* Deep Blue */
-        }
-        .active-mobile-nav {
-            background-color: #FFF685; /* Light Yellow */
-            color: #0049B7; /* Deep Blue */
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        /* Animation classes */
-        .animate-fadeIn {
-            animation: fadeIn 0.3s ease-in-out;
+        .notion-cover {
+            height: 240px;
+            background: linear-gradient(135deg, #0049B7 0%, #7B2CBF 50%, #FF0054 100%);
+            width: 100%;
+            position: relative;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- 3D GLASS CARDS --- */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
         }
+        
+        .glass-card {
+            background: var(--glass-card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.1s ease; 
+            position: relative;
+            overflow: hidden;
+            color: var(--text-main);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+        
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card:hover {
+            background: var(--glass-card-hover);
+            border-color: var(--text-muted);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+        }
+
+        /* --- DOCK NAVIGATION --- */
+        .dock-nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dock-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem;
+            border-radius: 24px;
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: background 0.3s ease;
+        }
+        
+        .dock-item {
+            position: relative;
+            width: 50px; height: 50px;
+            border-radius: 14px;
+            background: rgba(128, 128, 128, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            color: var(--dock-icon);
+            border: 1px solid transparent;
+        }
+        
+        .dock-item:hover {
+            width: 65px; height: 65px;
+            margin-bottom: 10px; 
+            background: rgba(128, 128, 128, 0.2);
+            color: var(--text-main);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .dock-item.active {
+            background: rgba(255, 246, 133, 0.2);
+            color: #b48e00; /* Darker yellow for visibility on light mode */
+            border-color: rgba(255, 246, 133, 0.5);
+        }
+        .dark .dock-item.active {
+            color: #FFF685;
+            border-color: rgba(255, 246, 133, 0.3);
+        }
+        
+        .dock-item.active::before {
+            content: '';
+            position: absolute; bottom: -6px;
+            width: 4px; height: 4px;
+            background: currentColor;
+            border-radius: 50%;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--dock-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            background: var(--glass-card-hover);
+        }
+
+        /* --- SCROLL ANIMATIONS --- */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Property Pill */
+        .prop-pill {
+            display: inline-flex; align-items: center;
+            padding: 2px 8px; border-radius: 4px;
+            font-size: 11px; font-weight: 600; line-height: 1.2;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(128, 128, 128, 0.3); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(128, 128, 128, 0.5); }
+
+        html { scroll-behavior: smooth; }
     </style>
-
-    <!-- Schema.org Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "mainEntity": {
-        "@type": "Person",
-        "name": "Dibyajyoti Kabi",
-        "alternateName": "Dibya",
-        "url": "https://dibyajyotikabi.com/index.html",
-        "image": "https://dibyajyotikabi.com/profile-image.jpg",
-        "jobTitle": "WordPress Developer, SEO Specialist, Digital Marketing Consultant",
-        "description": "Experienced web professional specializing in WordPress development, search engine optimization (SEO), and digital marketing strategies to create clean, lightweight, and impactful websites.",
-        "knowsAbout": ["WordPress Development", "Web Design", "SEO (Search Engine Optimization)", "Digital Marketing", "PHP", "HTML", "CSS", "GeneratePress", "Basic Networking", "Team Leadership", "Content Strategy", "Link Building"],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Dibyajyoti Kabi"
-        },
-        "sameAs": [
-          "https://www.instagram.com/dibya1994/",
-          "https://twitter.com/dibya_1994",
-          "https://www.linkedin.com/in/dibyajyoti-kabi-00773551/"
-        ]
-      },
-      "about": {
-        "@type": "WebSite",
-        "name": "Dibyajyoti Kabi - Portfolio",
-        "url": "https://dibyajyotikabi.com/",
-        "description": "Dibyajyoti Kabi's portfolio: Expert in WordPress development, SEO, and digital marketing. Creating impactful, high-performance websites.",
-        "publisher": {
-          "@type": "Person",
-          "name": "Dibyajyoti Kabi"
-        },
-        "inLanguage": "en-US"
-      }
-    }
-    </script>
 </head>
-<body class="antialiased bg-white">
-    <!-- Navigation -->
-    <div class="mx-auto max-w-[1200px] bg-white md:rounded-lg shadow-lg overflow-hidden md:mt-6 mb-8 md:mx-auto w-full">
-        <!-- Header connected to content area -->
-        <div id="header-container" class="w-full z-20 bg-black transition-all duration-300 md:rounded-t-lg">
-            <div class="w-full">
-                <nav class="w-full px-4 sm:px-6 py-3">
-                    <div class="flex flex-wrap items-center justify-between">
-                        <a href="#home" class="flex items-center space-x-3 rtl:space-x-reverse">
-                            <span class="self-center text-2xl font-bold whitespace-nowrap text-white relative">
-                                <span class="relative z-10">
-                                    <span class="text-white">D</span><span class="text-yellow-400">i</span><span class="text-white">bya</span>
-                                </span>
-                                <span class="absolute -bottom-1 left-0 w-full h-2 bg-yellow-500 opacity-30 transform -rotate-1"></span>
-                            </span>
-                        </a>
-                        <div class="flex md:hidden">
-                            <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-black rounded-lg bg-white hover:bg-[#FFF685] border border-white focus:outline-none transition-all duration-300" aria-controls="mobile-nav-menu" aria-expanded="false">
-                                <span class="sr-only">Open main menu</span>
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="desktop-menu items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-                            <ul class="flex flex-row items-center space-x-1">
-                                <li><a href="#home" class="block py-2 px-4 rounded-lg text-sm font-medium text-[#0049B7] bg-[#FFF685] hover:bg-[#fffaa8] transition-all duration-300 nav-link" aria-current="page">Home</a></li>
-                                <li><a href="#about" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 nav-link">About</a></li>
-                                <li><a href="#works" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 nav-link">Works</a></li>
-                                <li><a href="#skills" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 nav-link">Skills</a></li>
-                                <li><a href="pricing.html" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 nav-link">Pricing</a></li>
-                                <li>
-                                <a href="#contact" class="block py-2 px-4 text-sm font-medium text-white hover:text-[#FFF685] transition-all duration-300 nav-link relative">
-                                    <span class="relative z-10">Contact Me</span>
-                                    <svg class="absolute bottom-0 left-0 w-full h-2.5 text-[#00DDFF] opacity-80" viewBox="0 0 100 12" preserveAspectRatio="none">
-                                        <path d="M3,4 C10,1 20,8 30,2 C40,8 50,0 60,5 C70,8 80,3 97,4" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="0.5, 0" pathLength="100"></path>
-                                    </svg>
-                                </a>
-                            </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
 
-                <!-- Mobile menu dropdown (positioned below the nav) -->
-                <div class="md:hidden hidden fixed top-[60px] left-0 right-0 z-50" id="mobile-nav-menu">
-                    <div class="w-full">
-                        <ul class="flex flex-col p-4 space-y-1 bg-black border-t border-gray-800 shadow-lg relative">
-                            <button id="close-mobile-menu" class="absolute top-2 right-2 text-white hover:text-[#FFF685] transition-colors duration-300">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                            </button>
-                            <li><a href="#home" class="block py-3 px-4 rounded-lg text-sm font-medium text-[#0049B7] bg-[#FFF685] hover:bg-[#fffaa8] transition-all duration-300 mobile-nav-item" aria-current="page">Home</a></li>
-                            <li><a href="#about" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 mobile-nav-item">About</a></li>
-                            <li><a href="#works" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 mobile-nav-item">Works</a></li>
-                            <li><a href="#skills" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 mobile-nav-item">Skills</a></li>
-                            <li><a href="pricing.html" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300 mobile-nav-item">Pricing</a></li>
-                            <li>
-                                <a href="#contact" class="block py-3 px-4 text-sm font-medium text-white hover:text-[#FFF685] transition-all duration-300 mobile-nav-item relative">
-                                    <span class="relative z-10">Contact Me</span>
-                                    <svg class="absolute bottom-0 left-0 w-full h-2.5 text-[#00DDFF] opacity-80" viewBox="0 0 100 12" preserveAspectRatio="none">
-                                        <path d="M3,4 C10,1 20,8 30,2 C40,8 50,0 60,5 C70,8 80,3 97,4" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="0.5, 0" pathLength="100"></path>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+<body class="antialiased selection:bg-accent-yellow selection:text-black">
+
+    <!-- Background Elements -->
+    <div class="liquid-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="theme-toggle" title="Toggle Dark/Light Mode">
+        <i class="material-icons-round text-xl">dark_mode</i>
+    </button>
+
+    <!-- Floating Dock Navigation -->
+    <nav class="dock-nav">
+        <a href="#home" class="dock-item active" data-label="Home" onclick="setActive(this)">
+            <i class="material-icons-round text-xl">home</i>
+        </a>
+        <a href="#about" class="dock-item" data-label="About" onclick="setActive(this)">
+            <i class="material-icons-round text-xl">person</i>
+        </a>
+        <a href="#works" class="dock-item" data-label="Works" onclick="setActive(this)">
+            <i class="material-icons-round text-xl">grid_view</i>
+        </a>
+        <a href="#skills" class="dock-item" data-label="Skills" onclick="setActive(this)">
+            <i class="material-icons-round text-xl">bolt</i>
+        </a>
+        <a href="#contact" class="dock-item" data-label="Contact" onclick="setActive(this)">
+            <i class="material-icons-round text-xl">mail</i>
+        </a>
+    </nav>
+
+    <!-- Main Workspace -->
+    <div class="max-w-5xl mx-auto md:my-12 mb-32 px-4 relative z-10">
+        
+        <!-- Notion Page Container -->
+        <div class="notion-page min-h-screen relative">
+            
+            <!-- Cover Image -->
+            <div class="notion-cover group">
+                <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button class="bg-black/40 backdrop-blur-md hover:bg-black/60 text-xs px-3 py-1.5 rounded text-white/80 border border-white/10 flex items-center gap-1">
+                        <i class="material-icons-round text-xs">image</i> Change cover
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <div class="pb-0">
-            <!-- Hero Section -->
-            <section id="home" class="min-h-screen flex items-center justify-center bg-notion-50 text-white pt-20 md:pt-0 relative overflow-hidden">
-                <!-- Enhanced background with geometric elements -->
-                <div class="absolute inset-0 z-0 overflow-hidden">
-                    <!-- Subtle grid pattern -->
-                    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
-
-                    <!-- Geometric background elements -->
-                    <div class="absolute top-1/4 left-1/4 w-64 h-64 border-2 border-notion-200 rounded-full opacity-10 animate-pulse" style="animation-duration: 15s;"></div>
-                    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 border-2 border-notion-200 rounded-full opacity-10 animate-pulse" style="animation-duration: 20s;"></div>
-
-                    <!-- Scattered dots -->
-                    <div class="absolute top-20 left-1/3 w-2 h-2 bg-notion-300 rounded-full opacity-30"></div>
-                    <div class="absolute top-40 left-1/4 w-3 h-3 bg-notion-300 rounded-full opacity-30"></div>
-                    <div class="absolute top-60 left-2/3 w-2 h-2 bg-notion-300 rounded-full opacity-30"></div>
-                    <div class="absolute top-80 left-1/5 w-2 h-2 bg-notion-300 rounded-full opacity-30"></div>
-                    <div class="absolute bottom-20 right-1/3 w-3 h-3 bg-notion-300 rounded-full opacity-30"></div>
-                    <div class="absolute bottom-40 right-1/4 w-2 h-2 bg-notion-300 rounded-full opacity-30"></div>
-                    <div class="absolute bottom-60 right-2/3 w-2 h-2 bg-notion-300 rounded-full opacity-30"></div>
-
-                    <!-- Geometric shapes -->
-                    <div class="absolute top-1/3 left-10 w-16 h-16 border-2 border-notion-200 opacity-20 rotate-45"></div>
-                    <div class="absolute bottom-1/3 right-10 w-16 h-16 border-2 border-notion-200 opacity-20 rotate-12"></div>
-                    <div class="absolute top-2/3 left-1/2 w-12 h-12 border-2 border-notion-200 rounded-full opacity-20"></div>
-
-                    <!-- Wavy lines -->
-                    <svg class="absolute left-0 top-1/2 w-full h-32 opacity-10" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0,100 C300,200 600,0 900,100 C1200,200 1500,0 1800,100" stroke="#E5E5E5" stroke-width="2" fill="none" />
-                    </svg>
-                    <svg class="absolute left-0 bottom-1/4 w-full h-32 opacity-10" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0,100 C300,0 600,200 900,100 C1200,0 1500,200 1800,100" stroke="#E5E5E5" stroke-width="2" fill="none" />
-                    </svg>
-                </div>
-
-                <div class="relative z-10 text-center p-6 md:p-12 max-w-6xl mx-auto">
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div class="order-2 md:order-1">
-                            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 text-white">I'm <span id="typed-text" class="text-[#FFF685]"></span></h1>
-                            <p class="text-xl md:text-2xl text-notion-600 mb-8 max-w-2xl mx-auto">
-                                I will create websites that can give value to your business.
-                            </p>
-                            <p class="text-lg text-notion-500 mb-10">
-                                WordPress & GeneratePress | HTML/CSS/PHP | Basic Networking
-                            </p>
-                            <div class="flex flex-wrap justify-center gap-4 mb-8">
-                                <a href="#contact" class="bg-[#FFF685] hover:bg-[#fffaa8] text-[#0049B7] font-semibold py-3 px-8 rounded-md shadow-sm hover:shadow transition-all duration-300 ease-in-out transform hover:-translate-y-1">Let's Talk</a>
-                                <a href="#works" class="bg-white hover:bg-[#f5f5f5] text-black font-semibold py-3 px-8 rounded-md border border-gray-300 shadow-sm hover:shadow transition-all duration-300 ease-in-out transform hover:-translate-y-1">My Works</a>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2 flex justify-center">
-                            <div class="relative">
-                                <!-- Geometric background elements -->
-                                <div class="absolute -inset-10 z-0">
-                                    <!-- Dots pattern -->
-                                    <div class="absolute top-0 right-0 w-20 h-20 grid grid-cols-5 grid-rows-5 gap-1.5">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                    </div>
-
-                                    <!-- Similar dots pattern for bottom left -->
-                                    <div class="absolute bottom-0 left-0 w-20 h-20 grid grid-cols-5 grid-rows-5 gap-1.5">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                        <div class="w-1.5 h-1.5 rounded-full bg-notion-300"></div>
-                                    </div>
-
-                                    <!-- Geometric shapes -->
-                                    <div class="absolute top-1/4 -left-6 w-12 h-12 border-2 border-notion-200 rounded-md rotate-45"></div>
-                                    <div class="absolute -bottom-4 right-1/4 w-8 h-8 border-2 border-notion-200 rounded-full"></div>
-                                    <div class="absolute top-3/4 -right-4 w-10 h-10 border-2 border-notion-200 rotate-12"></div>
-
-                                    <!-- Zigzag line -->
-                                    <svg class="absolute -right-8 top-1/3" width="24" height="80" viewBox="0 0 24 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M2 2L22 26L2 50L22 78" stroke="#E5E5E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-
-                                <!-- Enhanced image container with styling -->
-                                <div class="relative w-80 max-w-full z-10">
-                                    <!-- Background decoration for image -->
-                                    <div class="absolute -inset-0.5 bg-gradient-to-tr from-notion-900 to-notion-700 rounded-md blur-sm opacity-70"></div>
-                                    <div class="absolute -inset-1 bg-notion-100 rounded-md -rotate-1"></div>
-
-                                    <!-- Main image container -->
-                                    <div class="relative overflow-hidden border-2 border-notion-200 shadow-xl rounded-md z-10 transform transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl">
-                                        <!-- Profile image -->
-                                        <img src="profile-image.jpg"
-                                             alt="Dibyajyoti Kabi"
-                                             class="w-full object-cover">
-
-                                        <!-- Subtle overlay gradient -->
-                                        <div class="absolute inset-0 bg-gradient-to-t from-notion-900/20 to-transparent"></div>
-
-                                        <!-- Name tag at bottom -->
-                                        <div class="absolute bottom-0 left-0 right-0 bg-notion-900/70 backdrop-blur-sm py-2 px-3 text-left">
-                                            <p class="text-white text-sm font-medium">Dibyajyoti Kabi</p>
-                                            <p class="text-white/80 text-xs">Web Designer & Developer</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Page Content -->
+            <div class="px-6 md:px-20 pb-16 relative">
+                
+                <!-- Profile Icon -->
+                <div class="relative -mt-[4.5rem] mb-8 inline-block group">
+                    <div class="w-36 h-36 rounded-full overflow-hidden border-[6px] border-theme-surface shadow-2xl bg-black relative z-10 transition-colors duration-300">
+                        <img src="profile-image.jpg" alt="Dibyajyoti Kabi" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     </div>
-
-                    <!-- Featured in section -->
-                    <div class="mt-16 pt-8 border-t border-notion-200">
-                        <p class="text-notion-500 text-sm uppercase tracking-wider mb-6 font-medium">Featured in</p>
-                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-inner">
-                            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-14">
-                                <!-- Forbes -->
-                                <div class="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300 bg-white/10 p-4 rounded-md hover:shadow-md">
-                                    <img src="Forbes logo.png" alt="Forbes" class="h-8 md:h-10 object-contain">
-                                </div>
-                                <!-- TechCrunch -->
-                                <div class="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300 bg-white/10 p-4 rounded-md hover:shadow-md">
-                                    <img src="techcrunch logo.png" alt="TechCrunch" class="h-8 md:h-10 object-contain">
-                                </div>
-                                <!-- Beebom -->
-                                <div class="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300 bg-white/10 p-4 rounded-md hover:shadow-md">
-                                    <img src="Beebom logo.jpg" alt="Beebom" class="h-8 md:h-10 object-contain">
-                                </div>
-                                <!-- GSMArena -->
-                                <div class="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300 bg-white/10 p-4 rounded-md hover:shadow-md">
-                                    <img src="gsm arena logo latest.png" alt="GSMArena" class="h-8 md:h-10 object-contain">
-                                </div>
-                                <!-- India Today -->
-                                <div class="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300 bg-white/10 p-4 rounded-md hover:shadow-md">
-                                    <img src="Indiatoday logo.png" alt="India Today" class="h-8 md:h-10 object-contain">
-                                </div>
-                                <!-- Republic -->
-                                <div class="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300 bg-white/10 p-4 rounded-md hover:shadow-md">
-                                    <img src="republic tv logo latest.png" alt="Republic" class="h-8 md:h-10 object-contain">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- About Section -->
-            <section id="about" class="py-20 md:py-28 bg-[#0049B7] text-white border-t border-gray-700 relative overflow-hidden">
-                <!-- Background decorative elements -->
-                <div class="absolute inset-0 overflow-hidden">
-                    <!-- Scattered dots pattern -->
-                    <div class="absolute top-10 right-10 grid grid-cols-10 grid-rows-10 gap-4">
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                    </div>
-
-                    <!-- Large decorative circle -->
-                    <div class="absolute -left-20 -bottom-20 w-80 h-80 border border-notion-200 rounded-full opacity-30"></div>
-
-                    <!-- Diagonal lines -->
-                    <svg class="absolute right-0 bottom-0 w-64 h-64 opacity-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="0" y1="100" x2="100" y2="0" stroke="#000" stroke-width="0.5" />
-                        <line x1="20" y1="100" x2="100" y2="20" stroke="#000" stroke-width="0.5" />
-                        <line x1="40" y1="100" x2="100" y2="40" stroke="#000" stroke-width="0.5" />
-                        <line x1="60" y1="100" x2="100" y2="60" stroke="#000" stroke-width="0.5" />
-                        <line x1="80" y1="100" x2="100" y2="80" stroke="#000" stroke-width="0.5" />
-                    </svg>
-                </div>
-
-                <div class="container mx-auto px-6 max-w-6xl relative z-10">
-                    <div class="flex items-center justify-center mb-12">
-                        <div class="w-12 h-1 bg-white rounded-full mr-4"></div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-[#FFF685]">About Me</h2>
-                        <div class="w-12 h-1 bg-white rounded-full ml-4"></div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-12 items-center">
-                        <div class="text-lg text-blue-100 space-y-6">
-                            <p class="leading-relaxed">Hello! I'm <span class="font-semibold text-white">Dibyajyoti</span>, a passionate and experienced web professional specializing in creating clean, lightweight, and impactful websites. With over a decade in WordPress development and web design, I focus on delivering solutions that not only look great but also perform exceptionally.</p>
-                            <p class="leading-relaxed">My journey has led me to lead teams and manage significant projects, always with a focus on quality and client satisfaction. I thrive on challenges and am constantly learning to stay ahead in the ever-evolving tech landscape.</p>
-                            <div class="pt-4">
-                                <a href="#contact" class="inline-flex items-center px-6 py-3 rounded-md bg-[#FFF685] hover:bg-[#fffaa8] text-[#0049B7] font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-sm">
-                                    <span>Get in Touch</span>
-                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="flex justify-center">
-                            <svg class="w-full max-w-md" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Person working on laptop -->
-                                <rect x="120" y="180" width="160" height="10" rx="5" fill="#e5e5e5"/>
-                                <rect x="150" y="120" width="100" height="60" rx="5" fill="#d4d4d4"/>
-                                <rect x="160" y="130" width="80" height="40" rx="2" fill="#f5f5f5"/>
-                                <circle cx="200" cy="80" r="30" fill="#e5e5e5"/>
-                                <path d="M185,75 Q200,65 215,75" stroke="#404040" stroke-width="2" fill="none"/>
-                                <circle cx="190" cy="70" r="3" fill="#404040"/>
-                                <circle cx="210" cy="70" r="3" fill="#404040"/>
-                                <path d="M170,110 L180,120 L220,120 L230,110" stroke="#404040" stroke-width="2" fill="none"/>
-                                <path d="M180,120 L180,180" stroke="#404040" stroke-width="2" fill="none"/>
-                                <path d="M220,120 L220,180" stroke="#404040" stroke-width="2" fill="none"/>
-                                <path d="M170,110 Q200,90 230,110" stroke="#404040" stroke-width="2" fill="none"/>
-                                <!-- Coffee cup -->
-                                <rect x="260" y="150" width="20" height="30" rx="2" fill="#a3a3a3"/>
-                                <path d="M280,155 Q290,160 280,165" stroke="#a3a3a3" stroke-width="4" fill="none"/>
-                                <path d="M260,150 L280,150" stroke="#a3a3a3" stroke-width="2"/>
-                                <path d="M265,140 S270,130 275,140" stroke="#737373" stroke-width="1"/>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Modern Experience Section for 2025 -->
-                    <div class="mt-16 relative">
-                        <!-- Decorative background elements -->
-                        <div class="absolute inset-0 -z-10">
-                            <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-[#00DDFF]/20 to-transparent rounded-full blur-xl"></div>
-                            <div class="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-tl from-[#FFF685]/20 to-transparent rounded-full blur-xl"></div>
-                        </div>
-
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            <!-- WordPress Experience -->
-                            <div class="group relative">
-                                <!-- Card with glass morphism effect -->
-                                <div class="relative h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,221,255,0.3)] hover:border-[#00DDFF]/40">
-                                    <!-- Animated background -->
-                                    <div class="absolute inset-0 bg-gradient-to-br from-[#00DDFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                                    <!-- Content -->
-                                    <div class="relative z-10 flex flex-col items-center">
-                                        <!-- Modern icon container with 3D effect -->
-                                        <div class="relative mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
-                                            <div class="absolute inset-0 bg-[#00DDFF] rounded-2xl blur-md opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
-                                            <div class="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#00DDFF] to-[#0055d4] rounded-2xl shadow-lg">
-                                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
-                                                    <path d="M13 7h-2v6h6v-2h-4z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-
-                                        <!-- Number with animated counting effect -->
-                                        <div class="relative">
-                                            <h3 class="text-5xl font-extrabold text-white mb-1 relative">
-                                                <span class="relative z-10">10</span>
-                                                <span class="text-[#FFF685] absolute -right-6 top-0">+</span>
-                                                <!-- Subtle highlight effect -->
-                                                <span class="absolute -inset-1 bg-gradient-to-r from-[#FFF685]/0 via-[#FFF685]/20 to-[#FFF685]/0 blur-sm -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
-                                            </h3>
-                                            <p class="text-white/80 font-medium">Years Experience</p>
-                                            <p class="text-[#FFF685] text-sm font-semibold mt-1">WordPress</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Web Design Experience -->
-                            <div class="group relative">
-                                <div class="relative h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,221,255,0.3)] hover:border-[#00DDFF]/40">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-[#00DDFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                                    <div class="relative z-10 flex flex-col items-center">
-                                        <div class="relative mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
-                                            <div class="absolute inset-0 bg-[#00DDFF] rounded-2xl blur-md opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
-                                            <div class="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#00DDFF] to-[#0055d4] rounded-2xl shadow-lg">
-                                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M20.59 3.58L3.58 20.59c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l17.01-17.01c.39-.39.39-1.02 0-1.41-.39-.38-1.02-.38-1.41 0zM5.5 3h5c.83 0 1.5.67 1.5 1.5S11.33 6 10.5 6h-5C4.67 6 4 5.33 4 4.5S4.67 3 5.5 3zm13 13c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5h5z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-
-                                        <div class="relative">
-                                            <h3 class="text-5xl font-extrabold text-white mb-1 relative">
-                                                <span class="relative z-10">8</span>
-                                                <span class="text-[#FFF685] absolute -right-6 top-0">+</span>
-                                                <span class="absolute -inset-1 bg-gradient-to-r from-[#FFF685]/0 via-[#FFF685]/20 to-[#FFF685]/0 blur-sm -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
-                                            </h3>
-                                            <p class="text-white/80 font-medium">Years Experience</p>
-                                            <p class="text-[#FFF685] text-sm font-semibold mt-1">Web Design</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Networking Experience -->
-                            <div class="group relative">
-                                <div class="relative h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,221,255,0.3)] hover:border-[#00DDFF]/40">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-[#00DDFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                                    <div class="relative z-10 flex flex-col items-center">
-                                        <div class="relative mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
-                                            <div class="absolute inset-0 bg-[#00DDFF] rounded-2xl blur-md opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
-                                            <div class="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#00DDFF] to-[#0055d4] rounded-2xl shadow-lg">
-                                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M4 7v2c0 .55.45 1 1 1h16v2c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1zm9 5h-2c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-8c0-.55-.45-1-1-1zm-6 0H5c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-8c0-.55-.45-1-1-1zm12 0h-2c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-8c0-.55-.45-1-1-1z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-
-                                        <div class="relative">
-                                            <h3 class="text-5xl font-extrabold text-white mb-1 relative">
-                                                <span class="relative z-10">5</span>
-                                                <span class="text-[#FFF685] absolute -right-6 top-0">+</span>
-                                                <span class="absolute -inset-1 bg-gradient-to-r from-[#FFF685]/0 via-[#FFF685]/20 to-[#FFF685]/0 blur-sm -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
-                                            </h3>
-                                            <p class="text-white/80 font-medium">Years Experience</p>
-                                            <p class="text-[#FFF685] text-sm font-semibold mt-1">Networking</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Team Leadership Experience -->
-                            <div class="group relative">
-                                <div class="relative h-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,221,255,0.3)] hover:border-[#00DDFF]/40">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-[#00DDFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                                    <div class="relative z-10 flex flex-col items-center">
-                                        <div class="relative mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6">
-                                            <div class="absolute inset-0 bg-[#00DDFF] rounded-2xl blur-md opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
-                                            <div class="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#00DDFF] to-[#0055d4] rounded-2xl shadow-lg">
-                                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-
-                                        <div class="relative">
-                                            <h3 class="text-5xl font-extrabold text-white mb-1 relative">
-                                                <span class="relative z-10">4</span>
-                                                <span class="text-[#FFF685] absolute -right-6 top-0">+</span>
-                                                <span class="absolute -inset-1 bg-gradient-to-r from-[#FFF685]/0 via-[#FFF685]/20 to-[#FFF685]/0 blur-sm -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></span>
-                                            </h3>
-                                            <p class="text-white/80 font-medium">Years Experience</p>
-                                            <p class="text-[#FFF685] text-sm font-semibold mt-1">Team Leadership</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Works Section -->
-            <section id="works" class="py-20 md:py-28 bg-[#0049B7] text-white border-t border-gray-700 relative overflow-hidden">
-                <!-- Background decorative elements -->
-                <div class="absolute inset-0 overflow-hidden">
-                    <!-- Decorative lines -->
-                    <svg class="absolute top-0 left-0 w-full h-20 opacity-5" viewBox="0 0 1000 100" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="0" y1="10" x2="1000" y2="10" stroke="#000" stroke-width="1" stroke-dasharray="10,10" />
-                        <line x1="0" y1="30" x2="1000" y2="30" stroke="#000" stroke-width="1" stroke-dasharray="10,10" />
-                        <line x1="0" y1="50" x2="1000" y2="50" stroke="#000" stroke-width="1" stroke-dasharray="10,10" />
-                        <line x1="0" y1="70" x2="1000" y2="70" stroke="#000" stroke-width="1" stroke-dasharray="10,10" />
-                        <line x1="0" y1="90" x2="1000" y2="90" stroke="#000" stroke-width="1" stroke-dasharray="10,10" />
-                    </svg>
-
-                    <!-- Decorative shapes -->
-                    <div class="absolute bottom-10 left-10 w-20 h-20 border border-notion-200 opacity-20 rotate-45"></div>
-                    <div class="absolute top-1/4 right-10 w-16 h-16 border border-notion-200 rounded-full opacity-20"></div>
-
-                    <!-- Dots pattern -->
-                    <div class="absolute bottom-1/3 right-1/4 grid grid-cols-4 grid-rows-4 gap-3">
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
+                    <!-- Status Indicator -->
+                    <div class="absolute bottom-2 right-2 w-7 h-7 bg-[#25D366] border-[4px] border-theme-surface rounded-full z-20 flex items-center justify-center transition-colors duration-300" title="Online">
+                        <div class="w-2 h-2 bg-white rounded-full animate-ping opacity-75"></div>
                     </div>
                 </div>
 
-                <div class="container mx-auto px-6 max-w-6xl relative z-10">
-                    <div class="flex items-center justify-center mb-12">
-                        <div class="w-12 h-1 bg-white rounded-full mr-4"></div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-[#FFF685]">My Work</h2>
-                        <div class="w-12 h-1 bg-white rounded-full ml-4"></div>
+                <!-- Page Header -->
+                <div class="mb-12 reveal active">
+                    <div class="flex items-center gap-3 mb-2 text-theme-muted text-sm">
+                        <span class="flex items-center gap-1"><i class="material-icons-round text-sm">folder</i> Portfolio</span>
+                        <span>/</span>
+                        <span>Dibyajyoti Kabi</span>
                     </div>
-                    <p class="text-lg text-white text-center mb-16">Featured Websites</p>
+                    
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
+                        I'm <span id="typed-text" class="text-accent-blue dark:text-accent-yellow"></span>
+                    </h1>
 
-                    <!-- First Row of Projects -->
-                    <div class="grid md:grid-cols-3 gap-8 mb-12">
-                        <div class="notion-card overflow-hidden group hover:shadow-lg transition-all duration-500">
-                            <div class="relative overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                                <img src="rootmygalaxy website design work.jpg" alt="Website Redesign - rootmygalaxy.net" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-105">
+                    <!-- Notion Properties Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-8 text-sm max-w-3xl">
+                        <!-- Property Row -->
+                        <div class="flex items-center gap-3 group">
+                            <div class="w-24 flex items-center gap-2 text-theme-muted">
+                                <i class="material-icons-round text-lg">work</i>
+                                <span>Role</span>
                             </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 text-[#FFF685] group-hover:text-[#FF1D58] transition-colors duration-300">Website Redesign</h3>
-                                <p class="text-white mb-1 text-sm">rootmygalaxy.net</p>
-                                <p class="text-white/70 mb-4 text-xs italic">Now not active / changed</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">WordPress</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">Web Design</span>
-                                </div>
+                            <div class="flex items-center gap-2">
+                                <span class="prop-pill bg-[#3a2c1e] text-[#e8c495]">CEO @ RMG Media Group</span>
                             </div>
                         </div>
-
-                        <div class="notion-card overflow-hidden group hover:shadow-lg transition-all duration-500">
-                            <div class="relative overflow-hidden bg-notion-50">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                                <img src="CMDU_Logo_Small_Size.png" alt="WordPress Plugin Development - CMDU WordPress Plugin" class="w-full h-48 object-contain transition-transform duration-700 group-hover:scale-105 p-4">
+                        <!-- Property Row -->
+                        <div class="flex items-center gap-3 group">
+                            <div class="w-24 flex items-center gap-2 text-theme-muted">
+                                <i class="material-icons-round text-lg">place</i>
+                                <span>Location</span>
                             </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 text-[#FFF685] group-hover:text-[#FF1D58] transition-colors duration-300">WordPress Plugin Development</h3>
-                                <p class="text-white mb-4 text-sm">CMDU WordPress Plugin</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">WordPress</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">PHP</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">Plugin Development</span>
-                                </div>
-                            </div>
+                            <div class="text-theme-text underline decoration-dotted">Bhubaneswar, India</div>
                         </div>
-
-                        <div class="notion-card overflow-hidden group hover:shadow-lg transition-all duration-500">
-                            <div class="relative overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                                <img src="info-box-plugin.jpg" alt="Info-box Shortcode WordPress" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-105">
+                        <!-- Property Row -->
+                        <div class="flex items-center gap-3 group">
+                            <div class="w-24 flex items-center gap-2 text-theme-muted">
+                                <i class="material-icons-round text-lg">link</i>
+                                <span>Website</span>
                             </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 text-[#FFF685] group-hover:text-[#FF1D58] transition-colors duration-300">Info-box Shortcode</h3>
-                                <p class="text-white mb-4 text-sm">WordPress</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">WordPress</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">Shortcode</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">PHP</span>
-                                </div>
-                            </div>
+                            <a href="https://dibyajyotikabi.com" class="text-accent-blue hover:underline">dibyajyotikabi.com</a>
                         </div>
-                    </div>
-
-                    <!-- Second Row of Projects -->
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="notion-card overflow-hidden group hover:shadow-lg transition-all duration-500">
-                            <div class="relative overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                                <img src="samupdater.jpg" alt="Website Redesign - Sam Updater" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-105">
+                        <!-- Property Row -->
+                        <div class="flex items-center gap-3 group">
+                            <div class="w-24 flex items-center gap-2 text-theme-muted">
+                                <i class="material-icons-round text-lg">verified</i>
+                                <span>Status</span>
                             </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 text-[#FFF685] group-hover:text-[#FF1D58] transition-colors duration-300">Website Redesign</h3>
-                                <p class="text-white mb-4 text-sm">Sam Updater</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">WordPress</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">Web Design</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">SEO</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="notion-card overflow-hidden group hover:shadow-lg transition-all duration-500">
-                            <div class="relative overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                                <img src="custom developement.jpg" alt="Custom Development - Software Info Tracker WordPress" class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-105">
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 text-[#FFF685] group-hover:text-[#FF1D58] transition-colors duration-300">Custom Development</h3>
-                                <p class="text-white mb-4 text-sm">Software Info Tracker WordPress</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">WordPress</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">Custom Development</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">PHP</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="notion-card overflow-hidden group hover:shadow-lg transition-all duration-500">
-                            <div class="relative overflow-hidden">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                                <video src="investment portfolio dashboard 2025.webm" alt="Investment Portfolio Dashboard"class="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-105"autoplay muted loop playsinline></video>
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 text-[#FFF685] group-hover:text-[#FF1D58] transition-colors duration-300">Investment Portfolio Dashboard</h3>
-                                <p class="text-white mb-4 text-sm">Custom Web Application</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">JavaScript</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">HTML/CSS</span>
-                                    <span class="inline-block bg-[#00DDFF] text-[#0049B7] text-xs font-semibold px-2.5 py-1 rounded-md">Data Visualization</span>
-                                </div>
-                            </div>
+                            <span class="prop-pill bg-[#1c3829] text-[#8bdcba]">Available for work</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Skills Section -->
-            <section id="skills" class="py-20 md:py-28 bg-[#0049B7] text-white border-t border-gray-700 relative overflow-hidden">
-                <!-- Background decorative elements -->
-                <div class="absolute inset-0 overflow-hidden">
-                    <!-- Decorative circles -->
-                    <div class="absolute top-20 right-20 w-40 h-40 border border-notion-200 rounded-full opacity-20"></div>
-                    <div class="absolute bottom-40 left-20 w-60 h-60 border border-notion-200 rounded-full opacity-20"></div>
+                <hr class="border-theme-border mb-16 reveal">
 
-                    <!-- Decorative squares -->
-                    <div class="absolute top-1/3 right-1/4 w-16 h-16 border border-notion-200 opacity-20 rotate-45"></div>
-                    <div class="absolute bottom-1/4 left-1/3 w-12 h-12 border border-notion-200 opacity-20 rotate-12"></div>
-
-                    <!-- Dots pattern -->
-                    <div class="absolute top-1/2 right-10 grid grid-cols-6 grid-rows-6 gap-4">
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                    </div>
-                </div>
-
-                <div class="container mx-auto px-6 max-w-6xl relative z-10">
-                    <div class="flex items-center justify-center mb-12">
-                        <div class="w-12 h-1 bg-white rounded-full mr-4"></div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-[#FFF685]">My Skills</h2>
-                        <div class="w-12 h-1 bg-white rounded-full ml-4"></div>
-                    </div>
-                    <p class="text-lg text-white text-center mb-16">Technologies I work with</p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <div class="notion-card p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                            <!-- Background decoration -->
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-[#00DDFF] opacity-10 rounded-full group-hover:scale-150 transition-all duration-500"></div>
-
-                            <div class="flex items-start mb-6 relative z-10">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                        <span class="material-icons-round text-[#0049B7] text-2xl">wordpress</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-[#FFF685] mb-1">WordPress Development</h3>
-                                    <p class="text-white text-sm">Expert in theme customization, plugin development, and site optimization.</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 relative z-10">
-                                <div class="flex justify-between mb-1">
-                                    <span class="text-xs font-medium text-white">Proficiency</span>
-                                    <span class="text-xs font-medium text-[#FFF685]">95%</span>
-                                </div>
-                                <div class="w-full bg-white/20 rounded-full h-1.5 backdrop-blur-sm">
-                                    <div class="bg-[#FFF685] h-1.5 rounded-full" style="width: 95%"></div>
+                <!-- SECTIONS -->
+                <div class="space-y-32" id="home">
+                    
+                    <!-- ABOUT SECTION -->
+                    <section id="about" class="reveal">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3 text-theme-text">
+                            <span class="flex items-center justify-center w-8 h-8 rounded bg-blue-500/20 text-blue-500 text-sm">👤</span> 
+                            About Me
+                        </h2>
+                        
+                        <div class="bg-theme-bg border border-theme-border rounded-lg p-6 md:p-8 flex flex-col md:flex-row gap-6 hover:bg-black/5 dark:hover:bg-white/5 transition-colors duration-300 shadow-sm">
+                            <div class="text-4xl md:text-5xl">💡</div>
+                            <div class="space-y-4 text-theme-text leading-7 font-light text-lg">
+                                <p>
+                                    I create websites that bring real value to your business. With over <strong class="font-bold">10+ years</strong> in WordPress development and web design, I focus on delivering solutions that perform.
+                                </p>
+                                <p>
+                                    My journey involves partnering with major tech entities like <span class="border-b border-theme-muted">Google</span> and <span class="border-b border-theme-muted">Amazon</span>, and leading teams to success.
+                                </p>
+                                <div class="pt-2">
+                                    <a href="pricing.html" class="inline-flex items-center gap-2 text-sm text-accent-blue dark:text-accent-yellow hover:underline font-medium">
+                                        View Pricing & Packages <i class="material-icons-round text-xs">arrow_forward</i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                    </section>
 
-                        <div class="notion-card p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                            <!-- Background decoration -->
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-[#00DDFF] opacity-10 rounded-full group-hover:scale-150 transition-all duration-500"></div>
+                    <!-- WORKS SECTION -->
+                    <section id="works" class="reveal">
+                        <div class="flex items-end justify-between mb-6 border-b border-theme-border pb-2">
+                            <h2 class="text-2xl font-bold flex items-center gap-3 text-theme-text">
+                                <span class="flex items-center justify-center w-8 h-8 rounded bg-purple-500/20 text-purple-500 text-sm">💻</span> 
+                                Selected Works
+                            </h2>
+                            <span class="text-xs font-mono text-theme-muted uppercase tracking-widest mb-1">Gallery View</span>
+                        </div>
 
-                            <div class="flex items-start mb-6 relative z-10">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                        <span class="material-icons-round text-[#0049B7] text-2xl">code</span>
-                                    </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Work 1 -->
+                            <div class="glass-card group cursor-pointer tilt-card">
+                                <div class="h-40 w-full overflow-hidden relative bg-black">
+                                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-500 z-10"></div>
+                                    <img src="rootmygalaxy website design work.jpg" alt="Website Redesign" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                                 </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-[#FFF685] mb-1">HTML/CSS/PHP</h3>
-                                    <p class="text-white text-sm">Strong foundation in front-end development and server-side functionality.</p>
+                                <div class="p-4">
+                                    <div class="flex items-center gap-2 mb-3 text-xs text-theme-muted font-mono">
+                                        <i class="material-icons-round text-sm">calendar_today</i> 2023
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Website Redesign</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="prop-pill bg-[#3a2c1e] text-[#e8c495]">WordPress</span>
+                                        <span class="prop-pill bg-blue-900/20 text-blue-400">Design</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="mt-4 relative z-10">
-                                <div class="flex justify-between mb-1">
-                                    <span class="text-xs font-medium text-white">Proficiency</span>
-                                    <span class="text-xs font-medium text-[#FFF685]">90%</span>
+                            <!-- Work 2 -->
+                            <div class="glass-card group cursor-pointer tilt-card">
+                                <div class="h-40 w-full overflow-hidden relative bg-white dark:bg-white/5 p-6 flex items-center justify-center">
+                                    <img src="CMDU_Logo_Small_Size.png" alt="Plugin" class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500">
                                 </div>
-                                <div class="w-full bg-white/20 rounded-full h-1.5 backdrop-blur-sm">
-                                    <div class="bg-[#FFF685] h-1.5 rounded-full" style="width: 90%"></div>
+                                <div class="p-4">
+                                    <div class="flex items-center gap-2 mb-3 text-xs text-theme-muted font-mono">
+                                        <i class="material-icons-round text-sm">calendar_today</i> 2024
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">CMDU Plugin</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="prop-pill bg-purple-900/20 text-purple-400">PHP</span>
+                                        <span class="prop-pill bg-gray-500/20 text-gray-400">Dev</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Work 3 -->
+                            <div class="glass-card group cursor-pointer tilt-card">
+                                <div class="h-40 w-full overflow-hidden relative bg-black">
+                                    <img src="info-box-plugin.jpg" alt="Info Box" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center gap-2 mb-3 text-xs text-theme-muted font-mono">
+                                        <i class="material-icons-round text-sm">calendar_today</i> 2022
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Info-box Shortcode</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="prop-pill bg-green-900/20 text-green-400">Plugin</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Work 4 -->
+                            <div class="glass-card group cursor-pointer tilt-card">
+                                <div class="h-40 w-full overflow-hidden relative bg-black">
+                                    <img src="samupdater.jpg" alt="Sam Updater" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center gap-2 mb-3 text-xs text-theme-muted font-mono">
+                                        <i class="material-icons-round text-sm">calendar_today</i> 2023
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Sam Updater</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="prop-pill bg-red-900/20 text-red-400">SEO</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Work 5 -->
+                             <div class="glass-card group cursor-pointer tilt-card">
+                                <div class="h-40 w-full overflow-hidden relative bg-black">
+                                    <img src="custom developement.jpg" alt="Custom Dev" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center gap-2 mb-3 text-xs text-theme-muted font-mono">
+                                        <i class="material-icons-round text-sm">calendar_today</i> 2024
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Info Tracker</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="prop-pill bg-[#3a2c1e] text-[#e8c495]">Custom</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Work 6 -->
+                             <div class="glass-card group cursor-pointer tilt-card">
+                                <div class="h-40 w-full overflow-hidden relative bg-black">
+                                    <video src="investment portfolio dashboard 2025.webm" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" autoplay muted loop playsinline></video>
+                                </div>
+                                <div class="p-4">
+                                    <div class="flex items-center gap-2 mb-3 text-xs text-theme-muted font-mono">
+                                        <i class="material-icons-round text-sm">calendar_today</i> 2025
+                                    </div>
+                                    <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Dashboard App</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="prop-pill bg-pink-900/20 text-pink-400">JS</span>
+                                        <span class="prop-pill bg-blue-900/20 text-blue-300">Data Viz</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </section>
 
-                        <div class="notion-card p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                            <!-- Background decoration -->
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-[#00DDFF] opacity-10 rounded-full group-hover:scale-150 transition-all duration-500"></div>
+                    <!-- SKILLS SECTION -->
+                    <section id="skills" class="reveal">
+                        <div class="flex items-end justify-between mb-6 border-b border-theme-border pb-2">
+                            <h2 class="text-2xl font-bold flex items-center gap-3 text-theme-text">
+                                <span class="flex items-center justify-center w-8 h-8 rounded bg-yellow-500/20 text-yellow-500 text-sm">⚡</span> 
+                                Skills
+                            </h2>
+                            <span class="text-xs font-mono text-theme-muted uppercase tracking-widest mb-1">Table View</span>
+                        </div>
 
-                            <div class="flex items-start mb-6 relative z-10">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                        <span class="material-icons-round text-[#0049B7] text-2xl">router</span>
-                                    </div>
+                        <div class="border border-theme-border rounded-lg overflow-hidden bg-theme-bg">
+                            <!-- Header Row -->
+                            <div class="grid grid-cols-12 gap-4 p-3 border-b border-theme-border bg-theme-surface text-xs font-medium text-theme-muted uppercase tracking-wider">
+                                <div class="col-span-4 md:col-span-3 pl-2">Technology</div>
+                                <div class="col-span-4 md:col-span-3">Level</div>
+                                <div class="col-span-4 md:col-span-6">Proficiency</div>
+                            </div>
+
+                            <!-- Skill Rows -->
+                            <div class="grid grid-cols-12 gap-4 p-3 border-b border-theme-border items-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors group text-theme-text">
+                                <div class="col-span-4 md:col-span-3 flex items-center gap-2 pl-2">
+                                    <i class="fab fa-wordpress text-blue-400 text-lg"></i>
+                                    <span class="font-medium">WordPress</span>
                                 </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-[#FFF685] mb-1">Basic Networking</h3>
-                                    <p class="text-white text-sm">Knowledgeable in network configuration, troubleshooting, and security implementation.</p>
+                                <div class="col-span-4 md:col-span-3">
+                                    <span class="prop-pill bg-blue-900/20 text-blue-400">Expert</span>
+                                </div>
+                                <div class="col-span-4 md:col-span-6 flex items-center gap-3">
+                                    <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div class="h-full bg-blue-500 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                    <span class="text-xs text-theme-muted w-8">95%</span>
                                 </div>
                             </div>
 
-                            <div class="mt-4 relative z-10">
-                                <div class="flex justify-between mb-1">
-                                    <span class="text-xs font-medium text-white">Proficiency</span>
-                                    <span class="text-xs font-medium text-[#FFF685]">80%</span>
+                            <div class="grid grid-cols-12 gap-4 p-3 border-b border-theme-border items-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors group text-theme-text">
+                                <div class="col-span-4 md:col-span-3 flex items-center gap-2 pl-2">
+                                    <i class="fas fa-code text-purple-400 text-lg"></i>
+                                    <span class="font-medium">PHP / HTML</span>
                                 </div>
-                                <div class="w-full bg-white/20 rounded-full h-1.5 backdrop-blur-sm">
-                                    <div class="bg-[#FFF685] h-1.5 rounded-full" style="width: 80%"></div>
+                                <div class="col-span-4 md:col-span-3">
+                                    <span class="prop-pill bg-purple-900/20 text-purple-400">Advanced</span>
+                                </div>
+                                <div class="col-span-4 md:col-span-6 flex items-center gap-3">
+                                    <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div class="h-full bg-purple-500 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                    <span class="text-xs text-theme-muted w-8">90%</span>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-12 gap-4 p-3 items-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors group text-theme-text">
+                                <div class="col-span-4 md:col-span-3 flex items-center gap-2 pl-2">
+                                    <i class="fas fa-paint-brush text-pink-400 text-lg"></i>
+                                    <span class="font-medium">UI/UX Design</span>
+                                </div>
+                                <div class="col-span-4 md:col-span-3">
+                                    <span class="prop-pill bg-pink-900/20 text-pink-400">Advanced</span>
+                                </div>
+                                <div class="col-span-4 md:col-span-6 flex items-center gap-3">
+                                    <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div class="h-full bg-pink-500 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                    <span class="text-xs text-theme-muted w-8">85%</span>
                                 </div>
                             </div>
                         </div>
+                    </section>
 
-                        <div class="notion-card p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                            <!-- Background decoration -->
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-[#00DDFF] opacity-10 rounded-full group-hover:scale-150 transition-all duration-500"></div>
-
-                            <div class="flex items-start mb-6 relative z-10">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                        <span class="material-icons-round text-[#0049B7] text-2xl">design_services</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-[#FFF685] mb-1">UI/UX Design</h3>
-                                    <p class="text-white text-sm">Creating intuitive interfaces with focus on user experience and responsive design.</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 relative z-10">
-                                <div class="flex justify-between mb-1">
-                                    <span class="text-xs font-medium text-white">Proficiency</span>
-                                    <span class="text-xs font-medium text-[#FFF685]">85%</span>
-                                </div>
-                                <div class="w-full bg-white/20 rounded-full h-1.5 backdrop-blur-sm">
-                                    <div class="bg-[#FFF685] h-1.5 rounded-full" style="width: 85%"></div>
-                                </div>
-                            </div>
+                    <!-- FEATURED IN -->
+                    <section class="reveal">
+                        <p class="text-xs text-theme-muted font-mono uppercase mb-6 tracking-widest border-b border-theme-border pb-2">Featured In</p>
+                        <div class="flex flex-wrap gap-8 md:gap-12 opacity-50 hover:opacity-100 transition-all duration-700 items-center justify-start">
+                             <!-- In Dark mode they need invert, in Light mode they need to be normal (dark) -->
+                            <img src="Forbes logo.png" class="h-6 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="Forbes">
+                            <img src="techcrunch logo.png" class="h-5 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="TechCrunch">
+                            <img src="Beebom logo.jpg" class="h-6 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="Beebom">
+                            <img src="gsm arena logo latest.png" class="h-5 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="GSM Arena">
+                            <img src="Indiatoday logo.png" class="h-6 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="India Today">
                         </div>
+                    </section>
 
-                        <div class="notion-card p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                            <!-- Background decoration -->
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-[#00DDFF] opacity-10 rounded-full group-hover:scale-150 transition-all duration-500"></div>
+                    <!-- CONTACT SECTION -->
+                    <section id="contact" class="reveal pb-12">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3 text-theme-text">
+                            <span class="flex items-center justify-center w-8 h-8 rounded bg-red-500/20 text-red-400 text-sm">✉️</span> 
+                            Get in Touch
+                        </h2>
 
-                            <div class="flex items-start mb-6 relative z-10">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                        <span class="material-icons-round text-[#0049B7] text-2xl">trending_up</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-[#FFF685] mb-1">SEO Optimization</h3>
-                                    <p class="text-white text-sm">Implementing best practices to improve website visibility and search engine rankings.</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 relative z-10">
-                                <div class="flex justify-between mb-1">
-                                    <span class="text-xs font-medium text-white">Proficiency</span>
-                                    <span class="text-xs font-medium text-[#FFF685]">88%</span>
-                                </div>
-                                <div class="w-full bg-white/20 rounded-full h-1.5 backdrop-blur-sm">
-                                    <div class="bg-[#FFF685] h-1.5 rounded-full" style="width: 88%"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="notion-card p-6 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-                            <!-- Background decoration -->
-                            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-[#00DDFF] opacity-10 rounded-full group-hover:scale-150 transition-all duration-500"></div>
-
-                            <div class="flex items-start mb-6 relative z-10">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
-                                        <span class="material-icons-round text-[#0049B7] text-2xl">groups</span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-[#FFF685] mb-1">Team Leadership</h3>
-                                    <p class="text-white text-sm">Leading development teams, managing projects, and delivering results with effective communication.</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 relative z-10">
-                                <div class="flex justify-between mb-1">
-                                    <span class="text-xs font-medium text-white">Proficiency</span>
-                                    <span class="text-xs font-medium text-[#FFF685]">85%</span>
-                                </div>
-                                <div class="w-full bg-white/20 rounded-full h-1.5 backdrop-blur-sm">
-                                    <div class="bg-[#FFF685] h-1.5 rounded-full" style="width: 85%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section id="contact" class="py-20 md:py-28 bg-[#0049B7] text-white border-t border-gray-700 relative overflow-hidden">
-                <!-- Background decorative elements -->
-                <div class="absolute inset-0 overflow-hidden">
-                    <!-- Large decorative circle -->
-                    <div class="absolute -right-40 -bottom-40 w-96 h-96 border border-notion-200 rounded-full opacity-20"></div>
-
-                    <!-- Decorative shapes -->
-                    <div class="absolute top-20 left-20 w-16 h-16 border border-notion-200 opacity-20 rotate-12"></div>
-                    <div class="absolute top-1/3 left-1/4 w-8 h-8 border border-notion-200 rounded-full opacity-20"></div>
-
-                    <!-- Diagonal lines -->
-                    <svg class="absolute left-0 top-0 w-64 h-64 opacity-10" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="0" y1="0" x2="100" y2="100" stroke="#000" stroke-width="0.5" />
-                        <line x1="20" y1="0" x2="100" y2="80" stroke="#000" stroke-width="0.5" />
-                        <line x1="40" y1="0" x2="100" y2="60" stroke="#000" stroke-width="0.5" />
-                        <line x1="60" y1="0" x2="100" y2="40" stroke="#000" stroke-width="0.5" />
-                        <line x1="80" y1="0" x2="100" y2="20" stroke="#000" stroke-width="0.5" />
-                    </svg>
-
-                    <!-- Dots pattern -->
-                    <div class="absolute bottom-20 left-1/3 grid grid-cols-5 grid-rows-5 gap-2">
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                        <div class="w-1 h-1 bg-notion-300 rounded-full opacity-30"></div>
-                    </div>
-                </div>
-
-                <div class="container mx-auto px-6 max-w-6xl relative z-10">
-                    <div class="flex items-center justify-center mb-12">
-                        <div class="w-12 h-1 bg-white rounded-full mr-4"></div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-[#FFF685]">Contact Me</h2>
-                        <div class="w-12 h-1 bg-white rounded-full ml-4"></div>
-                    </div>
-                    <p class="text-lg text-white text-center mb-16">Let's work together</p>
-
-                    <div class="grid md:grid-cols-2 gap-12">
-                        <!-- Get in Touch Section -->
-                        <div class="h-full flex flex-col">
-                            <div class="notion-card p-8 flex-1 flex flex-col">
-                                <h3 class="text-2xl font-bold text-white mb-6">Get in Touch</h3>
-                                <form id="contactForm" class="space-y-6 flex-1 flex flex-col" action="https://formsubmit.co/dibyajyotikabi@gmail.com" method="POST">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <!-- Contact Form -->
+                            <div class="glass-card p-8 relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                                
+                                <h3 class="text-lg font-bold mb-1 text-theme-text">Send a Message</h3>
+                                <p class="text-sm text-theme-muted mb-6">I'll get back to you within 24 hours.</p>
+                                
+                                <form id="contactForm" class="space-y-4 relative z-10" action="https://formsubmit.co/dibyajyotikabi@gmail.com" method="POST">
                                     <input type="hidden" name="_subject" value="New Portfolio Contact Request">
                                     <input type="hidden" name="_captcha" value="false">
-                                    <!-- Remove the redirect and handle success message with JavaScript -->
                                     <input type="hidden" name="_next" value="#">
-                                    <div>
-                                        <label for="name" class="block text-sm font-medium text-[#FFF685] mb-1">Your Name</label>
-                                        <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-notion-300 rounded-md focus:outline-none focus:ring-2 focus:ring-notion-500 focus:border-transparent transition-all duration-300 text-[#0049B7] font-medium" placeholder="John Doe">
+                                    
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-medium text-theme-muted uppercase ml-1">Name</label>
+                                        <input type="text" name="name" required class="w-full bg-white/50 dark:bg-black/40 border border-theme-border rounded-lg p-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder-gray-500 text-theme-text" placeholder="John Doe">
                                     </div>
-                                    <div>
-                                        <label for="email" class="block text-sm font-medium text-[#FFF685] mb-1">Your Email</label>
-                                        <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-notion-300 rounded-md focus:outline-none focus:ring-2 focus:ring-notion-500 focus:border-transparent transition-all duration-300 text-[#0049B7] font-medium" placeholder="john@example.com">
+                                    
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-medium text-theme-muted uppercase ml-1">Email</label>
+                                        <input type="email" name="email" required class="w-full bg-white/50 dark:bg-black/40 border border-theme-border rounded-lg p-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder-gray-500 text-theme-text" placeholder="john@example.com">
                                     </div>
-                                    <div class="flex-1">
-                                        <label for="message" class="block text-sm font-medium text-[#FFF685] mb-1">Your Message</label>
-                                        <textarea id="message" name="message" rows="8" required class="w-full h-full px-4 py-3 border border-notion-300 rounded-md focus:outline-none focus:ring-2 focus:ring-notion-500 focus:border-transparent transition-all duration-300 text-[#0049B7] font-medium" placeholder="How can I help you?"></textarea>
+                                    
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-medium text-theme-muted uppercase ml-1">Message</label>
+                                        <textarea name="message" rows="4" required class="w-full bg-white/50 dark:bg-black/40 border border-theme-border rounded-lg p-3 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder-gray-500 text-theme-text" placeholder="Tell me about your project..."></textarea>
                                     </div>
-
-                                    <!-- Empty div for spacing -->
-                                    <div class="h-6"></div>
-
-                                    <div class="mt-8 mb-4">
-                                        <button type="submit" class="w-full bg-[#FFF685] hover:bg-[#fffaa8] text-[#0049B7] font-semibold py-3 px-6 rounded-md shadow-sm hover:shadow transition-all duration-300 ease-in-out transform hover:-translate-y-1">Send Message</button>
-                                    </div>
+                                    
+                                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 rounded-lg transition-all transform active:scale-95 shadow-lg shadow-blue-600/20 mt-2">
+                                        Send Message
+                                    </button>
                                 </form>
                             </div>
-                        </div>
 
-                        <!-- Calendar Scheduling Section with Calendly -->
-                        <div class="h-full flex flex-col">
-                            <div class="notion-card p-8 flex-1 flex flex-col">
-                                <h3 class="text-2xl font-bold text-white mb-6">Schedule a Call</h3>
-                                <div class="mb-4">
-                                    <p class="text-white">Select a date and time that works for you, and I'll be happy to connect.</p>
-                                </div>
-
-                                <!-- Calendly inline widget -->
-                                <div class="calendly-inline-widget flex-1" data-url="https://calendly.com/dibyajyotikabi/30min" style="min-width:320px;height:480px;"></div>
+                            <!-- Calendly -->
+                            <div class="glass-card p-1 bg-theme-bg border-theme-border overflow-hidden h-[520px] relative">
+                                <div class="calendly-inline-widget" data-url="https://calendly.com/dibyajyotikabi/30min" style="min-width:320px;height:100%;"></div>
                                 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
-                                <!-- Calendly link widget -->
-                                <div class="mt-8 mb-4 text-center">
-                                    <a href="https://calendly.com/dibyajyotikabi/30min"
-                                       class="inline-flex items-center px-6 py-3 rounded-md bg-[#FFF685] hover:bg-[#fffaa8] text-[#0049B7] font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-sm"
-                                       target="_blank">
-                                        <span>Open Scheduling Page</span>
-                                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
-                                </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <!-- Contact Information Section -->
-                    <div class="mt-16">
-                        <div class="grid md:grid-cols-2 gap-12">
-                            <div class="notion-card p-8 h-full flex flex-col">
-                                <h3 class="text-2xl font-bold text-white mb-6">Contact Information</h3>
-                                <div class="space-y-6 flex-1">
-                                    <div class="flex items-start">
-                                        <svg class="w-6 h-6 text-white mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                        </svg>
-                                        <div>
-                                            <h4 class="text-[#FFF685] font-semibold">Email</h4>
-                                            <p class="text-white"><a href="mailto:dibyajyotikabi@gmail.com" class="hover:text-[#00DDFF] transition-colors duration-300">dibyajyotikabi@gmail.com</a></p>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-start">
-                                        <svg class="w-6 h-6 text-white mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        </svg>
-                                        <div>
-                                            <h4 class="text-[#FFF685] font-semibold">Location</h4>
-                                            <p class="text-white">Bhubaneswar, Odisha, India</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="notion-card p-8 h-full flex flex-col">
-                                <h3 class="text-2xl font-bold text-white mb-6">Connect with me</h3>
-                                <p class="text-white mb-6">Follow me on social media to stay updated with my latest projects and insights.</p>
-                                <div class="flex space-x-4 mt-auto">
-                                    <a href="https://www.instagram.com/dibya1994/" target="_blank" class="bg-[#00DDFF] hover:bg-[#33e5ff] text-[#0049B7] p-3 rounded-full transition-all duration-300" title="Instagram">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="https://twitter.com/dibya_1994" target="_blank" class="bg-[#00DDFF] hover:bg-[#33e5ff] text-[#0049B7] p-3 rounded-full transition-all duration-300" title="Twitter/X">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/dibyajyoti-kabi-00773551/" target="_blank" class="bg-[#00DDFF] hover:bg-[#33e5ff] text-[#0049B7] p-3 rounded-full transition-all duration-300" title="LinkedIn">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                                        </svg>
-                                    </a>
-                                    <a href="mailto:dibyajyotikabi@gmail.com" class="bg-[#00DDFF] hover:bg-[#33e5ff] text-[#0049B7] p-3 rounded-full transition-all duration-300" title="Email">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
+                    <!-- Social Links -->
+                    <section class="reveal">
+                        <div class="flex gap-6 justify-center md:justify-start items-center">
+                            <a href="https://www.linkedin.com/in/dibyajyoti-kabi-00773551/" class="text-gray-400 hover:text-[#0077b5] transition-all hover:scale-110"><i class="fab fa-linkedin text-3xl"></i></a>
+                            <a href="https://twitter.com/dibya_1994" class="text-gray-400 hover:text-[#1da1f2] transition-all hover:scale-110"><i class="fab fa-twitter text-3xl"></i></a>
+                            <a href="https://instagram.com/dibya1994" class="text-gray-400 hover:text-[#e1306c] transition-all hover:scale-110"><i class="fab fa-instagram text-3xl"></i></a>
+                            <a href="mailto:dibyajyotikabi@gmail.com" class="text-gray-400 hover:text-theme-text transition-all hover:scale-110"><i class="fas fa-envelope text-3xl"></i></a>
                         </div>
-                    </div>
-                    </div>
+                    </section>
+
                 </div>
-            </section>
-
-            <!-- Footer -->
-            <footer class="bg-notion-900 text-white py-6 border-t border-notion-800 md:rounded-b-lg">
-                <div class="container mx-auto px-4 md:px-6 max-w-6xl">
-                    <div class="flex flex-col md:flex-row justify-between items-center">
-                        <div class="mb-4 md:mb-0">
-                            <span class="text-2xl font-bold relative inline-block">
-                                <span class="relative z-10">
-                                    <span class="text-white">D</span><span class="text-yellow-400">i</span><span class="text-white">bya</span>
-                                </span>
-                                <span class="absolute -bottom-1 left-0 w-full h-2 bg-yellow-500 opacity-30 transform -rotate-1"></span>
-                            </span>
-                        </div>
-                        <div class="text-white text-sm">
-                            &copy; 2025 Dibyajyoti Kabi. Made with <span class="text-red-500">❤</span> in India. All rights reserved.
-                        </div>
-                        <div class="mt-4 md:mt-0">
-                            <a href="#home" class="text-white hover:text-[#FFF685] transition-colors duration-300">Back to top</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Success Message Popup -->
-    <div id="successPopup" class="fixed inset-0 flex items-center justify-center z-50 hidden">
-        <div class="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm"></div>
-        <div class="relative bg-[#0049B7] border border-[#00DDFF]/30 rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 transform transition-all duration-500 scale-95 opacity-0" id="popupContent">
-            <!-- Decorative elements -->
-            <div class="absolute -top-4 -right-4 w-16 h-16 border border-[#FFF685]/20 rounded-full opacity-30"></div>
-            <div class="absolute -bottom-6 -left-6 w-24 h-24 border border-[#FFF685]/20 rounded-full opacity-20"></div>
-
-            <div class="text-center relative z-10">
-                <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-[#FFF685] mb-6">
-                    <svg class="h-10 w-10 text-[#0049B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-3">Message Sent Successfully!</h3>
-                <p class="text-white/80 mb-8">Thank you for reaching out. I'll get back to you as soon as possible.</p>
-                <button id="closePopup" class="bg-[#FFF685] hover:bg-[#fffaa8] text-[#0049B7] font-semibold py-3 px-8 rounded-md shadow-sm hover:shadow transition-all duration-300 ease-in-out transform hover:-translate-y-1">
-                    Close
-                </button>
             </div>
         </div>
     </div>
-    
-<!-- WhatsApp Float Button -->
-<a href="https://wa.me/+917978597218"
-   class="fixed bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-50 cursor-pointer group flex items-center justify-center">
-  <span class="absolute -left-[100px] top-1/2 -translate-y-1/2 bg-black text-white px-4 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-    Contact Me
-  </span>
-  <i class="fab fa-whatsapp text-3xl"></i>
-</a>
-    
-    <!-- JavaScript -->
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-500 text-xs pb-28 md:pb-12 relative z-0 font-mono">
+        &copy; 2025 Dibyajyoti Kabi. Made with <span class="text-red-600">♥</span> in India.
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/+917978597218" class="fixed bottom-24 md:bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all z-50 flex items-center justify-center border border-white/20">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Success Popup -->
+    <div id="successPopup" class="fixed inset-0 flex items-center justify-center z-[100] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md"></div>
+        <div class="relative glass-card p-10 max-w-sm w-full text-center shadow-2xl transform scale-95 opacity-0 transition-all" id="popupContent">
+            <div class="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30">
+                <i class="material-icons-round text-3xl">check</i>
+            </div>
+            <h3 class="text-2xl font-bold text-theme-text mb-2">Sent!</h3>
+            <p class="text-theme-muted text-sm mb-8">Thanks for reaching out. I'll be in touch shortly.</p>
+            <button id="closePopup" class="w-full bg-theme-text text-theme-bg font-bold py-3 rounded-lg hover:opacity-80 transition-opacity">Close</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
     <script>
-        // Typing animation
+        // --- Theme Toggle Logic ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const icon = toggleBtn.querySelector('i');
+
+        function updateIcon() {
+            icon.textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        }
+
+        // Initial Icon State
+        updateIcon();
+
+        toggleBtn.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateIcon();
+        });
+
+        // --- Typed.js ---
         document.addEventListener('DOMContentLoaded', function() {
             var typed = new Typed('#typed-text', {
-                strings: ['Dibyajyoti Kabi', 'a Web Designer', 'a WordPress Developer', 'a Team Leader'],
+                strings: ['Dibyajyoti Kabi', 'a Web Designer', 'a WordPress Dev', 'a Team Leader'],
                 typeSpeed: 50,
                 backSpeed: 30,
                 backDelay: 1500,
-                startDelay: 500,
                 loop: true,
                 showCursor: true,
                 cursorChar: '|'
             });
-
-            // Initialize calendar
-            initCalendar();
         });
 
-        // Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileNavMenu = document.getElementById('mobile-nav-menu');
+        // --- 3D Tilt Effect ---
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5; 
+                const rotateY = ((x - centerX) / centerX) * 5; 
 
-            if (mobileMenuButton && mobileNavMenu) {
-                mobileMenuButton.addEventListener('click', function() {
-                    mobileNavMenu.classList.toggle('hidden');
-                    // Add animation classes
-                    if (!mobileNavMenu.classList.contains('hidden')) {
-                        mobileNavMenu.classList.add('animate-fadeIn');
-                        setTimeout(() => {
-                            mobileNavMenu.classList.remove('animate-fadeIn');
-                        }, 300);
-                    }
-                });
-            }
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
         });
 
-        // Close mobile menu when clicking on a link
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileNavMenu = document.getElementById('mobile-nav-menu');
-            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
-            const closeMenuButton = document.getElementById('close-mobile-menu');
-
-            if (mobileNavMenu && mobileNavItems.length > 0) {
-                mobileNavItems.forEach(item => {
-                    item.addEventListener('click', function() {
-                        mobileNavMenu.classList.add('hidden');
-                    });
-                });
-            }
-
-            if (closeMenuButton && mobileNavMenu) {
-                closeMenuButton.addEventListener('click', function() {
-                    mobileNavMenu.classList.add('hidden');
-                });
-            }
-        });
-
-        // Active navigation state
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-item');
-
-        function setActiveNavLink() {
-            let current = '';
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
+        // --- Scroll Reveal ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
             });
+        }, { threshold: 0.1 });
 
-            navLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                const isContactLink = href === '#contact';
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-                // Reset all links to default state
-                if (!isContactLink) {
-                    // Normal links
-                    link.classList.remove('bg-[#FFF685]', 'text-[#0049B7]');
-                    link.classList.add('text-white', 'hover:bg-white', 'hover:text-black');
-                }
-                // Contact Me link styling is handled with absolute positioning and doesn't need to be reset
-
-                // Apply active state
-                if (href === `#${current}`) {
-                    if (!isContactLink) {
-                        // Active state for other links
-                        link.classList.remove('text-white', 'hover:bg-white', 'hover:text-black');
-                        link.classList.add('bg-[#FFF685]', 'text-[#0049B7]');
-                    }
-                    // Contact Me link is always styled with the yellow background
-                }
-            });
-
-            mobileNavLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                const isContactLink = href === '#contact';
-
-                // Reset all links to default state
-                if (!isContactLink) {
-                    // Normal links
-                    link.classList.remove('bg-[#FFF685]', 'text-[#0049B7]');
-                    link.classList.add('text-white', 'hover:bg-white', 'hover:text-black');
-                }
-                // Contact Me link styling is handled with absolute positioning and doesn't need to be reset
-
-                // Apply active state
-                if (href === `#${current}`) {
-                    if (!isContactLink) {
-                        // Active state for other links
-                        link.classList.remove('text-white', 'hover:bg-white', 'hover:text-black');
-                        link.classList.add('bg-[#FFF685]', 'text-[#0049B7]');
-                    }
-                    // Contact Me link is always styled with the yellow background
-                }
-            });
+        // --- Dock Active State ---
+        function setActive(el) {
+            document.querySelectorAll('.dock-item').forEach(link => link.classList.remove('active'));
+            el.classList.add('active');
         }
-
-        // Header scroll behavior
-        const headerContainer = document.getElementById('header-container');
-        let lastScrollTop = 0;
-
-        function handleHeaderScroll() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            // Change header style when scrolling
-            if (scrollTop > 50) {
-                // When scrolled down
-                headerContainer.classList.add('sticky', 'top-0');
-                headerContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.95)'; // Using black with opacity
-                headerContainer.style.backdropFilter = 'blur(8px)';
-                headerContainer.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
-            } else {
-                // At the top of the page
-                headerContainer.classList.remove('sticky', 'top-0');
-                headerContainer.style.backgroundColor = '';
-                headerContainer.style.backdropFilter = 'none';
-                headerContainer.style.boxShadow = 'none';
-            }
-
-            lastScrollTop = scrollTop;
-        }
-
+        
         window.addEventListener('scroll', () => {
-            setActiveNavLink();
-            handleHeaderScroll();
+            const sections = ['home', 'about', 'works', 'skills', 'contact'];
+            let current = '';
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const sectionTop = element.offsetTop;
+                    if (pageYOffset >= (sectionTop - 350)) {
+                        current = section;
+                    }
+                }
+            });
+
+            if (current) {
+                document.querySelectorAll('.dock-item').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
         });
 
-        window.addEventListener('load', () => {
-            setActiveNavLink();
-            handleHeaderScroll();
-        });
+        // --- Popup Logic ---
+        const contactForm = document.getElementById('contactForm');
+        const successPopup = document.getElementById('successPopup');
+        const popupContent = document.getElementById('popupContent');
+        const closePopupBtn = document.getElementById('closePopup');
 
-        // No custom calendar functionality needed as we're using Calendly
-        function initCalendar() {
-            // Calendly is handling all scheduling functionality
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                 e.preventDefault(); // UI Demo Only
+                 successPopup.classList.remove('hidden');
+                 setTimeout(() => {
+                     popupContent.classList.remove('scale-95', 'opacity-0');
+                     popupContent.classList.add('scale-100', 'opacity-100');
+                 }, 50);
+                 contactForm.reset();
+            });
         }
 
-        // Contact form submission and success message handling
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            const successPopup = document.getElementById('successPopup');
-            const popupContent = document.getElementById('popupContent');
-            const closePopupBtn = document.getElementById('closePopup');
-
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    // Prevent the default form submission
-                    e.preventDefault();
-
-                    // Get form data
-                    const formData = new FormData(contactForm);
-
-                    // Create a hidden form to submit in the background
-                    const hiddenForm = document.createElement('form');
-                    hiddenForm.method = 'POST';
-                    hiddenForm.action = 'https://formsubmit.co/dibyajyotikabi@gmail.com';
-                    hiddenForm.style.display = 'none';
-
-                    // Add all form fields to the hidden form
-                    for (const [key, value] of formData.entries()) {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = key;
-                        input.value = value;
-                        hiddenForm.appendChild(input);
-                    }
-
-                    // Add FormSubmit.co specific fields
-                    const subjectInput = document.createElement('input');
-                    subjectInput.type = 'hidden';
-                    subjectInput.name = '_subject';
-                    subjectInput.value = 'New Portfolio Contact Request';
-                    hiddenForm.appendChild(subjectInput);
-
-                    const captchaInput = document.createElement('input');
-                    captchaInput.type = 'hidden';
-                    captchaInput.name = '_captcha';
-                    captchaInput.value = 'false';
-                    hiddenForm.appendChild(captchaInput);
-
-                    // Add the form to the document and submit it
-                    document.body.appendChild(hiddenForm);
-                    hiddenForm.submit();
-
-                    // Show the success message
-                    successPopup.classList.remove('hidden');
-
-                    // Animate the popup content
-                    setTimeout(function() {
-                        popupContent.classList.remove('scale-95', 'opacity-0');
-                        popupContent.classList.add('scale-100', 'opacity-100');
-                    }, 10);
-
-                    // Reset the form
-                    contactForm.reset();
-
-                    // Remove the hidden form after submission
-                    setTimeout(function() {
-                        document.body.removeChild(hiddenForm);
-                    }, 1000);
-                });
-            }
-
-            // Close popup when the close button is clicked
-            if (closePopupBtn) {
-                closePopupBtn.addEventListener('click', function() {
-                    // Animate out
-                    popupContent.classList.remove('scale-100', 'opacity-100');
-                    popupContent.classList.add('scale-95', 'opacity-0');
-
-                    // Hide the popup after animation
-                    setTimeout(function() {
-                        successPopup.classList.add('hidden');
-                    }, 300);
-                });
-            }
-
-            // Close popup when clicking outside the popup content
-            if (successPopup) {
-                successPopup.addEventListener('click', function(e) {
-                    if (e.target === successPopup) {
-                        // Animate out
-                        popupContent.classList.remove('scale-100', 'opacity-100');
-                        popupContent.classList.add('scale-95', 'opacity-0');
-
-                        // Hide the popup after animation
-                        setTimeout(function() {
-                            successPopup.classList.add('hidden');
-                        }, 300);
-                    }
-                });
-            }
-        });
+        if (closePopupBtn) {
+            closePopupBtn.addEventListener('click', () => {
+                popupContent.classList.remove('scale-100', 'opacity-100');
+                popupContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => successPopup.classList.add('hidden'), 300);
+            });
+        }
     </script>
 </body>
 </html>
