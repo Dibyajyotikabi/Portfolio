@@ -4,188 +4,476 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consultation Pricing - Dibyajyoti Kabi</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="DJK_1_16_px.webp" sizes="16x16" type="image/webp">
+    <link rel="icon" href="DJK_32_px.webp" sizes="32x32" type="image/webp">
+
+    <!-- Fonts & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme Logic -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        notion: {
-                            50: '#0049B7', /* Deep Blue */
-                            100: '#0055d4', /* Slightly lighter blue */
-                            200: '#00DDFF', /* Bright Cyan */
-                            500: '#FFF685', /* Light Yellow */
-                            900: '#000000', /* Black */
+                        theme: {
+                            bg: 'var(--bg-color)',
+                            text: 'var(--text-main)',
+                            muted: 'var(--text-muted)',
+                            border: 'var(--glass-border)',
+                            surface: 'var(--glass-surface)',
                         },
+                        accent: {
+                            yellow: '#FFF685',
+                            blue: '#0049B7',
+                            purple: '#9D4EDD',
+                            pink: '#F72585',
+                        }
                     },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'glow': '0 0 20px rgba(255, 246, 133, 0.15)',
+                    }
                 },
             },
         }
     </script>
+    
+    <style>
+        /* --- CSS VARIABLES (Matches index.html) --- */
+        :root {
+            /* Light Mode */
+            --bg-color: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-muted: #6e6e73;
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --glass-surface: rgba(255, 255, 255, 0.65);
+            --glass-card-bg: rgba(255, 255, 255, 0.5);
+            --glass-card-hover: rgba(255, 255, 255, 0.8);
+            --dock-bg: rgba(255, 255, 255, 0.75);
+            --dock-icon: #1d1d1f;
+            
+            /* Liquid Gradients - Light */
+            --liquid-1: rgba(0, 113, 227, 0.15);
+            --liquid-2: rgba(255, 45, 85, 0.1);
+            --liquid-3: rgba(255, 214, 10, 0.12);
+            --liquid-4: rgba(175, 82, 222, 0.1);
+        }
+
+        .dark {
+            /* Dark Mode */
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --text-muted: #a1a1a6;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-surface: rgba(18, 18, 18, 0.65);
+            --glass-card-bg: rgba(255, 255, 255, 0.03);
+            --glass-card-hover: rgba(255, 255, 255, 0.08);
+            --dock-bg: rgba(10, 10, 10, 0.6);
+            --dock-icon: rgba(255, 255, 255, 0.8);
+
+            /* Liquid Gradients - Dark */
+            --liquid-1: rgba(0, 73, 183, 0.25);
+            --liquid-2: rgba(157, 78, 221, 0.2);
+            --liquid-3: rgba(255, 29, 88, 0.1);
+            --liquid-4: rgba(255, 246, 133, 0.08);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Visual Effects */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .liquid-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -50;
+            background: 
+                radial-gradient(circle at 15% 15%, var(--liquid-1), transparent 45%), 
+                radial-gradient(circle at 85% 85%, var(--liquid-2), transparent 45%),
+                radial-gradient(circle at 50% 50%, var(--liquid-3), transparent 60%),
+                radial-gradient(circle at 80% 20%, var(--liquid-4), transparent 30%);
+            filter: blur(80px);
+            animation: aurora 20s ease infinite alternate;
+            transition: background 1s ease;
+        }
+
+        @keyframes aurora {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* Glass Components */
+        .notion-page {
+            background: var(--glass-surface);
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .notion-cover {
+            height: 200px;
+            background: linear-gradient(135deg, #0049B7 0%, #7B2CBF 50%, #FF0054 100%);
+            width: 100%;
+            position: relative;
+        }
+
+        .tilt-card {
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        
+        .glass-card {
+            background: var(--glass-card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.1s ease; 
+            position: relative;
+            overflow: hidden;
+            color: var(--text-main);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
+            z-index: 2; opacity: 0; transition: opacity 0.5s; pointer-events: none;
+        }
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card:hover {
+            background: var(--glass-card-hover);
+            border-color: var(--text-muted);
+            box-shadow: 0 15px 40px -10px rgba(0,0,0,0.2);
+        }
+
+        /* Navigation */
+        .dock-nav {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            background: var(--dock-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem; border-radius: 24px;
+            display: flex; align-items: flex-end; gap: 0.5rem; z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: background 0.3s ease;
+        }
+        
+        .dock-item {
+            position: relative; width: 50px; height: 50px;
+            border-radius: 14px; background: rgba(128, 128, 128, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            color: var(--dock-icon); border: 1px solid transparent;
+        }
+        
+        .dock-item:hover {
+            width: 65px; height: 65px; margin-bottom: 10px; 
+            background: rgba(128, 128, 128, 0.2); color: var(--text-main);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .dock-item.active {
+            background: rgba(255, 246, 133, 0.2);
+            color: #b48e00; border-color: rgba(255, 246, 133, 0.5);
+        }
+        .dark .dock-item.active {
+            color: #FFF685; border-color: rgba(255, 246, 133, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 100;
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--dock-bg); border: 1px solid var(--glass-border);
+            color: var(--text-main); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); background: var(--glass-card-hover); }
+
+        /* Animation classes */
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
 </head>
-<body class="antialiased bg-white">
-    <div class="mx-auto max-w-[1200px] bg-[#0049B7] md:rounded-lg shadow-lg overflow-hidden md:mt-6 mb-8 md:mx-auto w-full">
-        <!-- Navigation -->
-        <div id="header-container" class="w-full z-20 bg-black transition-all duration-300 md:rounded-t-lg">
-            <nav class="w-full px-4 sm:px-6 py-3">
-                <div class="flex flex-wrap items-center justify-between">
-                    <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-                        <span class="self-center text-2xl font-bold whitespace-nowrap text-white relative">
-                            <span class="relative z-10">
-                                <span class="text-white">D</span><span class="text-yellow-400">i</span><span class="text-white">bya</span>
-                            </span>
-                            <span class="absolute -bottom-1 left-0 w-full h-2 bg-yellow-500 opacity-30 transform -rotate-1"></span>
-                        </span>
-                    </a>
-                    <div class="flex md:hidden">
-                        <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-black rounded-lg bg-white hover:bg-[#FFF685] border border-white focus:outline-none transition-all duration-300">
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="desktop-menu items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-                        <ul class="flex flex-row items-center space-x-1">
-                            <li><a href="index.html" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">Home</a></li>
-                            <li><a href="index.html#about" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">About</a></li>
-                            <li><a href="index.html#works" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">Works</a></li>
-                            <li><a href="index.html#skills" class="block py-2 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">Skills</a></li>
-                            <li><a href="#" class="block py-2 px-4 rounded-lg text-sm font-medium text-[#0049B7] bg-[#FFF685] hover:bg-[#fffaa8] transition-all duration-300">Pricing</a></li>
-                            <li><a href="index.html#contact" class="block py-2 px-4 text-sm font-medium text-white hover:text-[#FFF685] transition-all duration-300 relative">Contact Me</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+
+<body class="antialiased selection:bg-accent-yellow selection:text-black">
+
+    <!-- Visual Backgrounds -->
+    <div class="liquid-bg"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="theme-toggle" title="Toggle Dark/Light Mode">
+        <i class="material-icons-round text-xl">dark_mode</i>
+    </button>
+
+    <!-- Dock Navigation (Links back to index.html) -->
+    <nav class="dock-nav">
+        <a href="index.html" class="dock-item" title="Home">
+            <i class="material-icons-round text-xl">home</i>
+        </a>
+        <a href="index.html#about" class="dock-item" title="About">
+            <i class="material-icons-round text-xl">person</i>
+        </a>
+        <a href="index.html#works" class="dock-item" title="Works">
+            <i class="material-icons-round text-xl">grid_view</i>
+        </a>
+        <!-- Active State for Pricing Page -->
+        <div class="dock-item active" title="Pricing">
+            <i class="material-icons-round text-xl">payments</i>
         </div>
+        <a href="index.html#contact" class="dock-item" title="Contact">
+            <i class="material-icons-round text-xl">mail</i>
+        </a>
+    </nav>
 
-        <!-- Pricing Section -->
-        <div class="py-20 px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white mb-4">Consultation Pricing</h2>
-            </div>
+    <!-- Main Workspace -->
+    <div class="max-w-5xl mx-auto md:my-12 mb-32 px-4 relative z-10">
+        
+        <!-- Notion Page Container -->
+        <div class="notion-page min-h-screen relative">
+            
+            <!-- Cover -->
+            <div class="notion-cover"></div>
 
-            <div class="max-w-7xl mx-auto grid gap-8 lg:grid-cols-3 lg:gap-8">
-                <!-- Basic Plan -->
-                <div class="flex flex-col bg-white rounded-lg border border-[#00DDFF]/30 shadow-sm hover:shadow-lg transition-all duration-300">
-                    <div class="px-6 py-8 text-center">
-                        <h3 class="text-2xl font-semibold text-[#0049B7] mb-2">Basic</h3>
-                        <div class="text-4xl font-bold text-[#0049B7] mb-6">₹7,500</div>
-                        <ul class="space-y-4 text-gray-600 mb-8">
-                            <li>WordPress Assessment</li>
-                            <li>Performance Analysis</li>
-                            <li>Basic Security Check</li>
-                            <li>Email Support</li>
-                        </ul>
-                        <a href="index.html#contact" class="inline-block w-full py-3 px-6 text-center text-[#0049B7] font-medium bg-white border-2 border-[#0049B7] rounded-lg hover:bg-[#0049B7] hover:text-white transition-all duration-300">
-                            Get Started
-                        </a>
+            <!-- Content Area -->
+            <div class="px-6 md:px-20 pb-16 relative">
+                
+                <!-- Page Icon -->
+                <div class="relative -mt-[4rem] mb-8 inline-block">
+                    <div class="w-32 h-32 rounded-full overflow-hidden border-[6px] border-theme-surface shadow-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-6xl">
+                        💸
                     </div>
                 </div>
 
-                <!-- Pro Plan -->
-                <div class="flex flex-col bg-black rounded-lg border border-[#00DDFF] shadow-sm hover:shadow-lg transition-all duration-300">
-                    <div class="px-6 py-8 text-center">
-                        <h3 class="text-2xl font-semibold text-[#FFF685] mb-2">Pro</h3>
-                        <div class="text-4xl font-bold text-white mb-6">₹15,000</div>
-                        <ul class="space-y-4 text-gray-200 mb-8">
-                            <li>Advanced WordPress Optimization</li>
-                            <li>Security Hardening</li>
-                            <li>Performance Tuning</li>
-                            <li>Phone Support</li>
-                        </ul>
-                        <a href="index.html#contact" class="inline-block w-full py-3 px-6 text-center text-[#0049B7] font-medium bg-[#FFF685] hover:bg-white rounded-lg transition-all duration-300">
-                            Get Started
-                        </a>
+                <!-- Header -->
+                <div class="mb-12 reveal active">
+                    <div class="flex items-center gap-3 mb-2 text-theme-muted text-sm font-mono">
+                        <a href="index.html" class="hover:text-accent-blue transition-colors">Portfolio</a>
+                        <span>/</span>
+                        <span>Consultation</span>
                     </div>
+                    
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-theme-text tracking-tight">
+                        Consultation Pricing
+                    </h1>
+                    <p class="text-theme-muted text-lg max-w-2xl">
+                        Expert WordPress development, security hardening, and performance optimization packages tailored to your business needs.
+                    </p>
                 </div>
 
-                <!-- Enterprise Plan -->
-                <div class="flex flex-col bg-white rounded-lg border border-[#00DDFF]/30 shadow-sm hover:shadow-lg transition-all duration-300">
-                    <div class="px-6 py-8 text-center">
-                        <h3 class="text-2xl font-semibold text-[#0049B7] mb-2">Enterprise</h3>
-                        <div class="text-4xl font-bold text-[#0049B7] mb-6">₹37,500</div>
-                        <ul class="space-y-4 text-gray-600 mb-8">
-                            <li>Custom WordPress Solutions</li>
-                            <li>Advanced Security Measures</li>
-                            <li>DDoS Mitigation</li>
-                            <li>SEO Audit</li>
-                            <li>Dedicated Project Manager</li>
+                <hr class="border-theme-border mb-16 reveal">
+
+                <!-- Pricing Grid -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Basic Plan -->
+                    <div class="glass-card p-8 flex flex-col tilt-card group cursor-default hover:border-accent-blue/50">
+                        <div class="mb-4">
+                            <h3 class="text-xl font-bold text-accent-blue">Basic</h3>
+                            <p class="text-sm text-theme-muted">Essential maintenance</p>
+                        </div>
+                        <div class="text-3xl font-bold text-theme-text mb-6">
+                            ₹7,500
+                            <span class="text-sm font-normal text-theme-muted">/ project</span>
+                        </div>
+                        
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> WordPress Assessment
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> Performance Analysis
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> Basic Security Check
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> Email Support
+                            </li>
                         </ul>
-                        <a href="index.html#contact" class="inline-block w-full py-3 px-6 text-center text-[#0049B7] font-medium bg-white border-2 border-[#0049B7] rounded-lg hover:bg-[#0049B7] hover:text-white transition-all duration-300">
-                            Get Started
+
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white text-center font-medium transition-all duration-300">
+                            Get Basic
                         </a>
                     </div>
+
+                    <!-- Pro Plan (Highlighted) -->
+                    <div class="glass-card p-8 flex flex-col tilt-card relative overflow-hidden group cursor-default border-accent-yellow/50">
+                        <!-- Glow Effect -->
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-yellow to-orange-500"></div>
+                        
+                        <div class="mb-4 relative z-10">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-accent-yellow">Pro</h3>
+                                    <p class="text-sm text-theme-muted">Most Popular</p>
+                                </div>
+                                <span class="bg-accent-yellow/20 text-accent-yellow text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide border border-accent-yellow/30">Recommended</span>
+                            </div>
+                        </div>
+                        <div class="text-3xl font-bold text-theme-text mb-6 relative z-10">
+                            ₹15,000
+                            <span class="text-sm font-normal text-theme-muted">/ project</span>
+                        </div>
+                        
+                        <ul class="space-y-4 mb-8 flex-1 relative z-10">
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> <strong>Advanced Optimization</strong>
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> Security Hardening
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> Performance Tuning
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> Phone Support
+                            </li>
+                        </ul>
+
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg bg-accent-yellow text-black hover:bg-white text-center font-bold shadow-[0_0_15px_rgba(255,246,133,0.3)] hover:shadow-[0_0_25px_rgba(255,246,133,0.5)] transition-all duration-300 relative z-10">
+                            Get Pro
+                        </a>
+                    </div>
+
+                    <!-- Enterprise Plan -->
+                    <div class="glass-card p-8 flex flex-col tilt-card group cursor-default hover:border-purple-500/50">
+                        <div class="mb-4">
+                            <h3 class="text-xl font-bold text-purple-400">Enterprise</h3>
+                            <p class="text-sm text-theme-muted">Full scale solutions</p>
+                        </div>
+                        <div class="text-3xl font-bold text-theme-text mb-6">
+                            ₹37,500
+                            <span class="text-sm font-normal text-theme-muted">/ start</span>
+                        </div>
+                        
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> Custom Solutions
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> DDoS Mitigation
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> SEO Audit
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-theme-text">
+                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> Dedicated Manager
+                            </li>
+                        </ul>
+
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white text-center font-medium transition-all duration-300">
+                            Contact Sales
+                        </a>
+                    </div>
+
                 </div>
+
+                <!-- Additional Info -->
+                <div class="mt-16 p-6 rounded-xl border border-theme-border bg-theme-bg/50 text-center reveal">
+                    <h4 class="text-lg font-semibold text-theme-text mb-2">Need a custom package?</h4>
+                    <p class="text-theme-muted mb-4 text-sm">I can tailor a solution specifically for your business goals and budget.</p>
+                    <a href="index.html#contact" class="text-accent-blue dark:text-accent-yellow hover:underline text-sm font-medium">Chat with me →</a>
+                </div>
+
             </div>
         </div>
-
-        <!-- Footer -->
-        <footer class="bg-notion-900 text-white py-6 border-t border-notion-800 md:rounded-b-lg">
-            <div class="container mx-auto px-4 md:px-6 max-w-6xl">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <span class="text-2xl font-bold relative inline-block">
-                            <span class="relative z-10">
-                                <span class="text-white">D</span><span class="text-yellow-400">i</span><span class="text-white">bya</span>
-                            </span>
-                            <span class="absolute -bottom-1 left-0 w-full h-2 bg-yellow-500 opacity-30 transform -rotate-1"></span>
-                        </span>
-                    </div>
-                    <div class="text-white text-sm">
-                        &copy; 2025 Dibyajyoti Kabi. Made with <span class="text-red-500">❤</span> in India. All rights reserved.
-                    </div>
-                    <div class="mt-4 md:mt-0">
-                        <a href="#" class="text-white hover:text-[#FFF685] transition-colors duration-300">Back to top</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/+919937558548" target="_blank" class="fixed bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-50 cursor-pointer group flex items-center justify-center">
-        <span class="absolute -left-[140px] top-1/2 -translate-y-1/2 bg-black text-white px-4 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-            Chat on WhatsApp
-        </span>
+    <!-- Footer -->
+    <footer class="text-center text-theme-muted text-xs pb-28 md:pb-12 relative z-0 font-mono">
+        &copy; 2025 Dibyajyoti Kabi. Made with <span class="text-red-500">♥</span> in India.
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/+919937558548" target="_blank" class="fixed bottom-24 md:bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-50 cursor-pointer group flex items-center justify-center border border-white/20">
         <i class="fab fa-whatsapp text-3xl"></i>
     </a>
 
+    <!-- SCRIPTS -->
     <script>
-        // Mobile menu functionality
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.createElement('div');
-        mobileMenu.className = 'md:hidden fixed top-[60px] left-0 right-0 z-50 hidden';
-        mobileMenu.innerHTML = `
-            <div class="w-full">
-                <ul class="flex flex-col p-4 space-y-1 bg-black border-t border-gray-800 shadow-lg">
-                    <li><a href="index.html" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">Home</a></li>
-                    <li><a href="index.html#about" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">About</a></li>
-                    <li><a href="index.html#works" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">Works</a></li>
-                    <li><a href="index.html#skills" class="block py-3 px-4 rounded-lg text-sm font-medium text-white hover:bg-white hover:text-black transition-all duration-300">Skills</a></li>
-                    <li><a href="#" class="block py-3 px-4 rounded-lg text-sm font-medium text-[#0049B7] bg-[#FFF685] hover:bg-[#fffaa8] transition-all duration-300">Pricing</a></li>
-                    <li><a href="index.html#contact" class="block py-3 px-4 text-sm font-medium text-white hover:text-[#FFF685] transition-all duration-300">Contact Me</a></li>
-                </ul>
-            </div>
-        `;
-        document.body.appendChild(mobileMenu);
+        // --- Theme Toggle Logic ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const icon = toggleBtn.querySelector('i');
 
-        let isMenuOpen = false;
-        mobileMenuButton.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            mobileMenu.classList.toggle('hidden', !isMenuOpen);
+        function updateIcon() {
+            icon.textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        }
+        updateIcon();
+
+        toggleBtn.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateIcon();
         });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (isMenuOpen && !mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
-                isMenuOpen = false;
-                mobileMenu.classList.add('hidden');
-            }
+        // --- 3D Tilt Effect ---
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -3; // Subtle tilt
+                const rotateY = ((x - centerX) / centerX) * 3; 
+
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            });
         });
+
+        // --- Scroll Reveal ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
-</html> 
+</html>
