@@ -38,9 +38,10 @@
                             surface: 'var(--glass-surface)',
                         },
                         accent: {
-                            yellow: '#FFF685',
+                            // Smart variables that change based on theme
+                            yellow: 'var(--accent-yellow)',
+                            purple: 'var(--accent-purple)',
                             blue: '#0049B7',
-                            purple: '#9D4EDD',
                             pink: '#F72585',
                         }
                     },
@@ -64,6 +65,11 @@
             --bg-color: #f5f5f7;
             --text-main: #1d1d1f;
             --text-muted: #6e6e73;
+            
+            /* Adaptive Colors for Light Mode (Darker for readability) */
+            --accent-yellow: #B45309; /* Dark Amber */
+            --accent-purple: #7E22CE; /* Deep Purple */
+
             --glass-border: rgba(0, 0, 0, 0.08);
             --glass-surface: rgba(255, 255, 255, 0.65);
             --glass-card-bg: rgba(255, 255, 255, 0.5);
@@ -83,6 +89,11 @@
             --bg-color: #050505;
             --text-main: #e0e0e0;
             --text-muted: #a1a1a6;
+
+            /* Adaptive Colors for Dark Mode (Bright/Neon) */
+            --accent-yellow: #FFF685; /* Neon Yellow */
+            --accent-purple: #9D4EDD; /* Light Purple */
+
             --glass-border: rgba(255, 255, 255, 0.1);
             --glass-surface: rgba(18, 18, 18, 0.65);
             --glass-card-bg: rgba(255, 255, 255, 0.03);
@@ -364,15 +375,15 @@
                             </li>
                         </ul>
 
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg bg-accent-yellow text-black hover:bg-white text-center font-bold shadow-[0_0_15px_rgba(255,246,133,0.3)] hover:shadow-[0_0_25px_rgba(255,246,133,0.5)] transition-all duration-300 relative z-10">
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg bg-accent-yellow text-black hover:bg-white text-center font-bold shadow-[0_0_15px_rgba(180,83,9,0.3)] dark:shadow-[0_0_15px_rgba(255,246,133,0.3)] hover:shadow-lg transition-all duration-300 relative z-10">
                             Get Pro
                         </a>
                     </div>
 
                     <!-- Enterprise Plan -->
-                    <div class="glass-card p-8 flex flex-col tilt-card group cursor-default hover:border-purple-500/50">
+                    <div class="glass-card p-8 flex flex-col tilt-card group cursor-default hover:border-accent-purple/50">
                         <div class="mb-4">
-                            <h3 class="text-xl font-bold text-purple-400">Enterprise</h3>
+                            <h3 class="text-xl font-bold text-accent-purple">Enterprise</h3>
                             <p class="text-sm text-theme-muted">Full scale solutions</p>
                         </div>
                         <div class="text-3xl font-bold text-theme-text mb-6">
@@ -382,20 +393,20 @@
                         
                         <ul class="space-y-4 mb-8 flex-1">
                             <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> Custom Solutions
+                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> Custom Solutions
                             </li>
                             <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> DDoS Mitigation
+                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> DDoS Mitigation
                             </li>
                             <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> SEO Audit
+                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> SEO Audit
                             </li>
                             <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-purple-400 text-base">check_circle</i> Dedicated Manager
+                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> Dedicated Manager
                             </li>
                         </ul>
 
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white text-center font-medium transition-all duration-300">
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-accent-purple text-accent-purple hover:bg-accent-purple hover:text-white text-center font-medium transition-all duration-300">
                             Contact Sales
                         </a>
                     </div>
