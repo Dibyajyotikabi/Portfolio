@@ -9,11 +9,10 @@
     <link rel="icon" href="DJK_1_16_px.webp" sizes="16x16" type="image/webp">
     <link rel="icon" href="DJK_32_px.webp" sizes="32x32" type="image/webp">
 
-    <!-- Fonts & Icons -->
+    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Theme Logic -->
     <script>
@@ -30,28 +29,35 @@
             theme: {
                 extend: {
                     colors: {
-                        theme: {
-                            bg: 'var(--bg-color)',
-                            text: 'var(--text-main)',
-                            muted: 'var(--text-muted)',
-                            border: 'var(--glass-border)',
-                            surface: 'var(--glass-surface)',
+                        primary: {
+                            DEFAULT: '#2563EB', // Royal Blue
+                            dark: '#3B82F6',    // Lighter Blue for Dark Mode
+                            soft: 'rgba(37, 99, 235, 0.08)'
                         },
-                        accent: {
-                            // Smart variables that change based on theme
-                            yellow: 'var(--accent-yellow)',
-                            purple: 'var(--accent-purple)',
-                            blue: '#0049B7',
-                            pink: '#F72585',
+                        neutral: {
+                            50: '#F9FAFB',
+                            100: '#F3F4F6',
+                            200: '#E5E7EB',
+                            300: '#D1D5DB',
+                            800: '#1F2937',
+                            900: '#111827',
+                            950: '#030712',
                         }
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
                     },
-                    boxShadow: {
-                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-                        'glow': '0 0 20px rgba(255, 246, 133, 0.15)',
+                    animation: {
+                        'blob': 'blob 20s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
                     }
                 },
             },
@@ -59,443 +65,328 @@
     </script>
     
     <style>
-        /* --- CSS VARIABLES (Matches index.html) --- */
+        /* --- CSS VARIABLES (Synced with index.html) --- */
         :root {
-            /* Light Mode */
-            --bg-color: #f5f5f7;
-            --text-main: #1d1d1f;
-            --text-muted: #6e6e73;
+            --bg-main: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent: #2563EB;
             
-            /* Adaptive Colors for Light Mode (Darker for readability) */
-            --accent-yellow: #B45309; /* Dark Amber */
-            --accent-purple: #7E22CE; /* Deep Purple */
-
-            --glass-border: rgba(0, 0, 0, 0.08);
-            --glass-surface: rgba(255, 255, 255, 0.65);
-            --glass-card-bg: rgba(255, 255, 255, 0.5);
-            --glass-card-hover: rgba(255, 255, 255, 0.8);
-            --dock-bg: rgba(255, 255, 255, 0.75);
-            --dock-icon: #1d1d1f;
+            /* Glass Settings */
+            --glass-border: rgba(0, 0, 0, 0.08); 
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-hover: rgba(255, 255, 255, 0.9);
             
-            /* Liquid Gradients - Light */
-            --liquid-1: rgba(0, 113, 227, 0.15);
-            --liquid-2: rgba(255, 45, 85, 0.1);
-            --liquid-3: rgba(255, 214, 10, 0.12);
-            --liquid-4: rgba(175, 82, 222, 0.1);
+            --liquid-1: rgba(37, 99, 235, 0.08);
+            --liquid-2: rgba(100, 116, 139, 0.08);
+            --liquid-3: rgba(14, 165, 233, 0.08);
+            
+            --dock-bg: rgba(255, 255, 255, 0.9);
+            --dock-border: rgba(0,0,0,0.05);
         }
 
         .dark {
-            /* Dark Mode */
-            --bg-color: #050505;
-            --text-main: #e0e0e0;
-            --text-muted: #a1a1a6;
-
-            /* Adaptive Colors for Dark Mode (Bright/Neon) */
-            --accent-yellow: #FFF685; /* Neon Yellow */
-            --accent-purple: #9D4EDD; /* Light Purple */
-
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-surface: rgba(18, 18, 18, 0.65);
-            --glass-card-bg: rgba(255, 255, 255, 0.03);
-            --glass-card-hover: rgba(255, 255, 255, 0.08);
-            --dock-bg: rgba(10, 10, 10, 0.6);
-            --dock-icon: rgba(255, 255, 255, 0.8);
-
-            /* Liquid Gradients - Dark */
-            --liquid-1: rgba(0, 73, 183, 0.25);
-            --liquid-2: rgba(157, 78, 221, 0.2);
-            --liquid-3: rgba(255, 29, 88, 0.1);
-            --liquid-4: rgba(255, 246, 133, 0.08);
+            --bg-main: #020617;
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --accent: #3B82F6;
+            
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-hover: rgba(30, 41, 59, 0.8);
+            
+            --liquid-1: rgba(37, 99, 235, 0.15);
+            --liquid-2: rgba(15, 23, 42, 0.5);
+            --liquid-3: rgba(56, 189, 248, 0.05);
+            
+            --dock-bg: rgba(15, 23, 42, 0.8);
+            --dock-border: rgba(255,255,255,0.05);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
             color: var(--text-main);
             overflow-x: hidden;
             transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        /* Visual Effects */
+        h1, h2, h3, .font-display { font-family: 'Space Grotesk', sans-serif; }
+
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1; opacity: 0.04;
+            pointer-events: none; z-index: -1; opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         .liquid-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -50;
-            background: 
-                radial-gradient(circle at 15% 15%, var(--liquid-1), transparent 45%), 
-                radial-gradient(circle at 85% 85%, var(--liquid-2), transparent 45%),
-                radial-gradient(circle at 50% 50%, var(--liquid-3), transparent 60%),
-                radial-gradient(circle at 80% 20%, var(--liquid-4), transparent 30%);
-            filter: blur(80px);
-            animation: aurora 20s ease infinite alternate;
-            transition: background 1s ease;
         }
-
-        @keyframes aurora {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(2deg); }
-            100% { transform: scale(1) rotate(0deg); }
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 1;
+            animation: blob 20s infinite alternate;
         }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--liquid-1); }
+        .blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: var(--liquid-2); animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: var(--liquid-3); animation-delay: -10s; }
 
-        /* Glass Components */
-        .notion-page {
-            background: var(--glass-surface);
-            backdrop-filter: blur(40px) saturate(150%);
-            -webkit-backdrop-filter: blur(40px) saturate(150%);
+        /* Main Container & Cards */
+        .glass-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border-radius: 16px;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.03), 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+            border-radius: 24px;
             overflow: hidden;
-            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        .notion-cover {
-            height: 200px;
-            background: linear-gradient(135deg, #0049B7 0%, #7B2CBF 50%, #FF0054 100%);
-            width: 100%;
-            position: relative;
-        }
-
-        .tilt-card {
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-        }
-        
-        .glass-card {
-            background: var(--glass-card-bg);
+        .card-minimal {
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            transition: all 0.1s ease; 
-            position: relative;
-            overflow: hidden;
-            color: var(--text-main);
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+        }
+        .card-minimal:hover {
+            background: var(--glass-hover);
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(0,0,0,0.1);
         }
 
-        .glass-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.1), transparent 40%);
-            z-index: 2; opacity: 0; transition: opacity 0.5s; pointer-events: none;
-        }
-        .glass-card:hover::before { opacity: 1; }
-        .glass-card:hover {
-            background: var(--glass-card-hover);
-            border-color: var(--text-muted);
-            box-shadow: 0 15px 40px -10px rgba(0,0,0,0.2);
-        }
-
-        /* Navigation */
+        /* Dock */
         .dock-nav {
             position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-            background: var(--dock-bg);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            padding: 0.75rem; border-radius: 24px;
-            display: flex; align-items: flex-end; gap: 0.5rem; z-index: 100;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            transition: background 0.3s ease;
+            background: var(--dock-bg); backdrop-filter: blur(16px);
+            border: 1px solid var(--dock-border); padding: 0.5rem; border-radius: 999px;
+            display: flex; align-items: center; gap: 0.5rem; z-index: 100;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        
         .dock-item {
-            position: relative; width: 50px; height: 50px;
-            border-radius: 14px; background: rgba(128, 128, 128, 0.1);
+            width: 44px; height: 44px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            color: var(--dock-icon); border: 1px solid transparent;
+            color: var(--text-muted); transition: all 0.3s ease;
+            position: relative;
         }
-        
-        .dock-item:hover {
-            width: 65px; height: 65px; margin-bottom: 10px; 
-            background: rgba(128, 128, 128, 0.2); color: var(--text-main);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-
-        .dock-item.active {
-            background: rgba(255, 246, 133, 0.2);
-            color: #b48e00; border-color: rgba(255, 246, 133, 0.5);
-        }
-        .dark .dock-item.active {
-            color: #FFF685; border-color: rgba(255, 246, 133, 0.3);
+        .dock-item:hover { color: var(--text-main); background: rgba(128,128,128,0.1); }
+        .dock-item.active { color: var(--accent); background: var(--primary-soft); }
+        .dock-item.active::after {
+            content: ''; position: absolute; bottom: -6px; width: 4px; height: 4px;
+            background: var(--accent); border-radius: 50%;
         }
 
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed; top: 1.5rem; right: 1.5rem; z-index: 100;
-            width: 48px; height: 48px; border-radius: 50%;
-            background: var(--dock-bg); border: 1px solid var(--glass-border);
-            color: var(--text-main); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease;
-        }
-        .theme-toggle:hover { transform: rotate(15deg) scale(1.1); background: var(--glass-card-hover); }
-
-        /* Animation classes */
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; opacity: 0.2; }
     </style>
 </head>
 
-<body class="antialiased selection:bg-accent-yellow selection:text-black">
+<body class="antialiased selection:bg-primary selection:text-white">
 
-    <!-- Visual Backgrounds -->
-    <div class="liquid-bg"></div>
+    <div class="liquid-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
     <div class="noise-overlay"></div>
 
     <!-- Theme Toggle -->
-    <button id="theme-toggle" class="theme-toggle" title="Toggle Dark/Light Mode">
-        <i class="material-icons-round text-xl">dark_mode</i>
+    <button id="theme-toggle" class="fixed top-6 right-6 z-50 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-theme-text hover:bg-white/20 transition-all" aria-label="Toggle Theme">
+        <i class="material-icons-round text-lg">dark_mode</i>
     </button>
 
-    <!-- Dock Navigation (Links back to index.html) -->
+    <!-- Navigation Dock -->
     <nav class="dock-nav">
-        <a href="index.html" class="dock-item" title="Home">
-            <i class="material-icons-round text-xl">home</i>
-        </a>
-        <a href="index.html#about" class="dock-item" title="About">
-            <i class="material-icons-round text-xl">person</i>
-        </a>
-        <a href="index.html#works" class="dock-item" title="Works">
-            <i class="material-icons-round text-xl">grid_view</i>
-        </a>
-        <!-- Active State for Pricing Page -->
-        <div class="dock-item active" title="Pricing">
-            <i class="material-icons-round text-xl">payments</i>
-        </div>
-        <a href="index.html#contact" class="dock-item" title="Contact">
-            <i class="material-icons-round text-xl">mail</i>
-        </a>
+        <a href="index.html" class="dock-item" title="Home"><i class="material-icons-round text-lg">home</i></a>
+        <a href="index.html#about" class="dock-item" title="About"><i class="material-icons-round text-lg">person</i></a>
+        <a href="index.html#works" class="dock-item" title="Works"><i class="material-icons-round text-lg">layers</i></a>
+        <div class="dock-item active" title="Pricing"><i class="material-icons-round text-lg">payments</i></div>
+        <a href="index.html#contact" class="dock-item" title="Contact"><i class="material-icons-round text-lg">mail_outline</i></a>
     </nav>
 
-    <!-- Main Workspace -->
-    <div class="max-w-5xl mx-auto md:my-12 mb-32 px-4 relative z-10">
+    <div class="max-w-5xl mx-auto md:py-12 pb-32 px-4 relative z-10">
         
-        <!-- Notion Page Container -->
-        <div class="notion-page min-h-screen relative">
+        <div class="glass-container min-h-[90vh] relative flex flex-col">
             
-            <!-- Cover -->
-            <div class="notion-cover"></div>
+            <!-- Minimal Cover -->
+            <div class="h-32 w-full relative overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
+                <div class="absolute inset-0 opacity-[0.07]" 
+                     style="background-image: linear-gradient(var(--text-muted) 1px, transparent 1px), linear-gradient(90deg, var(--text-muted) 1px, transparent 1px); background-size: 40px 40px;">
+                </div>
+            </div>
 
-            <!-- Content Area -->
-            <div class="px-6 md:px-20 pb-16 relative">
+            <div class="px-6 md:px-16 pb-16 relative flex-1">
                 
-                <!-- Page Icon -->
-                <div class="relative -mt-[4rem] mb-8 inline-block">
-                    <div class="w-32 h-32 rounded-full overflow-hidden border-[6px] border-theme-surface shadow-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-6xl">
+                <!-- Page Header -->
+                <div class="relative -mt-12 mb-12">
+                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-lg text-4xl mb-6">
                         💸
                     </div>
-                </div>
-
-                <!-- Header -->
-                <div class="mb-12 reveal active">
-                    <div class="flex items-center gap-3 mb-2 text-theme-muted text-sm font-mono">
-                        <a href="index.html" class="hover:text-accent-blue transition-colors">Portfolio</a>
+                    <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-theme-muted mb-3">
+                        <a href="index.html" class="hover:text-primary transition-colors">Portfolio</a>
                         <span>/</span>
-                        <span>Consultation</span>
+                        <span class="text-primary">Consultation</span>
                     </div>
-                    
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-theme-text tracking-tight">
-                        Consultation Pricing
-                    </h1>
-                    <p class="text-theme-muted text-lg max-w-2xl">
+                    <h1 class="text-3xl md:text-5xl font-bold text-theme-text tracking-tight mb-4">Consultation Pricing</h1>
+                    <p class="text-theme-muted text-lg leading-relaxed max-w-2xl font-light">
                         Expert WordPress development, security hardening, and performance optimization packages tailored to your business needs.
                     </p>
                 </div>
 
-                <hr class="border-theme-border mb-16 reveal">
-
                 <!-- Pricing Grid -->
-                <div class="grid md:grid-cols-3 gap-8">
+                <div class="grid md:grid-cols-3 gap-6 mb-16">
                     
                     <!-- Basic Plan -->
-                    <div class="glass-card p-8 flex flex-col tilt-card group cursor-default hover:border-accent-blue/50">
-                        <div class="mb-4">
-                            <h3 class="text-xl font-bold text-accent-blue">Basic</h3>
-                            <p class="text-sm text-theme-muted">Essential maintenance</p>
+                    <div class="card-minimal p-8 flex flex-col group">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-bold text-theme-text">Basic</h3>
+                            <p class="text-xs font-mono text-theme-muted mt-1 uppercase tracking-wide">Essential Maintenance</p>
                         </div>
-                        <div class="text-3xl font-bold text-theme-text mb-6">
-                            ₹7,500
-                            <span class="text-sm font-normal text-theme-muted">/ project</span>
+                        <div class="mb-8">
+                            <span class="text-3xl font-bold text-theme-text">₹7,500</span>
+                            <span class="text-sm text-theme-muted">/project</span>
                         </div>
                         
                         <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> WordPress Assessment
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> WP Assessment
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> Performance Analysis
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Performance Check
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> Basic Security Check
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Security Scan
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-blue text-base">check_circle</i> Email Support
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Email Support
                             </li>
                         </ul>
 
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-accent-blue text-accent-blue hover:bg-accent-blue hover:text-white text-center font-medium transition-all duration-300">
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 text-theme-text hover:border-primary hover:text-primary text-center text-sm font-bold transition-all">
                             Get Basic
                         </a>
                     </div>
 
                     <!-- Pro Plan (Highlighted) -->
-                    <div class="glass-card p-8 flex flex-col tilt-card relative overflow-hidden group cursor-default border-accent-yellow/50">
-                        <!-- Glow Effect -->
-                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-yellow to-orange-500"></div>
-                        
-                        <div class="mb-4 relative z-10">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="text-xl font-bold text-accent-yellow">Pro</h3>
-                                    <p class="text-sm text-theme-muted">Most Popular</p>
-                                </div>
-                                <span class="bg-accent-yellow/20 text-accent-yellow text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide border border-accent-yellow/30">Recommended</span>
-                            </div>
-                        </div>
-                        <div class="text-3xl font-bold text-theme-text mb-6 relative z-10">
-                            ₹15,000
-                            <span class="text-sm font-normal text-theme-muted">/ project</span>
+                    <div class="card-minimal p-8 flex flex-col relative overflow-hidden border-primary/30 bg-primary/5">
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Popular</span>
                         </div>
                         
-                        <ul class="space-y-4 mb-8 flex-1 relative z-10">
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> <strong>Advanced Optimization</strong>
+                        <div class="mb-6">
+                            <h3 class="text-lg font-bold text-primary">Professional</h3>
+                            <p class="text-xs font-mono text-primary/70 mt-1 uppercase tracking-wide">Full Optimization</p>
+                        </div>
+                        <div class="mb-8">
+                            <span class="text-3xl font-bold text-theme-text">₹15,000</span>
+                            <span class="text-sm text-theme-muted">/project</span>
+                        </div>
+                        
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-center gap-3 text-sm text-theme-text font-medium">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Advanced Tuning
                             </li>
                             <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> Security Hardening
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Security Hardening
                             </li>
                             <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> Performance Tuning
+                                <i class="material-icons-round text-primary text-base">check_circle</i> SEO Audit
                             </li>
                             <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-yellow text-base">check_circle</i> Phone Support
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Priority Support
                             </li>
                         </ul>
 
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg bg-accent-yellow text-black hover:bg-white text-center font-bold shadow-[0_0_15px_rgba(180,83,9,0.3)] dark:shadow-[0_0_15px_rgba(255,246,133,0.3)] hover:shadow-lg transition-all duration-300 relative z-10">
-                            Get Pro
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg bg-primary hover:bg-primary-dark text-white text-center text-sm font-bold transition-all shadow-lg shadow-primary/20">
+                            Get Professional
                         </a>
                     </div>
 
                     <!-- Enterprise Plan -->
-                    <div class="glass-card p-8 flex flex-col tilt-card group cursor-default hover:border-accent-purple/50">
-                        <div class="mb-4">
-                            <h3 class="text-xl font-bold text-accent-purple">Enterprise</h3>
-                            <p class="text-sm text-theme-muted">Full scale solutions</p>
+                    <div class="card-minimal p-8 flex flex-col group">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-bold text-theme-text">Enterprise</h3>
+                            <p class="text-xs font-mono text-theme-muted mt-1 uppercase tracking-wide">Custom Solutions</p>
                         </div>
-                        <div class="text-3xl font-bold text-theme-text mb-6">
-                            ₹37,500
-                            <span class="text-sm font-normal text-theme-muted">/ start</span>
+                        <div class="mb-8">
+                            <span class="text-3xl font-bold text-theme-text">₹37,500</span>
+                            <span class="text-sm text-theme-muted">/start</span>
                         </div>
                         
                         <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> Custom Solutions
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Custom Dev
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> DDoS Mitigation
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> DDoS Mitigation
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> SEO Audit
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Full SEO Suite
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-accent-purple text-base">check_circle</i> Dedicated Manager
+                            <li class="flex items-center gap-3 text-sm text-theme-muted">
+                                <i class="material-icons-round text-primary text-base">check_circle</i> Dedicated Manager
                             </li>
                         </ul>
 
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-accent-purple text-accent-purple hover:bg-accent-purple hover:text-white text-center font-medium transition-all duration-300">
+                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 text-theme-text hover:border-primary hover:text-primary text-center text-sm font-bold transition-all">
                             Contact Sales
                         </a>
                     </div>
 
                 </div>
 
-                <!-- Featured In Section (Added for consistency with Index) -->
-                 <div class="mt-16 reveal">
-                    <p class="text-xs text-theme-muted font-mono uppercase mb-6 tracking-widest border-b border-theme-border pb-2">Trusted By</p>
-                    <div class="flex flex-wrap gap-8 md:gap-12 opacity-50 hover:opacity-100 transition-all duration-700 items-center justify-start">
-                         <!-- In Dark mode they need invert to white, in Light mode they need to be normal (dark/original) -->
-                         <!-- Fix: use grayscale by default, invert only in dark mode, screen blend to remove white bg in dark mode -->
-                        <img src="Forbes logo.png" class="h-6 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="Forbes">
-                        <img src="techcrunch logo.png" class="h-5 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="TechCrunch">
-                        <img src="Beebom logo.jpg" class="h-6 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="Beebom">
-                        <img src="gsm arena logo latest.png" class="h-5 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="GSM Arena">
-                        <img src="Indiatoday logo.png" class="h-6 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="India Today">
+                <!-- Logos (Consistent) -->
+                <div class="mb-12 reveal">
+                    <div class="flex items-center gap-4 mb-8">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-theme-muted">Trusted By</h2>
+                        <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-800"></div>
+                    </div>
+                    <div class="flex flex-wrap justify-center md:justify-between gap-8 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="Forbes logo.png" class="h-5 w-auto object-contain dark:invert" alt="Forbes">
+                        <img src="techcrunch logo.png" class="h-4 w-auto object-contain dark:invert" alt="TechCrunch">
+                        <img src="Beebom logo.jpg" class="h-5 w-auto object-contain dark:invert" alt="Beebom">
+                        <img src="gsm arena logo latest.png" class="h-4 w-auto object-contain dark:invert" alt="GSM Arena">
+                        <img src="Indiatoday logo.png" class="h-5 w-auto object-contain dark:invert" alt="India Today">
                     </div>
                 </div>
 
-                <!-- Additional Info -->
-                <div class="mt-16 p-6 rounded-xl border border-theme-border bg-theme-bg/50 text-center reveal">
-                    <h4 class="text-lg font-semibold text-theme-text mb-2">Need a custom package?</h4>
+                <!-- CTA Box -->
+                <div class="card-minimal p-8 text-center reveal">
+                    <h4 class="text-lg font-bold text-theme-text mb-2">Need a custom package?</h4>
                     <p class="text-theme-muted mb-4 text-sm">I can tailor a solution specifically for your business goals and budget.</p>
-                    <a href="index.html#contact" class="text-accent-blue dark:text-accent-yellow hover:underline text-sm font-medium">Chat with me →</a>
+                    <a href="index.html#contact" class="text-primary hover:text-primary-dark hover:underline text-sm font-bold">Chat with me →</a>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center text-theme-muted text-xs pb-28 md:pb-12 relative z-0 font-mono">
-        &copy; 2025 Dibyajyoti Kabi. Made with <span class="text-red-500">♥</span> in India.
+    <footer class="text-center text-theme-muted text-xs pb-24 pt-8 font-mono">
+        &copy; 2025 Dibyajyoti Kabi. Minimalist Edition.
     </footer>
 
-    <!-- WhatsApp Float -->
-    <a href="https://wa.me/+919937558548" target="_blank" class="fixed bottom-24 md:bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-50 cursor-pointer group flex items-center justify-center border border-white/20">
-        <i class="fab fa-whatsapp text-3xl"></i>
-    </a>
-
-    <!-- SCRIPTS -->
     <script>
-        // --- Theme Toggle Logic ---
+        // Theme Logic
         const toggleBtn = document.getElementById('theme-toggle');
         const html = document.documentElement;
         const icon = toggleBtn.querySelector('i');
-
-        function updateIcon() {
-            icon.textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
-        }
+        function updateIcon() { icon.textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode'; }
         updateIcon();
 
         toggleBtn.addEventListener('click', () => {
             html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
             updateIcon();
         });
 
-        // --- 3D Tilt Effect ---
-        document.querySelectorAll('.tilt-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -3; // Subtle tilt
-                const rotateY = ((x - centerX) / centerX) * 3; 
-
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-            });
-        });
-
-        // --- Scroll Reveal ---
+        // Simple Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('active'); }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
