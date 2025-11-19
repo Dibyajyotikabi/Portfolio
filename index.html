@@ -53,7 +53,8 @@
                             surface: 'var(--glass-surface)',
                         },
                         accent: {
-                            yellow: '#FFF685',
+                            // Smart variable for yellow that changes based on theme
+                            yellow: 'var(--accent-yellow)', 
                             blue: '#0049B7',
                         }
                     },
@@ -67,12 +68,16 @@
     </script>
     
     <style>
-        /* --- CSS VARIABLES FOR THEMIING --- */
+        /* --- CSS VARIABLES FOR THEMING --- */
         :root {
-            /* Light Mode (Default variables) */
+            /* Light Mode (Default) */
             --bg-color: #f5f5f7;
             --text-main: #1d1d1f;
             --text-muted: #6e6e73;
+            
+            /* Darker Gold/Amber for visibility on white */
+            --accent-yellow: #B45309; 
+            
             --glass-border: rgba(0, 0, 0, 0.08);
             --glass-surface: rgba(255, 255, 255, 0.65);
             --glass-card-bg: rgba(255, 255, 255, 0.5);
@@ -92,6 +97,10 @@
             --bg-color: #050505;
             --text-main: #e0e0e0;
             --text-muted: #a1a1a6;
+            
+            /* Original Bright Yellow for Dark Mode */
+            --accent-yellow: #FFF685;
+            
             --glass-border: rgba(255, 255, 255, 0.1);
             --glass-surface: rgba(18, 18, 18, 0.65);
             --glass-card-bg: rgba(255, 255, 255, 0.03);
@@ -238,13 +247,9 @@
         }
 
         .dock-item.active {
-            background: rgba(255, 246, 133, 0.2);
-            color: #b48e00; /* Darker yellow for visibility on light mode */
-            border-color: rgba(255, 246, 133, 0.5);
-        }
-        .dark .dock-item.active {
-            color: #FFF685;
-            border-color: rgba(255, 246, 133, 0.3);
+            background: rgba(180, 83, 9, 0.1);
+            color: var(--accent-yellow);
+            border-color: var(--accent-yellow);
         }
         
         .dock-item.active::before {
@@ -384,7 +389,7 @@
                                 <span>Role</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="prop-pill bg-[#3a2c1e] text-[#e8c495]">CEO @ RMG Media Group</span>
+                                <span class="prop-pill bg-[#3a2c1e] text-[#d97706] dark:text-[#e8c495]">CEO @ RMG Media Group</span>
                             </div>
                         </div>
                         <!-- Property Row -->
@@ -409,7 +414,7 @@
                                 <i class="material-icons-round text-lg">verified</i>
                                 <span>Status</span>
                             </div>
-                            <span class="prop-pill bg-[#1c3829] text-[#8bdcba]">Available for work</span>
+                            <span class="prop-pill bg-[#1c3829] text-[#059669] dark:text-[#8bdcba]">Available for work</span>
                         </div>
                     </div>
                 </div>
@@ -436,7 +441,7 @@
                                     My journey involves partnering with major tech entities like <span class="border-b border-theme-muted">Google</span> and <span class="border-b border-theme-muted">Amazon</span>, and leading teams to success.
                                 </p>
                                 <div class="pt-2">
-                                    <a href="pricing.html" class="inline-flex items-center gap-2 text-sm text-accent-blue dark:text-accent-yellow hover:underline font-medium">
+                                    <a href="pricing.html" class="inline-flex items-center gap-2 text-sm text-accent-yellow hover:underline font-medium">
                                         View Pricing & Packages <i class="material-icons-round text-xs">arrow_forward</i>
                                     </a>
                                 </div>
@@ -467,8 +472,8 @@
                                     </div>
                                     <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Website Redesign</h3>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="prop-pill bg-[#3a2c1e] text-[#e8c495]">WordPress</span>
-                                        <span class="prop-pill bg-blue-900/20 text-blue-400">Design</span>
+                                        <span class="prop-pill bg-[#3a2c1e] text-[#d97706] dark:text-[#e8c495]">WordPress</span>
+                                        <span class="prop-pill bg-blue-900/20 text-blue-600 dark:text-blue-400">Design</span>
                                     </div>
                                 </div>
                             </div>
@@ -484,8 +489,8 @@
                                     </div>
                                     <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">CMDU Plugin</h3>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="prop-pill bg-purple-900/20 text-purple-400">PHP</span>
-                                        <span class="prop-pill bg-gray-500/20 text-gray-400">Dev</span>
+                                        <span class="prop-pill bg-purple-900/20 text-purple-600 dark:text-purple-400">PHP</span>
+                                        <span class="prop-pill bg-gray-500/20 text-gray-600 dark:text-gray-400">Dev</span>
                                     </div>
                                 </div>
                             </div>
@@ -501,7 +506,7 @@
                                     </div>
                                     <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Info-box Shortcode</h3>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="prop-pill bg-green-900/20 text-green-400">Plugin</span>
+                                        <span class="prop-pill bg-green-900/20 text-green-600 dark:text-green-400">Plugin</span>
                                     </div>
                                 </div>
                             </div>
@@ -517,7 +522,7 @@
                                     </div>
                                     <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Sam Updater</h3>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="prop-pill bg-red-900/20 text-red-400">SEO</span>
+                                        <span class="prop-pill bg-red-900/20 text-red-600 dark:text-red-400">SEO</span>
                                     </div>
                                 </div>
                             </div>
@@ -533,7 +538,7 @@
                                     </div>
                                     <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Info Tracker</h3>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="prop-pill bg-[#3a2c1e] text-[#e8c495]">Custom</span>
+                                        <span class="prop-pill bg-[#3a2c1e] text-[#d97706] dark:text-[#e8c495]">Custom</span>
                                     </div>
                                 </div>
                             </div>
@@ -549,8 +554,8 @@
                                     </div>
                                     <h3 class="text-lg font-bold mb-3 group-hover:text-accent-blue dark:group-hover:text-accent-yellow transition-colors">Dashboard App</h3>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="prop-pill bg-pink-900/20 text-pink-400">JS</span>
-                                        <span class="prop-pill bg-blue-900/20 text-blue-300">Data Viz</span>
+                                        <span class="prop-pill bg-pink-900/20 text-pink-600 dark:text-pink-400">JS</span>
+                                        <span class="prop-pill bg-blue-900/20 text-blue-600 dark:text-blue-300">Data Viz</span>
                                     </div>
                                 </div>
                             </div>
@@ -582,7 +587,7 @@
                                     <span class="font-medium">WordPress</span>
                                 </div>
                                 <div class="col-span-4 md:col-span-3">
-                                    <span class="prop-pill bg-blue-900/20 text-blue-400">Expert</span>
+                                    <span class="prop-pill bg-blue-900/20 text-blue-600 dark:text-blue-400">Expert</span>
                                 </div>
                                 <div class="col-span-4 md:col-span-6 flex items-center gap-3">
                                     <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -598,7 +603,7 @@
                                     <span class="font-medium">PHP / HTML</span>
                                 </div>
                                 <div class="col-span-4 md:col-span-3">
-                                    <span class="prop-pill bg-purple-900/20 text-purple-400">Advanced</span>
+                                    <span class="prop-pill bg-purple-900/20 text-purple-600 dark:text-purple-400">Advanced</span>
                                 </div>
                                 <div class="col-span-4 md:col-span-6 flex items-center gap-3">
                                     <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -614,7 +619,7 @@
                                     <span class="font-medium">UI/UX Design</span>
                                 </div>
                                 <div class="col-span-4 md:col-span-3">
-                                    <span class="prop-pill bg-pink-900/20 text-pink-400">Advanced</span>
+                                    <span class="prop-pill bg-pink-900/20 text-pink-600 dark:text-pink-400">Advanced</span>
                                 </div>
                                 <div class="col-span-4 md:col-span-6 flex items-center gap-3">
                                     <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -630,12 +635,13 @@
                     <section class="reveal">
                         <p class="text-xs text-theme-muted font-mono uppercase mb-6 tracking-widest border-b border-theme-border pb-2">Featured In</p>
                         <div class="flex flex-wrap gap-8 md:gap-12 opacity-50 hover:opacity-100 transition-all duration-700 items-center justify-start">
-                             <!-- In Dark mode they need invert, in Light mode they need to be normal (dark) -->
-                            <img src="Forbes logo.png" class="h-6 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="Forbes">
-                            <img src="techcrunch logo.png" class="h-5 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="TechCrunch">
-                            <img src="Beebom logo.jpg" class="h-6 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="Beebom">
-                            <img src="gsm arena logo latest.png" class="h-5 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="GSM Arena">
-                            <img src="Indiatoday logo.png" class="h-6 w-auto object-contain dark:brightness-0 dark:invert transition-all" alt="India Today">
+                             <!-- In Dark mode they need invert to white, in Light mode they need to be normal (dark/original) -->
+                             <!-- Fix: use grayscale by default, invert only in dark mode, screen blend to remove white bg in dark mode -->
+                            <img src="Forbes logo.png" class="h-6 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="Forbes">
+                            <img src="techcrunch logo.png" class="h-5 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="TechCrunch">
+                            <img src="Beebom logo.jpg" class="h-6 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="Beebom">
+                            <img src="gsm arena logo latest.png" class="h-5 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="GSM Arena">
+                            <img src="Indiatoday logo.png" class="h-6 w-auto object-contain grayscale dark:invert dark:mix-blend-mode-screen transition-all" alt="India Today">
                         </div>
                     </section>
 
@@ -704,12 +710,12 @@
     </div>
 
     <!-- Footer -->
-    <footer class="text-center text-gray-500 text-xs pb-28 md:pb-12 relative z-0 font-mono">
-        &copy; 2025 Dibyajyoti Kabi. Made with <span class="text-red-600">♥</span> in India.
+    <footer class="text-center text-theme-muted text-xs pb-28 md:pb-12 relative z-0 font-mono">
+        &copy; 2025 Dibyajyoti Kabi. Made with <span class="text-red-500">♥</span> in India.
     </footer>
 
     <!-- WhatsApp Float -->
-    <a href="https://wa.me/+917978597218" class="fixed bottom-24 md:bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all z-50 flex items-center justify-center border border-white/20">
+    <a href="https://wa.me/+919937558548" target="_blank" class="fixed bottom-24 md:bottom-8 right-8 w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-50 cursor-pointer group flex items-center justify-center border border-white/20">
         <i class="fab fa-whatsapp text-3xl"></i>
     </a>
 
@@ -769,13 +775,13 @@
                 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -5; 
-                const rotateY = ((x - centerX) / centerX) * 5; 
+                const rotateX = ((y - centerY) / centerY) * -3; // Subtle tilt
+                const rotateY = ((x - centerX) / centerX) * 3; 
 
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
                 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
             });
 
             card.addEventListener('mouseleave', () => {
@@ -791,7 +797,6 @@
                 }
             });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         // --- Dock Active State ---
