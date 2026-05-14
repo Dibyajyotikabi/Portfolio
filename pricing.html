@@ -1,404 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultation Pricing - Dibyajyoti Kabi</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing moved | Dibyajyoti Kabi Portfolio v2</title>
+  <meta name="description" content="Dibyajyoti Kabi pricing is now available inside the main portfolio page." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://dibyajyotikabi.com/#pricing" />
+  <meta http-equiv="refresh" content="0; url=/#pricing" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a0a0a;
+      --card: #161616;
+      --text: #ffffff;
+      --muted: #9ca3af;
+      --border: #2a2a2a;
+      --accent: #2f6df6;
+    }
 
-    <!-- Favicon -->
-    <link rel="icon" href="DJK_1_16_px.webp" sizes="16x16" type="image/webp">
-    <link rel="icon" href="DJK_32_px.webp" sizes="32x32" type="image/webp">
+    * {
+      box-sizing: border-box;
+    }
 
-    <!-- Libraries -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Theme Logic -->
-    <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    </script>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 1.5rem;
+      background:
+        linear-gradient(135deg, rgba(47, 109, 246, 0.12), transparent 40%),
+        var(--bg);
+      color: var(--text);
+      font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            DEFAULT: '#2563EB', // Royal Blue
-                            dark: '#3B82F6',    // Lighter Blue for Dark Mode
-                            soft: 'rgba(37, 99, 235, 0.08)'
-                        },
-                        neutral: {
-                            50: '#F9FAFB',
-                            100: '#F3F4F6',
-                            200: '#E5E7EB',
-                            300: '#D1D5DB',
-                            800: '#1F2937',
-                            900: '#111827',
-                            950: '#030712',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    animation: {
-                        'blob': 'blob 20s infinite',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        }
-                    }
-                },
-            },
-        }
-    </script>
-    
-    <style>
-        /* --- CSS VARIABLES (Synced with index.html) --- */
-        :root {
-            --bg-main: #F8FAFC;
-            --text-main: #0F172A;
-            --text-muted: #64748B;
-            --accent: #2563EB;
-            
-            /* Glass Settings */
-            --glass-border: rgba(0, 0, 0, 0.08); 
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-hover: rgba(255, 255, 255, 0.9);
-            
-            --liquid-1: rgba(37, 99, 235, 0.08);
-            --liquid-2: rgba(100, 116, 139, 0.08);
-            --liquid-3: rgba(14, 165, 233, 0.08);
-            
-            --dock-bg: rgba(255, 255, 255, 0.9);
-            --dock-border: rgba(0,0,0,0.05);
-        }
+    main {
+      width: min(440px, 100%);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--card);
+    }
 
-        .dark {
-            --bg-main: #020617;
-            --text-main: #F1F5F9;
-            --text-muted: #94A3B8;
-            --accent: #3B82F6;
-            
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-bg: rgba(15, 23, 42, 0.6);
-            --glass-hover: rgba(30, 41, 59, 0.8);
-            
-            --liquid-1: rgba(37, 99, 235, 0.15);
-            --liquid-2: rgba(15, 23, 42, 0.5);
-            --liquid-3: rgba(56, 189, 248, 0.05);
-            
-            --dock-bg: rgba(15, 23, 42, 0.8);
-            --dock-border: rgba(255,255,255,0.05);
-        }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.75rem, 8vw, 2.35rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            overflow-x: hidden;
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
+    p {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
 
-        h1, h2, h3, .font-display { font-family: 'Space Grotesk', sans-serif; }
-
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1; opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        .liquid-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -50;
-        }
-        .blob {
-            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 1;
-            animation: blob 20s infinite alternate;
-        }
-        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--liquid-1); }
-        .blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: var(--liquid-2); animation-delay: -5s; }
-        .blob-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: var(--liquid-3); animation-delay: -10s; }
-
-        /* Main Container & Cards */
-        .glass-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px) saturate(120%);
-            -webkit-backdrop-filter: blur(24px) saturate(120%);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.03), 0 20px 40px -12px rgba(0, 0, 0, 0.15);
-            border-radius: 24px;
-            overflow: hidden;
-        }
-
-        .card-minimal {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative; overflow: hidden;
-        }
-        .card-minimal:hover {
-            background: var(--glass-hover);
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px -10px rgba(0,0,0,0.1);
-        }
-
-        /* Dock */
-        .dock-nav {
-            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-            background: var(--dock-bg); backdrop-filter: blur(16px);
-            border: 1px solid var(--dock-border); padding: 0.5rem; border-radius: 999px;
-            display: flex; align-items: center; gap: 0.5rem; z-index: 100;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .dock-item {
-            width: 44px; height: 44px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-muted); transition: all 0.3s ease;
-            position: relative;
-        }
-        .dock-item:hover { color: var(--text-main); background: rgba(128,128,128,0.1); }
-        .dock-item.active { color: var(--accent); background: var(--primary-soft); }
-        .dock-item.active::after {
-            content: ''; position: absolute; bottom: -6px; width: 4px; height: 4px;
-            background: var(--accent); border-radius: 50%;
-        }
-
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; opacity: 0.2; }
-    </style>
+    a {
+      display: inline-flex;
+      width: 100%;
+      justify-content: center;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 800;
+      text-decoration: none;
+    }
+  </style>
+  <script>
+    window.location.replace('/#pricing');
+  </script>
 </head>
-
-<body class="antialiased selection:bg-primary selection:text-white">
-
-    <div class="liquid-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
-    <div class="noise-overlay"></div>
-
-    <!-- Theme Toggle -->
-    <button id="theme-toggle" class="fixed top-6 right-6 z-50 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-theme-text hover:bg-white/20 transition-all" aria-label="Toggle Theme">
-        <i class="material-icons-round text-lg">dark_mode</i>
-    </button>
-
-    <!-- Navigation Dock -->
-    <nav class="dock-nav">
-        <a href="index.html" class="dock-item" title="Home"><i class="material-icons-round text-lg">home</i></a>
-        <a href="index.html#about" class="dock-item" title="About"><i class="material-icons-round text-lg">person</i></a>
-        <a href="index.html#works" class="dock-item" title="Works"><i class="material-icons-round text-lg">layers</i></a>
-        <div class="dock-item active" title="Pricing"><i class="material-icons-round text-lg">payments</i></div>
-        <a href="index.html#contact" class="dock-item" title="Contact"><i class="material-icons-round text-lg">mail_outline</i></a>
-    </nav>
-
-    <div class="max-w-5xl mx-auto md:py-12 pb-32 px-4 relative z-10">
-        
-        <div class="glass-container min-h-[90vh] relative flex flex-col">
-            
-            <!-- Minimal Cover -->
-            <div class="h-32 w-full relative overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
-                <div class="absolute inset-0 opacity-[0.07]" 
-                     style="background-image: linear-gradient(var(--text-muted) 1px, transparent 1px), linear-gradient(90deg, var(--text-muted) 1px, transparent 1px); background-size: 40px 40px;">
-                </div>
-            </div>
-
-            <div class="px-6 md:px-16 pb-16 relative flex-1">
-                
-                <!-- Page Header -->
-                <div class="relative -mt-12 mb-12">
-                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-lg text-4xl mb-6">
-                        💸
-                    </div>
-                    <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-theme-muted mb-3">
-                        <a href="index.html" class="hover:text-primary transition-colors">Portfolio</a>
-                        <span>/</span>
-                        <span class="text-primary">Consultation</span>
-                    </div>
-                    <h1 class="text-3xl md:text-5xl font-bold text-theme-text tracking-tight mb-4">Consultation Pricing</h1>
-                    <p class="text-theme-muted text-lg leading-relaxed max-w-2xl font-light">
-                        Expert WordPress development, security hardening, and performance optimization packages tailored to your business needs.
-                    </p>
-                </div>
-
-                <!-- Pricing Grid -->
-                <div class="grid md:grid-cols-3 gap-6 mb-16">
-                    
-                    <!-- Basic Plan -->
-                    <div class="card-minimal p-8 flex flex-col group">
-                        <div class="mb-6">
-                            <h3 class="text-lg font-bold text-theme-text">Basic</h3>
-                            <p class="text-xs font-mono text-theme-muted mt-1 uppercase tracking-wide">Essential Maintenance</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-3xl font-bold text-theme-text">₹7,500</span>
-                            <span class="text-sm text-theme-muted">/project</span>
-                        </div>
-                        
-                        <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> WP Assessment
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Performance Check
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Security Scan
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Email Support
-                            </li>
-                        </ul>
-
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 text-theme-text hover:border-primary hover:text-primary text-center text-sm font-bold transition-all">
-                            Get Basic
-                        </a>
-                    </div>
-
-                    <!-- Pro Plan (Highlighted) -->
-                    <div class="card-minimal p-8 flex flex-col relative overflow-hidden border-primary/30 bg-primary/5">
-                        <div class="absolute top-4 right-4">
-                            <span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Popular</span>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <h3 class="text-lg font-bold text-primary">Professional</h3>
-                            <p class="text-xs font-mono text-primary/70 mt-1 uppercase tracking-wide">Full Optimization</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-3xl font-bold text-theme-text">₹15,000</span>
-                            <span class="text-sm text-theme-muted">/project</span>
-                        </div>
-                        
-                        <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-center gap-3 text-sm text-theme-text font-medium">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Advanced Tuning
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Security Hardening
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> SEO Audit
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-text">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Priority Support
-                            </li>
-                        </ul>
-
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg bg-primary hover:bg-primary-dark text-white text-center text-sm font-bold transition-all shadow-lg shadow-primary/20">
-                            Get Professional
-                        </a>
-                    </div>
-
-                    <!-- Enterprise Plan -->
-                    <div class="card-minimal p-8 flex flex-col group">
-                        <div class="mb-6">
-                            <h3 class="text-lg font-bold text-theme-text">Enterprise</h3>
-                            <p class="text-xs font-mono text-theme-muted mt-1 uppercase tracking-wide">Custom Solutions</p>
-                        </div>
-                        <div class="mb-8">
-                            <span class="text-3xl font-bold text-theme-text">₹37,500</span>
-                            <span class="text-sm text-theme-muted">/start</span>
-                        </div>
-                        
-                        <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Custom Dev
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> DDoS Mitigation
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Full SEO Suite
-                            </li>
-                            <li class="flex items-center gap-3 text-sm text-theme-muted">
-                                <i class="material-icons-round text-primary text-base">check_circle</i> Dedicated Manager
-                            </li>
-                        </ul>
-
-                        <a href="index.html#contact" class="w-full py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 text-theme-text hover:border-primary hover:text-primary text-center text-sm font-bold transition-all">
-                            Contact Sales
-                        </a>
-                    </div>
-
-                </div>
-
-                <!-- Logos (Consistent) -->
-                <div class="mb-12 reveal">
-                    <div class="flex items-center gap-4 mb-8">
-                        <h2 class="text-sm font-bold uppercase tracking-widest text-theme-muted">Trusted By</h2>
-                        <div class="h-px flex-1 bg-neutral-200 dark:bg-neutral-800"></div>
-                    </div>
-                    <div class="flex flex-wrap justify-center md:justify-between gap-8 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
-                        <img src="Forbes logo.png" class="h-5 w-auto object-contain dark:invert" alt="Forbes">
-                        <img src="techcrunch logo.png" class="h-4 w-auto object-contain dark:invert" alt="TechCrunch">
-                        <img src="Beebom logo.jpg" class="h-5 w-auto object-contain dark:invert" alt="Beebom">
-                        <img src="gsm arena logo latest.png" class="h-4 w-auto object-contain dark:invert" alt="GSM Arena">
-                        <img src="Indiatoday logo.png" class="h-5 w-auto object-contain dark:invert" alt="India Today">
-                    </div>
-                </div>
-
-                <!-- CTA Box -->
-                <div class="card-minimal p-8 text-center reveal">
-                    <h4 class="text-lg font-bold text-theme-text mb-2">Need a custom package?</h4>
-                    <p class="text-theme-muted mb-4 text-sm">I can tailor a solution specifically for your business goals and budget.</p>
-                    <a href="index.html#contact" class="text-primary hover:text-primary-dark hover:underline text-sm font-bold">Chat with me →</a>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <footer class="text-center text-theme-muted text-xs pb-24 pt-8 font-mono">
-        &copy; 2025 Dibyajyoti Kabi. Minimalist Edition.
-    </footer>
-
-    <!-- WhatsApp Float Button (Minimalist Theme) -->
-    <a href="https://wa.me/+917978597218" target="_blank" aria-label="Chat on WhatsApp"
-       class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-lg shadow-primary/30 hover:scale-110 transition-all duration-300 z-50 cursor-pointer group flex items-center justify-center border border-white/10">
-        <span class="absolute right-16 top-1/2 -translate-y-1/2 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap border border-neutral-100 dark:border-neutral-700">Chat with me</span>
-        <i class="fab fa-whatsapp text-3xl"></i>
-    </a>
-
-    <script>
-        // Theme Logic
-        const toggleBtn = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        const icon = toggleBtn.querySelector('i');
-        function updateIcon() { icon.textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode'; }
-        updateIcon();
-
-        toggleBtn.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-            updateIcon();
-        });
-
-        // Simple Reveal
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('active'); }
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
+<body>
+  <main>
+    <h1>Pricing moved</h1>
+    <p>The pricing section now lives inside the main Dibyajyoti Kabi Portfolio v2 page.</p>
+    <a href="/#pricing">View pricing</a>
+  </main>
 </body>
 </html>
-```
