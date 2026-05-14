@@ -1,41 +1,24 @@
-# Dibyajyoti Kabi - Portfolio Website
+# Dibyajyoti Kabi Portfolio v2
 
-This is my professional portfolio website showcasing my work as a web designer and WordPress plugin developer with over 10 years of experience.
+Static GitHub Pages portfolio for Dibyajyoti Kabi.
 
-## Features
+Live site: https://dibyajyotikabi.com/
 
-- Responsive design using Tailwind CSS
-- Interactive elements with JavaScript
-- Notion-inspired design aesthetic
-- Dark/light theme toggle
-- Contact form integration with FormSubmit
-- Calendar scheduling with Calendly
+## Focus
 
-## Technologies Used
+- WordPress development
+- Technical SEO and Core Web Vitals
+- Website speed, security, and publishing operations
+- Portfolio, services, pricing, education, and selected work
 
-- HTML5
-- Tailwind CSS
-- JavaScript
-- FormSubmit for contact form
-- Calendly for scheduling
+## SEO
 
-## Sections
+- Canonical homepage URL
+- Open Graph and Twitter preview metadata
+- Person, WebSite, and WebPage JSON-LD
+- Crawlable `robots.txt`
+- Single-page sitemap for the public GitHub Pages site
 
-- Hero section with animated typing
-- About Me
-- My Work/Portfolio
-- Skills
-- Contact Form
-- Scheduling Calendar
+## Author
 
-## Contact
-
-Feel free to reach out to me:
-- Email: dibyajyotikabi@gmail.com
-- Instagram: @dibya1994
-- Twitter: @dibya_1994
-- LinkedIn: dibyajyoti-kabi-00773551
-
-## License
-
-© 2023 Dibyajyoti Kabi. All rights reserved.
+Dibyajyoti Kabi
