@@ -268,9 +268,9 @@ const projects = [
     status: 'Live',
     live: true,
     accent: accents.forest,
-    image: '/project-images/openclaw-ops-hub.jpg',
+    image: '/project-images/openclaw-ops-hub-logo-v2.jpg',
     imageAlt:
-      'Tactile operations console connecting several communication channels to a human approval gate.',
+      'OpenClaw mascot inside a dark operations hub with routed channels and an approval gate.',
     description:
       'Multi-channel OpenClaw rollouts with MCP-backed skills, channel routing, and approval gates so newsroom operators can trust the loop.',
     stack: [siPython, siJavascript],
@@ -282,9 +282,9 @@ const projects = [
     status: 'Live',
     live: true,
     accent: accents.plum,
-    image: '/project-images/openclaw-hermes-migration.jpg',
+    image: '/project-images/openclaw-hermes-migration-logo-v2.jpg',
     imageAlt:
-      'Tactile migration bridge transferring system memory, identities, permissions, and tools.',
+      'OpenClaw and Hermes Agent logos connected by a controlled data migration bridge.',
     description:
       'Stack migrations using the official import path: personas, memories, skills, gateway pairing, and allowlisted secrets without rewriting playbooks.',
     stack: [siPython, siJavascript],
