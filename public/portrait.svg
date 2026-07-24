@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" role="img" aria-label="Dibyajyoti Kabi">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00c758"/>
+      <stop offset="1" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="40" y1="20" x2="160" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <rect width="200" height="200" rx="24" fill="url(#shine)"/>
+  <circle cx="100" cy="78" r="34" fill="#f4d2b8" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>
+  <path d="M62 74c8-18 68-18 76 0" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="86" cy="82" r="4" fill="#1a1a1a"/>
+  <circle cx="114" cy="82" r="4" fill="#1a1a1a"/>
+  <path d="M88 96c6 6 18 6 24 0" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M52 168c10-38 36-52 48-52s38 14 48 52" fill="#111" stroke="#fff" stroke-opacity=".15" stroke-width="2"/>
+  <text x="100" y="188" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="22" font-weight="800">DK</text>
+</svg>

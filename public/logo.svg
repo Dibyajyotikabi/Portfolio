@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 40" role="img" aria-label="D.K">
+  <defs>
+    <linearGradient id="mark" x1="36" y1="0" x2="36" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c9451f"/>
+      <stop offset="24%" stop-color="#e8592a"/>
+      <stop offset="58%" stop-color="#f0a080"/>
+      <stop offset="100%" stop-color="#f5e8e0"/>
+    </linearGradient>
+  </defs>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Micro+5&amp;display=swap');
+    .mark {
+      font-family: 'Micro 5', monospace;
+      font-size: 36px;
+      fill: url(#mark);
+      letter-spacing: 0.06em;
+    }
+  </style>
+  <text class="mark" x="36" y="31" text-anchor="middle">D.K</text>
+</svg>

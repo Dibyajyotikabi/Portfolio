@@ -1,0 +1,37 @@
+local_backend: true
+
+backend:
+  name: github
+  repo: Dibyajyotikabi/dibyajyotikabi.com
+  branch: main
+  base_url: https://dibyajyotikabi.com
+  auth_endpoint: api/auth
+
+site_url: https://dibyajyotikabi.com
+display_url: https://dibyajyotikabi.com
+logo_url: https://dibyajyotikabi.com/logo.svg
+
+media_folder: public/blog/images
+public_path: /blog/images
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: content/blog
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string, hint: 'Used in the URL, e.g. hermes-runbooks-for-editorial-teams' }
+      - { label: Publish Date, name: date, widget: datetime }
+      - { label: Modified Date, name: modified, widget: datetime, required: false }
+      - { label: SEO Description, name: description, widget: text }
+      - { label: Featured Image, name: image, widget: image, required: false }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Draft, name: draft, widget: boolean, default: false, required: false }
+      - { label: Body, name: body, widget: markdown }

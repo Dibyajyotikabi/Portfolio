@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "core-web-vitals-on-live-newsrooms",
+    "title": "Core Web Vitals on Live Newsrooms",
+    "description": "Practical CWV fixes — caching, images, CDN tuning, and release discipline without breaking editorial velocity.",
+    "date": "2026-01-08T09:00:00.000Z",
+    "modified": "2026-01-08T09:00:00.000Z",
+    "image": "/portrait.jpg",
+    "tags": [
+      "cwv",
+      "performance",
+      "wordpress"
+    ],
+    "draft": false,
+    "content": "Core Web Vitals are easy to discuss in audits and hard to keep stable on live newsrooms.\n\nNews sites change constantly: new embeds, ad updates, hero image swaps, and “just publish this now” requests.\n\n## Fix the system, not one URL\n\nA single PageSpeed win is useless if the next publish breaks LCP again. Focus on:\n\n- image sizing rules\n- CDN cache policies\n- font and script budgets\n- a pre-publish performance checklist\n\n## Highest-impact wins I see repeatedly\n\n### Images\n\nMost newsroom LCP issues are still image-related:\n\n- serve the right dimensions\n- avoid loading full-resolution heroes on listing pages\n- lazy-load below-the-fold media consistently\n\n### Caching\n\nMake sure HTML and asset caching policies match how often content actually changes.\n\n### Third-party weight\n\nEmbeds are editorially convenient and performance-expensive. Audit them like code dependencies.\n\n## Video embeds\n\nTo embed a walkthrough, place a YouTube watch URL on its own line in the post editor. The site will render it as a responsive video player.\n\n## Release discipline\n\nTreat CWV like uptime:\n\n- measure after template changes\n- measure after major plugin updates\n- measure after ad or embed changes\n\n## Practical goal\n\nThe target is not a perfect lab score. The target is **stable field data** while editorial speed stays intact."
+  },
+  {
+    "slug": "hermes-runbooks-for-editorial-teams",
+    "title": "Hermes Runbooks for Editorial Teams",
+    "description": "How messaging gateways, cron jobs, and MCP skills replace scattered publishing busywork.",
+    "date": "2026-05-24T09:00:00.000Z",
+    "modified": "2026-05-24T09:00:00.000Z",
+    "image": "/portrait.jpg",
+    "tags": [
+      "hermes",
+      "automation",
+      "publishing"
+    ],
+    "draft": false,
+    "content": "Editorial teams rarely fail because people are slow. They fail because the work is scattered across Slack threads, spreadsheets, one-off scripts, and “just check this once” requests.\n\nHermes-style runbooks pull that work into one repeatable loop.\n\n## What a runbook actually solves\n\nA good runbook does three things:\n\n1. **Routes work** to the right channel or subagent\n2. **Runs on a schedule** when humans would forget\n3. **Stops at approval gates** before anything customer-facing ships\n\nThat is the difference between “we tried AI” and “this runs every day.”\n\n## The stack I use in practice\n\n- **Messaging gateway** for Slack or Telegram intake\n- **Cron jobs** for recurring publishing checks\n- **MCP skills** for SEO QA, brand voice, and content formatting\n- **Isolated subagents** so QA and production do not share the same blast radius\n\n## A simple starting pattern\n\nStart with one boring, high-frequency task:\n\n- headline QA for a recurring article format\n- internal link suggestions before publish\n- Search Console anomaly summaries for editors\n\nOnce that loop is trusted, add the next job. Do not begin with a fully autonomous newsroom.\n\n## Why this beats one-off prompts\n\nChat prompts reset every session. Runbooks keep:\n\n- the same steps\n- the same guardrails\n- the same output shape\n- the same audit trail\n\nThat is what publishing teams actually need.\n\n## Bottom line\n\nIf your team already lives in WordPress, Slack, and Search Console, Hermes runbooks are a practical way to automate the busywork without losing editorial control."
+  },
+  {
+    "slug": "scaling-wordpress-past-10m-pageviews",
+    "title": "Scaling WordPress Past 10M Pageviews",
+    "description": "Speed, uptime, editorial discipline, and SEO structure from a site I built and sold.",
+    "date": "2025-03-12T09:00:00.000Z",
+    "modified": "2025-03-12T09:00:00.000Z",
+    "image": "/portrait.jpg",
+    "tags": [
+      "wordpress",
+      "performance",
+      "seo"
+    ],
+    "draft": false,
+    "content": "Scaling a WordPress publication is less about one magic plugin and more about operational discipline.\n\nRootMyGalaxy crossed 10M+ pageviews because the publishing system stayed boring, fast, and measurable.\n\n## The four pillars\n\n### 1. Performance that editors can feel\n\nEditors notice slow admin screens before they notice Lighthouse scores. Fix:\n\n- caching layers that survive traffic spikes\n- image pipelines that do not rely on manual resizing\n- release checks before major plugin updates\n\n### 2. SEO structure that scales with volume\n\nHigh-volume sites need repeatable structure:\n\n- clean taxonomy\n- internal linking patterns\n- schema that matches the content model\n- Search Console workflows, not one-time audits\n\n### 3. Uptime habits\n\nBackups, staging, and rollback paths matter more after traffic grows. A 20-minute outage on a large publication is an editorial incident, not a minor blip.\n\n### 4. Editorial velocity without chaos\n\nThe goal is not maximum output. The goal is **predictable output** with fewer regressions.\n\n## What I would not do again\n\n- stacking overlapping SEO plugins\n- letting editors install untested widgets\n- treating CWV fixes as a one-time project instead of a release gate\n\n## Takeaway\n\nWordPress can scale well past 10M pageviews when performance, SEO, and publishing ops are designed together — not handed to separate vendors and plugins."
+  }
+]
