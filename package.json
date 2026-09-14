@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs",
+    "build": "node scripts/build-site.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "cms": "npx decap-server"
   },

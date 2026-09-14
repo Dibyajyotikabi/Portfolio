@@ -14,6 +14,7 @@ export default function SiteFooter() {
             © {year} {profile.name}. Built in Bhubaneswar.
           </p>
           <nav className="site-footer-nav" aria-label="Footer">
+            <a href="/">Current website</a>
             <a href={profile.github} rel="me noreferrer">
               GitHub
             </a>

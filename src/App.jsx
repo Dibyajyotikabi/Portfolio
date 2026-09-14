@@ -1372,7 +1372,7 @@ function ProjectVisual({ project }) {
   return (
     <div className="project-visual">
       <img
-        src={project.image}
+        src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}`}
         alt={project.imageAlt}
         width="1200"
         height="800"

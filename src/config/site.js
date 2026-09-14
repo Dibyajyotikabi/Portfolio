@@ -2,7 +2,7 @@ export const SITE_URL = 'https://dibyajyotikabi.com';
 
 export const profile = {
   name: 'Dibyajyoti Kabi',
-  photo: '/portrait.jpg',
+  photo: `${import.meta.env.BASE_URL}portrait.jpg`,
   imageAlt: 'Portrait of Dibyajyoti Kabi',
   jobTitle: 'Agent Systems Architect',
   description:

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0">
+  <channel>
+    <title>Dibyajyoti Kabi — Writing</title>
+    <link>https://blogs.dibyajyotikabi.com/</link>
+    <description>Notes on WordPress, agent workflows, and publishing.</description>
+    <language>en</language>
+    <item>
+      <title>Hermes Runbooks for Editorial Teams</title>
+      <link>https://dibyajyotikabi.com/writing/hermes-runbooks-for-editorial-teams.html</link>
+      <guid isPermaLink="false">https://dibyajyotikabi.com/writing/hermes-runbooks-for-editorial-teams.html</guid>
+      <description>How messaging gateways, cron jobs, and MCP skills replace scattered publishing busywork.</description>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Core Web Vitals on Live Newsrooms</title>
+      <link>https://dibyajyotikabi.com/writing/core-web-vitals-on-live-newsrooms.html</link>
+      <guid isPermaLink="false">https://dibyajyotikabi.com/writing/core-web-vitals-on-live-newsrooms.html</guid>
+      <description>Practical CWV fixes — caching, images, CDN tuning, and release discipline without breaking editorial velocity.</description>
+      <pubDate>Thu, 08 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Scaling WordPress Past 10M Pageviews</title>
+      <link>https://dibyajyotikabi.com/writing/scaling-wordpress-past-10m-pageviews.html</link>
+      <guid isPermaLink="false">https://dibyajyotikabi.com/writing/scaling-wordpress-past-10m-pageviews.html</guid>
+      <description>Speed, uptime, editorial discipline, and SEO structure from a site I built and sold.</description>
+      <pubDate>Wed, 12 Mar 2025 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

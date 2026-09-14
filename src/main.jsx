@@ -10,7 +10,7 @@ document.head.querySelectorAll('[data-rh="true"]').forEach((element) => element.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <App />
       </BrowserRouter>
     </HelmetProvider>
