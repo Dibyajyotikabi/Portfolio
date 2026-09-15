@@ -247,6 +247,15 @@ mark.lavender { background: var(--lavender); }
 .jump-links { display: flex; flex-wrap: wrap; gap: 10px 24px; padding-bottom: 30px; font-size: 14px; }
 .jump-links a { color: var(--ink); text-decoration: none; }
 .jump-links a:hover { color: var(--link); }
+/* Five section links need ~408px at 14px, but a 320px screen only offers
+   273px. Rather than shrink the text below a comfortable size or let the row
+   wrap to two lines, the row stays a single line and scrolls sideways. The
+   trailing item is partly visible at the edge, which signals the swipe. */
+@media (max-width: 620px) {
+  .jump-links { flex-wrap: nowrap; overflow-x: auto; gap: 10px 20px; padding-bottom: 36px; scrollbar-width: none; }
+  .jump-links::-webkit-scrollbar { display: none; }
+  .jump-links a { flex: 0 0 auto; white-space: nowrap; }
+}
 .project-section { padding-top: 31px; padding-bottom: 23px; border-top: 1px solid var(--line); }
 .project-section h2 { margin-bottom: 8px; font-size: 1.2em; }
 /* No line-height here: the body's computed 23.2px has to reach the headings,
