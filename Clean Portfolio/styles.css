@@ -166,7 +166,10 @@ mark.lavender { background: var(--lavender); }
 .location svg { width: 14px; height: 14px; }
 .section { padding-block: 26px; border-top: 1px dashed var(--line); }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 12px; }
-.section-heading > a { flex-shrink: 0; font-size: 14px; }
+/* Structural and navigational links carry no underline; colour is the
+   affordance. Underlines are reserved for links inside body text. */
+.section-heading > a { flex-shrink: 0; font-size: 14px; color: var(--link); text-decoration: none; }
+.section-heading > a:hover { color: var(--link-hover); }
 .section-caption { color: var(--muted); font-size: 16px; margin-top: 10px; }
 /* Project list. Follows the reference: native decimal numbering in a 40px
    gutter, accent project names, a status chip, and a muted description line.
@@ -217,7 +220,7 @@ mark.lavender { background: var(--lavender); }
 .newsletter-status { font-size: 13px; line-height: 1.6; }
 .newsletter-status:empty { display: none; }
 .social-links { display: flex; align-items: center; gap: 21px; margin: 22px 0; }
-.social-links a { color: var(--ink); display: inline-flex; padding: 3px; }
+.social-links a { color: var(--ink); display: inline-flex; padding: 3px; text-decoration: none; }
 .social-links a:hover { color: var(--blue); }
 .social-links svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
 .footer-nav { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 17px; font-size: 14px; color: var(--ink); }
@@ -242,6 +245,8 @@ mark.lavender { background: var(--lavender); }
 .page-intro h1 { margin-bottom: 20px; }
 .page-intro > p:last-child { max-width: 650px; font-size: 16px; color: var(--ink); line-height: 1.5; }
 .jump-links { display: flex; flex-wrap: wrap; gap: 10px 24px; padding-bottom: 30px; font-size: 14px; }
+.jump-links a { color: var(--ink); text-decoration: none; }
+.jump-links a:hover { color: var(--link); }
 .project-section { padding-top: 31px; padding-bottom: 23px; border-top: 1px solid var(--line); }
 .project-section h2 { margin-bottom: 8px; font-size: 1.2em; }
 /* No line-height here: the body's computed 23.2px has to reach the headings,
@@ -260,6 +265,31 @@ mark.lavender { background: var(--lavender); }
 .stat-number { font-size: 1.75rem; font-weight: 600; line-height: 1.1; color: var(--link); }
 .stat-label { font-size: .85rem; opacity: .7; }
 .stats-note { font-size: .85rem; color: var(--soft); margin-top: -.5rem; }
+/* GitHub activity rendered as terminal output. The palette is deliberately
+   fixed in every theme: a terminal only reads as a terminal while it stays
+   dark, so these colours do not follow the theme tokens. */
+.stat-card-terminal { grid-column: 1 / -1; background: #0d1117; border: 1px solid #21262d; border-radius: 8px; overflow: hidden; color: #c9d1d9; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: clamp(11px, 2.7vw, 13px); line-height: 1.55; }
+.term-bar { display: flex; gap: 8px; padding: .6rem .75rem; background: #161b22; border-bottom: 1px solid #21262d; }
+.term-bar span { width: 12px; height: 12px; border-radius: 50%; }
+.term-bar span:nth-child(1) { background: #ff5f57; }
+.term-bar span:nth-child(2) { background: #febc2e; }
+.term-bar span:nth-child(3) { background: #28c840; }
+.term-body { overflow-x: auto; }
+/* The padding lives on this wrapper rather than the scroll container: a scroll
+   container's padding-right sits at the edge of the content box and collapses
+   once the content overflows. width: max-content keeps the inset after the
+   widest line, where the scroll actually ends. */
+.term-inner { width: max-content; min-width: 100%; padding: 1rem 1.1rem; }
+.term-user { color: #7ee787; }
+.term-path, .term-accent { color: #79c0ff; }
+.term-muted { color: #8b949e; }
+.term-value { color: #e3b341; }
+.term-stats { display: grid; grid-template-columns: max-content 1fr; column-gap: 1.5ch; margin: 1em 0; }
+.term-key { color: #8b949e; }
+.term-weekly { display: block; width: max-content; }
+.term-spark { display: block; letter-spacing: .5px; white-space: pre; }
+.term-axis { display: flex; justify-content: space-between; color: #8b949e; }
+.term-cursor { display: inline-block; width: .6em; height: 1em; background: #c9d1d9; vertical-align: text-bottom; }
 picture { display: block; }
 .experience-list { padding: 0; margin: 0; list-style: none; }
 .experience-section { margin-top: 38px; }
@@ -279,7 +309,8 @@ picture { display: block; }
 .contact-option { display: grid; grid-template-columns: 130px 1fr auto; align-items: baseline; gap: 18px; padding: 27px 0; border-bottom: 1px solid var(--line); }
 .contact-option h2 { font-size: 15px; letter-spacing: 0; }
 .contact-option p { color: var(--muted); font-size: 14px; margin-top: 7px; }
-.contact-option > div > a { overflow-wrap: anywhere; font-size: 17px; }
+.contact-option > div > a { overflow-wrap: anywhere; font-size: 17px; color: var(--link); text-decoration: none; }
+.contact-option > div > a:hover { color: var(--link-hover); }
 .contact-option > .arrow { font-size: 20px; }
 .contact-note { margin-top: 34px; }
 .article-header { padding: 47px 0 31px; }

@@ -88,31 +88,107 @@
 
   async function loadGithub(year) {
     const link = document.querySelector("[data-github-activity]");
-    if (!link) return;
+    const terminal = document.querySelector("[data-github-terminal]");
+    if (!link && !terminal) return;
     const key = `clean-portfolio-github-${year}`;
-    function render(total) {
+
+    // The API returns one entry per day. Everything shown in the terminal is
+    // derived from that calendar: totals, active days, streaks, the busiest day
+    // and a per-week sparkline. Future days come back as zero, so they are
+    // dropped before any of the day counts are computed.
+    const BLOCKS = "▁▂▃▄▅▆▇█";
+    const DAY = 24 * 60 * 60 * 1000;
+    function summarize(data) {
+      const days = Array.isArray(data?.contributions) ? data.contributions : null;
+      const reported = data?.total?.[String(year)];
+      if (!days) return null;
+      const now = new Date();
+      const cutoff = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+      const elapsed = days
+        .filter(day => typeof day?.date === "string" && Number.isFinite(day.count) && day.date <= cutoff)
+        .sort((a, b) => (a.date < b.date ? -1 : 1));
+      if (!elapsed.length) return null;
+      const counted = elapsed.reduce((sum, day) => sum + day.count, 0);
+      const total = Number.isSafeInteger(reported) && reported >= 0 ? reported : counted;
+      const active = elapsed.filter(day => day.count > 0).length;
+      let current = 0;
+      for (let i = elapsed.length - 1; i >= 0 && elapsed[i].count > 0; i--) current++;
+      let best = 0;
+      let run = 0;
+      for (const day of elapsed) {
+        run = day.count > 0 ? run + 1 : 0;
+        if (run > best) best = run;
+      }
+      const busiest = elapsed.reduce((max, day) => (day.count > max.count ? day : max), elapsed[0]);
+      // One block per week, bucketed from Monday so the columns line up.
+      const weeks = new Map();
+      for (const day of elapsed) {
+        const date = new Date(`${day.date}T00:00:00Z`);
+        const offset = (date.getUTCDay() + 6) % 7;
+        const monday = new Date(date.getTime() - offset * DAY).toISOString().slice(0, 10);
+        weeks.set(monday, (weeks.get(monday) || 0) + day.count);
+      }
+      const peak = Math.max(...weeks.values(), 1);
+      const spark = [...weeks.values()]
+        .map(count => (count === 0 ? "▁" : BLOCKS[Math.min(7, Math.max(1, Math.round((count / peak) * 7)))]))
+        .join("");
+      const label = (iso) => new Date(`${iso}T00:00:00Z`)
+        .toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
+      return { year, total, active, elapsed: elapsed.length, current, best,
+        busiestCount: busiest.count, busiestLabel: new Date(`${busiest.date}T00:00:00Z`)
+          .toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric", timeZone: "UTC" }),
+        spark, start: label(elapsed[0].date), end: label(elapsed[elapsed.length - 1].date) };
+    }
+
+    function renderFooter(total) {
+      if (!link) return;
       const number = document.createElement("strong");
       number.textContent = total.toLocaleString();
       link.replaceChildren(number, document.createTextNode(` GitHub contributions in ${year}`));
       link.dataset.status = "ready";
     }
 
+    function renderTerminal(summary) {
+      if (!terminal) return;
+      const set = (sel, value) => {
+        const node = terminal.querySelector(sel);
+        if (node) node.textContent = value;
+      };
+      set("[data-gh-year]", summary.year);
+      set("[data-gh-total]", summary.total.toLocaleString());
+      set("[data-gh-active]", `${summary.active}/${summary.elapsed} days`);
+      set("[data-gh-streak]", summary.current.toLocaleString());
+      set("[data-gh-best]", summary.best.toLocaleString());
+      set("[data-gh-busiest]", `${summary.busiestCount} on ${summary.busiestLabel}`);
+      set("[data-gh-spark]", summary.spark);
+      set("[data-gh-axis-start]", summary.start);
+      set("[data-gh-axis-end]", summary.end);
+      terminal.hidden = false;
+    }
+
+    function render(summary) {
+      renderFooter(summary.total);
+      renderTerminal(summary);
+    }
+
     // Only public contribution totals are cached; newsletter details are never stored.
     // A day-old total is shown immediately and refreshed in the background.
     let cached;
+    let cachedAt = 0;
     try {
       const stored = JSON.parse(localStorage.getItem(key));
-      if (stored && Number.isSafeInteger(stored.total) && stored.total >= 0 &&
+      if (stored && stored.summary && Number.isSafeInteger(stored.summary.total) && stored.summary.total >= 0 &&
           Number.isFinite(stored.savedAt) && Date.now() - stored.savedAt >= 0) {
-        cached = stored;
+        cached = stored.summary;
+        cachedAt = stored.savedAt;
       }
     } catch {
       // An unavailable or invalid cache does not prevent a fresh request.
     }
     if (cached) {
-      render(cached.total);
-      if (Date.now() - cached.savedAt < 24 * 60 * 60 * 1000) return;
-    } else {
+      render(cached);
+      if (Date.now() - cachedAt < DAY) return;
+    } else if (link) {
       link.dataset.status = "loading";
     }
     const controller = new AbortController();
@@ -125,16 +201,16 @@
       });
       if (!response.ok) throw new Error(`GitHub activity returned ${response.status}`);
       const data = await response.json();
-      const total = data.total?.[String(year)];
-      if (!Number.isSafeInteger(total) || total < 0) throw new Error("Invalid GitHub contribution count");
-      render(total);
+      const summary = summarize(data);
+      if (!summary) throw new Error("Invalid GitHub contribution data");
+      render(summary);
       try {
-        localStorage.setItem(key, JSON.stringify({ total, savedAt: Date.now() }));
+        localStorage.setItem(key, JSON.stringify({ summary, savedAt: Date.now() }));
       } catch {
         // The live total remains visible if browser storage is unavailable.
       }
     } catch {
-      if (!cached) {
+      if (!cached && link) {
         link.textContent = "View my GitHub activity ↗";
         link.title = "The live contribution count is temporarily unavailable.";
         link.dataset.status = "unavailable";
