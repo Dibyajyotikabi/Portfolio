@@ -276,7 +276,12 @@ picture { display: block; }
 .contact-option > .arrow { font-size: 20px; }
 .contact-note { margin-top: 34px; }
 .article-header { padding: 47px 0 31px; }
-.back-link { font-size: 14px; }
+/* Article chrome reads as navigation, not body copy, so it carries no
+   underline. Hover shifts the colour instead. */
+.back-link { font-size: 14px; color: var(--ink); text-decoration: none; }
+.back-link:hover { color: var(--link); text-decoration: none; }
+.article-footer a { color: var(--ink); text-decoration: none; }
+.article-footer a:hover { color: var(--link); text-decoration: none; }
 .article-header h1 { margin: 27px 0 17px; font-size: 1.4em; letter-spacing: normal; }
 .article-meta { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 13px; }
 .article-body { padding-bottom: 38px; }
