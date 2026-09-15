@@ -144,13 +144,15 @@ mark.yellow { background: var(--yellow); }
 .theme-toggle:hover { color: var(--ink); }
 .theme-toggle:focus-visible { outline-offset: 2px; border-radius: 4px; }
 .avatar { width: 39px; height: 39px; object-fit: cover; object-position: 54% 40%; border-radius: 50%; }
-.site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem 1rem; font-size: 16px; }
-.site-nav a { display: inline-flex; align-items: center; text-decoration: none; color: var(--nav-ink); font-weight: 500; padding: .35rem .4rem; }
-/* Small diamond between nav items, matching the reference site. inline-block
-   keeps the active link's underline from running through the diamond. */
-.site-nav a + a::before { content: "✦"; display: inline-block; color: var(--line-strong); font-size: 12.8px; margin-right: .4rem; font-weight: 400; }
+.site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem .55rem; font-size: 16px; }
+.site-nav a { display: inline-flex; align-items: center; text-decoration: none; color: var(--nav-ink); font-weight: 500; padding: .35rem .3rem; }
+/* Small diamond between nav items, matching the reference site. These are real
+   elements rather than ::before on the link: text-decoration propagates into a
+   link's own pseudo-elements, so an ::before separator always ended up with the
+   active link's underline drawn through it. */
+.nav-sep { color: var(--line-strong); font-size: 12px; line-height: 1; user-select: none; }
 .site-nav a:hover { color: var(--link); }
-.site-nav a[aria-current] { text-decoration-line: underline; text-decoration-color: currentColor; text-underline-offset: 3px; }
+.site-nav a[aria-current] { text-decoration-line: underline; text-decoration-color: currentColor; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .hero { padding: 39px 0 29px; }
 .hero h1 { margin-bottom: 20px; }
 .intro { font-size: 16px; line-height: 1.5; letter-spacing: 0; }
@@ -185,8 +187,8 @@ mark.yellow { background: var(--yellow); }
 .writing-row { padding: 18px 0; }
 .writing-row + .writing-row { border-top: 1px solid var(--line); }
 .writing-row a { text-decoration: none; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
-.writing-row a span { text-decoration: underline; text-decoration-color: var(--link); font-size: 16px; font-weight: 550; }
-.writing-row a:hover span { text-decoration-style: dotted; text-decoration-color: var(--link-hover); }
+.writing-row a span { text-decoration: underline; text-decoration-color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; font-size: 16px; font-weight: 550; }
+.writing-row a:hover span { text-decoration-color: var(--link-hover); text-decoration-style: dotted; }
 .writing-row time { flex-shrink: 0; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 400; }
 .writing-row p { color: var(--muted); font-size: 15px; margin-top: 9px; }
 .site-footer { padding: 27px 16px 30px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 14px; }
@@ -278,6 +280,11 @@ picture { display: block; }
   .theme-toggle { width: 44px; height: 44px; }
   .theme-toggle svg { width: 23px; height: 23px; }
   .site-nav { justify-content: flex-start; width: 100%; }
+  /* Five links wrap to two rows at phone widths, which would strand a
+     separator at the end of the first row. Hide them and let the gap do
+     the separating instead. */
+  .nav-sep { display: none; }
+  .site-nav { gap: .35rem 1.1rem; }
   .site-nav a { padding-block: 9px; }
   .hero { padding-top: 30px; }
   .hero h1 { letter-spacing: normal; }
