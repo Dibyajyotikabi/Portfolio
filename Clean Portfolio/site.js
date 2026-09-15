@@ -186,16 +186,25 @@
       if (!response.ok) throw new Error("Writing unavailable");
       const data = await response.json();
       if (!Array.isArray(data.posts)) throw new Error("Invalid writing response");
-      const rows = data.posts.slice(0, 3).map(post => {
+      const shown = data.posts.slice(0, 3);
+      const rows = shown.map((post, index) => {
         const url = new URL(post.url);
         const date = new Date(post.date);
         if (url.origin !== backendUrl.origin || typeof post.title !== "string" || !Number.isFinite(date.getTime())) throw new Error("Invalid story");
         const row = document.createElement("li"); row.className = "writing-row";
+        const total = Number.isSafeInteger(data.total) && data.total > 0 ? data.total : shown.length;
+        row.dataset.number = String(total - index);
         const link = document.createElement("a"); link.href = url.href;
         const title = document.createElement("span"); title.textContent = post.title;
+        link.append(title);
+        const meta = document.createElement("ul"); meta.className = "writing-meta";
+        const metaItem = document.createElement("li");
+        const kind = document.createElement("span");
+        kind.className = "entry-kind entry-kind-blog"; kind.setAttribute("aria-hidden", "true");
         const time = document.createElement("time"); time.dateTime = date.toISOString();
         time.textContent = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
-        link.append(title, time); row.append(link); return row;
+        metaItem.append(kind, time); meta.append(metaItem);
+        row.append(link, meta); return row;
       });
       if (rows.length) list.replaceChildren(...rows);
       if (Number.isSafeInteger(data.total) && data.total >= 0) {

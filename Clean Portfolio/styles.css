@@ -183,14 +183,23 @@ mark.yellow { background: var(--yellow); }
 .note { padding: 19px 22px; margin: 4px 0 28px; background: var(--note); border: 1px solid var(--note-line); border-radius: 5px; }
 .note p { font-size: 15px; line-height: 1.6; color: var(--note-ink); }
 .current-work { margin: 0 0 27px; font-size: 16px; line-height: 1.6; }
-.writing-list { list-style: none; padding: 0; margin: 6px 0 0; }
-.writing-row { padding: 18px 0; }
-.writing-row + .writing-row { border-top: 1px solid var(--line); }
-.writing-row a { text-decoration: none; display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
-.writing-row a span { text-decoration: underline; text-decoration-color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; font-size: 16px; font-weight: 550; }
-.writing-row a:hover span { text-decoration-color: var(--link-hover); text-decoration-style: dotted; }
-.writing-row time { flex-shrink: 0; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 400; }
-.writing-row p { color: var(--muted); font-size: 15px; margin-top: 9px; }
+/* Numbered article list, matching the reference: no rules between rows, the
+   number hangs in the left gutter, and the title carries no underline. */
+.writing-list { list-style: none; padding: 0; margin: 2rem 0; }
+.writing-row { position: relative; margin-bottom: 1.5rem; padding-left: 2.5rem; }
+.writing-row:last-child { margin-bottom: 0; }
+.writing-row::before { position: absolute; left: 0; top: .175rem; content: attr(data-number) "."; font-size: .85rem; line-height: 1; font-weight: 500; color: var(--link); }
+.writing-row a { position: relative; display: inline-block; width: fit-content; max-width: 100%; text-decoration: none; color: var(--ink); font-weight: 700; }
+.writing-row a::after { content: ""; position: absolute; inset: 0; }
+.writing-row a span { font-size: 1em; font-weight: 700; text-decoration: none; }
+.writing-row a:hover span { color: var(--link); }
+.writing-row time { display: inline-flex; align-items: center; font-size: .8em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.writing-meta { display: flex; align-items: center; flex-wrap: wrap; column-gap: .75rem; row-gap: .28rem; list-style: none; padding: 0; margin: .34rem 0 0; }
+.writing-meta li { display: inline-flex; align-items: center; font-size: .8em; color: var(--muted); }
+.entry-kind { display: inline-block; width: .55em; height: .55em; min-width: .55em; min-height: .55em; border-radius: 50%; flex-shrink: 0; box-sizing: border-box; vertical-align: middle; margin-right: .4em; }
+.entry-kind-note { background: transparent; border: 1.5px solid var(--peach-ink); }
+.entry-kind-blog { background: var(--green-ink); border: 1.5px solid var(--green-ink); }
+.writing-row p { color: var(--muted); font-size: 15px; margin-top: .34rem; }
 .site-footer { padding: 27px 16px 30px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 14px; }
 .newsletter { margin-bottom: 26px; }
 .newsletter h2 { font-size: 16px; letter-spacing: 0; margin-bottom: 8px; color: var(--ink); }
