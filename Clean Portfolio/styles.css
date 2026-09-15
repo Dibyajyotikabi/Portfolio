@@ -245,7 +245,9 @@ mark.lavender { background: var(--lavender); }
 .page-intro h1 { margin-bottom: 20px; }
 .page-intro > p:last-child { max-width: 650px; font-size: 16px; color: var(--ink); line-height: 1.5; }
 .jump-links { display: flex; flex-wrap: wrap; gap: 10px 24px; padding-bottom: 30px; font-size: 14px; }
-.jump-links a { color: var(--ink); text-decoration: none; }
+/* This row is a table of contents, so the links keep an underline and read
+   as navigation rather than as a line of plain text. */
+.jump-links a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .jump-links a:hover { color: var(--link); }
 /* Five section links need ~408px at 14px, but a 320px screen only offers
    273px. Rather than shrink the text below a comfortable size or let the row
