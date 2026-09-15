@@ -98,19 +98,23 @@
     }
 
     // Only public contribution totals are cached; newsletter details are never stored.
+    // A day-old total is shown immediately and refreshed in the background.
+    let cached;
     try {
-      const cached = JSON.parse(sessionStorage.getItem(key));
-      if (cached && Number.isSafeInteger(cached.total) && cached.total >= 0 &&
-          Number.isFinite(cached.savedAt) && Date.now() - cached.savedAt >= 0 &&
-          Date.now() - cached.savedAt < 60 * 60 * 1000) {
-        render(cached.total);
-        return;
+      const stored = JSON.parse(localStorage.getItem(key));
+      if (stored && Number.isSafeInteger(stored.total) && stored.total >= 0 &&
+          Number.isFinite(stored.savedAt) && Date.now() - stored.savedAt >= 0) {
+        cached = stored;
       }
     } catch {
       // An unavailable or invalid cache does not prevent a fresh request.
     }
-
-    link.dataset.status = "loading";
+    if (cached) {
+      render(cached.total);
+      if (Date.now() - cached.savedAt < 24 * 60 * 60 * 1000) return;
+    } else {
+      link.dataset.status = "loading";
+    }
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
     try {
@@ -125,14 +129,16 @@
       if (!Number.isSafeInteger(total) || total < 0) throw new Error("Invalid GitHub contribution count");
       render(total);
       try {
-        sessionStorage.setItem(key, JSON.stringify({ total, savedAt: Date.now() }));
+        localStorage.setItem(key, JSON.stringify({ total, savedAt: Date.now() }));
       } catch {
-        // The live total remains visible if session storage is unavailable.
+        // The live total remains visible if browser storage is unavailable.
       }
     } catch {
-      link.textContent = "View my GitHub activity ↗";
-      link.title = "The live contribution count is temporarily unavailable.";
-      link.dataset.status = "unavailable";
+      if (!cached) {
+        link.textContent = "View my GitHub activity ↗";
+        link.title = "The live contribution count is temporarily unavailable.";
+        link.dataset.status = "unavailable";
+      }
     } finally {
       clearTimeout(timeout);
     }
