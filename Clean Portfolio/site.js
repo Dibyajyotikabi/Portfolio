@@ -11,15 +11,30 @@
     ? new URL("https://blogs.dibyajyotikabi.com/") : new URL("/", scriptUrl);
   const visitorsUrl = new URL("api/visitors", backendUrl);
   const validTheme = (value) => Object.hasOwn(themeColors, value);
-  let preferredTheme;
+  const deviceTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  const sharedDomain = scriptUrl.hostname === "dibyajyotikabi.com" || scriptUrl.hostname.endsWith(".dibyajyotikabi.com");
+  let temporaryTheme;
 
-  // Theme switching still works when browser privacy settings block storage.
-  try {
-    const saved = localStorage.getItem(themeKey);
-    if (validTheme(saved)) preferredTheme = saved;
-  } catch {
-    preferredTheme = undefined;
+  function readTheme() {
+    try {
+      const shared = document.cookie.split(";").map(value => value.trim())
+        .find(value => value.startsWith(`${themeKey}=`))?.slice(themeKey.length + 1);
+      if (validTheme(shared)) return shared;
+      const saved = localStorage.getItem(themeKey);
+      if (validTheme(saved)) return saved;
+    } catch { /* Device settings work even when browser storage is blocked. */ }
   }
+
+  function saveTheme(theme) {
+    try {
+      document.cookie = `${themeKey}=${theme}; Path=/; Max-Age=31536000; SameSite=Lax${sharedDomain ? "; Domain=dibyajyotikabi.com" : ""}${scriptUrl.protocol === "https:" ? "; Secure" : ""}`;
+    } catch { /* Keep the choice usable on this page if cookies are blocked. */ }
+    try { localStorage.setItem(themeKey, theme); } catch { /* Cookies can still share the choice. */ }
+    temporaryTheme = readTheme() === theme ? undefined : theme;
+  }
+  let preferredTheme = readTheme();
+  // Migrate an existing manual choice to the cookie shared by both sites.
+  if (preferredTheme) saveTheme(preferredTheme);
 
   function applyTheme(theme) {
     if (!validTheme(theme)) theme = "light";
@@ -39,13 +54,20 @@
     if (themeColor) themeColor.content = themeColors[theme];
   }
 
-  // Start in day mode until a visitor chooses another display mode.
-  applyTheme(preferredTheme || "light");
-  window.addEventListener("storage", (event) => {
-    if (event.key !== themeKey && event.key !== null) return;
-    preferredTheme = validTheme(event.newValue) ? event.newValue : undefined;
-    applyTheme(preferredTheme || "light");
-  });
+  function syncTheme() {
+    preferredTheme = temporaryTheme || readTheme();
+    const theme = preferredTheme || (deviceTheme.matches ? "dark" : "light");
+    if (root.dataset.theme !== theme) applyTheme(theme);
+  }
+  syncTheme();
+  deviceTheme.addEventListener("change", syncTheme);
+  window.addEventListener("focus", syncTheme);
+  window.addEventListener("pageshow", syncTheme);
+  window.addEventListener("storage", syncTheme);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) syncTheme(); });
+  // Cookies are shared across subdomains; storage events are not. Also update
+  // visible side-by-side windows when a choice changes on the other site.
+  setInterval(() => { if (!document.hidden) syncTheme(); }, 1000);
 
   function updateYear() {
     const now = new Date();
@@ -182,11 +204,7 @@
     document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
       preferredTheme = themes[(themes.indexOf(root.dataset.theme) + 1) % themes.length];
       applyTheme(preferredTheme);
-      try {
-        localStorage.setItem(themeKey, preferredTheme);
-      } catch {
-        // The selected theme still applies for the current page.
-      }
+      saveTheme(preferredTheme);
     });
 
     const form = document.querySelector("[data-newsletter-form]");
