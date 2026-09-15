@@ -252,6 +252,14 @@ mark.lavender { background: var(--lavender); }
 .prose ul, .prose ol { padding-left: 23px; margin: 16px 0 23px; }
 .prose li { padding-left: 4px; margin-bottom: 8px; }
 .about-photo { width: 100%; max-height: 300px; object-fit: cover; object-position: center 32%; border-radius: 5px; margin: 3px 0 33px; }
+/* Statistics cards, matching the reference: auto-fitting columns at a 161px
+   minimum so they reflow on narrow screens, a hairline border, and a large
+   accent figure over a softened label. */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(161px, 1fr)); gap: 1rem; margin: 1.5rem 0 2rem; }
+.stat-card { display: flex; flex-direction: column; gap: .25rem; padding: 1.25rem 1.25rem .75rem; border: 1px solid var(--line); border-radius: 8px; }
+.stat-number { font-size: 1.75rem; font-weight: 600; line-height: 1.1; color: var(--link); }
+.stat-label { font-size: .85rem; opacity: .7; }
+.stats-note { font-size: .85rem; color: var(--soft); margin-top: -.5rem; }
 picture { display: block; }
 .experience-list { padding: 0; margin: 0; list-style: none; }
 .experience-section { margin-top: 38px; }
