@@ -6,7 +6,10 @@
   const themeColors = { light: "#fafafa", dark: "#11151d", read: "#f7f1e6" };
   const themes = ["light", "dark", "read"];
   const themeLabels = { light: "Light", dark: "Dark", read: "Reading" };
-  const visitorsUrl = new URL("api/visitors", document.currentScript.src);
+  const scriptUrl = new URL(document.currentScript.src);
+  const backendUrl = scriptUrl.hostname === "dibyajyotikabi.com"
+    ? new URL("https://blogs.dibyajyotikabi.com/") : new URL("/", scriptUrl);
+  const visitorsUrl = new URL("api/visitors", backendUrl);
   const validTheme = (value) => Object.hasOwn(themeColors, value);
   let preferredTheme;
 
@@ -116,23 +119,62 @@
   async function loadVisitors() {
     const count = document.querySelector("[data-visitor-count]");
     if (!count) return;
+    let lastTotal = 12000;
+    try {
+      const cached = Number(localStorage.getItem("portfolio-visitor-total"));
+      if (Number.isSafeInteger(cached) && cached >= 12000) lastTotal = cached;
+    } catch { /* A blocked cache must not hide the total. */ }
+    count.textContent = `${lastTotal.toLocaleString("en-US")}+`;
+    count.title = "Last recorded total; checking for an update.";
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
     try {
       const response = await fetch(visitorsUrl, {
-        method: "POST", credentials: "same-origin", cache: "no-store",
+        method: "POST", credentials: "include", cache: "no-store",
         headers: { "Content-Type": "application/json" }, body: "{}", signal: controller.signal,
       });
       if (!response.ok) throw new Error("Visitor count unavailable");
       const { total } = await response.json();
       if (!Number.isSafeInteger(total) || total < 12000) throw new Error("Invalid visitor count");
       count.textContent = total.toLocaleString("en-US");
+      count.title = "Total visits, counting a returning visit after 30 minutes of inactivity.";
+      count.dataset.status = "ready";
+      try { localStorage.setItem("portfolio-visitor-total", String(total)); } catch { /* The live value is already visible. */ }
     } catch {
-      count.textContent = "—";
-      count.title = "The live visitor count is temporarily unavailable.";
+      count.title = "Last recorded total; the live update is temporarily unavailable.";
+      count.dataset.status = "cached";
     } finally {
       clearTimeout(timeout);
     }
+  }
+
+  async function loadWriting() {
+    const list = document.querySelector("[data-latest-writing]");
+    if (!list) return;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    try {
+      const response = await fetch(new URL("api/writing", backendUrl), { signal: controller.signal, credentials: "omit" });
+      if (!response.ok) throw new Error("Writing unavailable");
+      const data = await response.json();
+      if (!Array.isArray(data.posts)) throw new Error("Invalid writing response");
+      const rows = data.posts.slice(0, 3).map(post => {
+        const url = new URL(post.url);
+        const date = new Date(post.date);
+        if (url.origin !== backendUrl.origin || typeof post.title !== "string" || !Number.isFinite(date.getTime())) throw new Error("Invalid story");
+        const row = document.createElement("li"); row.className = "writing-row";
+        const link = document.createElement("a"); link.href = url.href;
+        const title = document.createElement("span"); title.textContent = post.title;
+        const time = document.createElement("time"); time.dateTime = date.toISOString();
+        time.textContent = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+        link.append(title, time); row.append(link); return row;
+      });
+      if (rows.length) list.replaceChildren(...rows);
+      if (Number.isSafeInteger(data.total) && data.total >= 0) {
+        document.querySelectorAll("[data-post-count]").forEach(element => { element.textContent = data.total; });
+      }
+    } catch { /* Keep the published article links available if the blog cannot be reached. */ }
+    finally { clearTimeout(timeout); }
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -167,5 +209,6 @@
 
     loadGithub(updateYear());
     loadVisitors();
+    loadWriting();
   });
 })();

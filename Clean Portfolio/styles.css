@@ -153,9 +153,9 @@ mark.yellow { background: var(--yellow); }
 .year-progress progress::-webkit-progress-bar { background: var(--line); }
 .year-progress progress::-webkit-progress-value { background: repeating-linear-gradient(90deg, var(--blue) 0 3px, transparent 3px 4px); }
 .year-progress progress::-moz-progress-bar { background: repeating-linear-gradient(90deg, var(--blue) 0 3px, transparent 3px 4px); }
-.visitor-count { display: flex; align-items: center; gap: 8px; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.visitor-count { display: flex; align-items: center; gap: 8px; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--ink); font-size: 14px; }
 .visitor-count svg { width: 17px; height: 17px; fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.visitor-count strong { color: var(--blue); font-variant-numeric: tabular-nums; }
+.visitor-count strong { color: var(--blue); font-size: 17px; font-variant-numeric: tabular-nums; }
 .footer-copy { margin-top: 18px; font-size: 12px; }
 .page-intro { padding: 38px 0 29px; }
 .page-intro h1 { margin-bottom: 20px; }
@@ -199,8 +199,6 @@ mark.yellow { background: var(--yellow); }
 .article-footer { border-top: 1px solid var(--line); padding: 28px 0 44px; font-size: 14px; color: var(--muted); }
 .article-footer p + p { margin-top: 8px; }
 .writing-page { padding-bottom: 15px; }
-.writing-page .writing-row { padding: 25px 0; }
-.writing-page .writing-row a span { font-size: 16px; }
 
 :root[data-theme="read"] main :is(p, .prose li) { font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.8; }
 

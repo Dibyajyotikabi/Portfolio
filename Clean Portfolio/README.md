@@ -10,7 +10,7 @@ python3 server.py
 
 Then visit http://127.0.0.1:4173.
 
-Production is published to `https://dibyajyotikabi.com/` by the parent repository's GitHub Pages workflow. Run `npm run build` from the parent directory: it packages these public files at the site root and builds the original React portfolio at `/old-themes/`, linked from every footer. `robots.txt`, `sitemap.xml`, canonical URLs, social metadata, and structured data are included. The build excludes the Python server, private blog editor, and development files. GitHub Pages is static, so the local visitor counter requires a separate backend to update in production.
+Production is published to `https://dibyajyotikabi.com/` by the parent repository's GitHub Pages workflow. Run `npm run build` from the parent directory: it packages these public files at the site root and builds the original React portfolio at `/old-themes/`, linked from every footer. `robots.txt`, `sitemap.xml`, canonical URLs, social metadata, and structured data are included. The build excludes the Python server, private blog editor, and development files. The live visitor total and latest writing load from the existing blog server at `https://blogs.dibyajyotikabi.com`. Writing links point to individual blog articles; the previous portfolio article URLs redirect there.
 
 - `index.html` — introduction and selected projects
 - `projects.html` — all 13 projects, including SamUpdater, AI Update Notes, and Cricket Scoreboard
@@ -30,4 +30,4 @@ One icon cycles through Light → Dark → Read and remembers the visitor's choi
 
 The visitor total starts with a user-specified baseline of 12,000 and increases once per visit. An anonymous cookie prevents page navigation or refreshes from counting again until 30 minutes of inactivity. SQLite stores the shared total at `~/.local/share/clean-portfolio/visitors.sqlite3`, outside the public directory; set `PORTFOLIO_VISITOR_DB` to another persistent path if needed. No visitor identities or IP addresses are stored in the database. The standard HTTP server logs requests to the terminal.
 
-Publishing requires this server (behind your host's HTTPS proxy) or an equivalent `/api/visitors` endpoint with persistent storage. Plain static hosting still serves the pages, but the visitor total displays an unavailable indicator until that endpoint is connected. Keep the database when restarting or redeploying to preserve the count.
+The production blog stores the shared visitor total in its persistent SQLite volume. A signed, anonymous cookie counts a new visit after 30 minutes of inactivity across the portfolio and blog. The client retains the last known total with a `+` if an update fails, so the number stays visible. Local previews continue to use the Python endpoint. Keep both databases when restarting or redeploying to preserve their respective totals.
