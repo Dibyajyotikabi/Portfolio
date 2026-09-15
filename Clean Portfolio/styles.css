@@ -1,21 +1,21 @@
 :root {
   color-scheme: light;
-  --paper: #fafafa;
+  --paper: #f7faff;
   --ink: #0f172a;
-  --muted: #626b79;
-  --line: #e2e2e2;
+  --muted: #4b5563;
+  --line: #d8e0ed;
   --blue: #3364ff;
   --link: #3364ff;
   --link-hover: #2b55d6;
-  --green: #e5efdf;
-  --lavender: #eee7f7;
-  --yellow: #faf0cc;
-  --peach: #f9e6dc;
-  --blue-tint: #cfe0ff;
-  --surface: #f0f0f0;
-  --note: #eff3eb;
-  --note-line: #e4eadf;
-  --note-ink: #535e4d;
+  --green: #e7eef9;
+  --lavender: #eaecfa;
+  --yellow: #eff1e8;
+  --peach: #f2eae7;
+  --blue-tint: #dbe7ff;
+  --surface: #eef2f9;
+  --note: #edf3fb;
+  --note-line: #d8e0ed;
+  --note-ink: #3f4a5c;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,34 +24,42 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #11151d;
-  --ink: #e4e9f2;
-  --muted: #a0aabb;
-  --line: #2b3341;
+  --paper: #121a28;
+  --ink: #eef3f9;
+  --muted: #c5cedb;
+  --line: #3d4f6a;
   --blue: #a3c4ff;
   --link: #a3c4ff;
   --link-hover: #c5d8ff;
-  --green: #2d4135;
-  --lavender: #3a324b;
-  --yellow: #423e29;
-  --peach: #46332f;
-  --blue-tint: #28384e;
-  --surface: #202734;
-  --note: #202e27;
-  --note-line: #35443b;
-  --note-ink: #c1d0c0;
+  --green: #1c2a3d;
+  --lavender: #232b45;
+  --yellow: #2b3140;
+  --peach: #2f2a36;
+  --blue-tint: #1e3350;
+  --surface: #1a2436;
+  --note: #172436;
+  --note-line: #2b3a54;
+  --note-ink: #c5cedb;
 }
 
 :root[data-theme="read"] {
   color-scheme: light;
-  --paper: #f7f1e6;
-  --ink: #302b24;
-  --muted: #696052;
-  --line: #ded5c5;
-  --blue: #285bb5;
+  --paper: #fffcf0;
+  --ink: #100f0f;
+  --muted: #5e584f;
+  --line: #e5dfd0;
+  --blue: #100f0f;
   --link: var(--ink);
   --link-hover: var(--ink);
-  --surface: #eee5d6;
+  --green: #f0ebe0;
+  --lavender: #ede8e0;
+  --yellow: #f3eeda;
+  --peach: #f3e9df;
+  --blue-tint: #e9e7de;
+  --surface: #fffdf7;
+  --note: #f7f3e8;
+  --note-line: #e5dfd0;
+  --note-ink: #5e584f;
 }
 
 * { box-sizing: border-box; }
@@ -82,12 +90,12 @@ mark.yellow { background: var(--yellow); }
 .identity { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.25px; }
 .theme-toggle { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 4px; background: transparent; color: var(--blue); transition: color 150ms; }
-.theme-toggle svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.theme-toggle svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .theme-toggle:hover { color: var(--ink); }
 .theme-toggle:focus-visible { outline-offset: 2px; border-radius: 4px; }
 .avatar { width: 39px; height: 39px; object-fit: cover; object-position: 54% 40%; border-radius: 50%; }
-.site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; font-size: 14px; }
-.site-nav a { text-decoration: none; color: var(--ink); padding-block: 6px; }
+.site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 16px; }
+.site-nav a { text-decoration: none; color: var(--ink); padding-block: 7px; }
 .site-nav a:hover { color: var(--link); }
 .site-nav a[aria-current] { text-decoration-line: underline; text-decoration-color: currentColor; text-underline-offset: 3px; }
 .hero { padding: 39px 0 29px; }
@@ -208,21 +216,39 @@ picture { display: block; }
 :root[data-theme="read"] main :is(p, .prose li) { font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.8; }
 
 @media (max-width: 660px) {
-  .site-header { flex-direction: column; align-items: flex-start; gap: 17px; padding: 21px 0 18px; }
-  .identity { width: 100%; justify-content: flex-start; }
-  .site-nav { justify-content: space-between; gap: 8px 12px; width: 100%; }
+  .site-header { flex-direction: column; align-items: flex-start; gap: 18px; padding: 22px 0 18px; }
+  .identity { width: 100%; justify-content: flex-start; gap: 6px; }
+  .brand { font-size: 18px; gap: 11px; }
+  .avatar { width: 44px; height: 44px; }
+  .theme-toggle { width: 44px; height: 44px; }
+  .theme-toggle svg { width: 23px; height: 23px; }
+  .site-nav { justify-content: space-between; gap: 10px 14px; width: 100%; font-size: 16px; }
+  .site-nav a { padding-block: 9px; }
   .hero { padding-top: 30px; }
   .hero h1 { letter-spacing: -.55px; }
   .intro { font-size: 16px; }
   .page-intro { padding-top: 30px; }
   .writing-row a { flex-direction: column; gap: 7px; }
-  .writing-row time { font-size: 11px; }
+  .writing-row time { font-size: 12px; }
+  .writing-row p { font-size: 15px; }
+  .project-row p { font-size: 15px; }
+  .project-meta { font-size: 13px; }
+  .tag { font-size: 11px; }
+  .section-heading > a { font-size: 14px; }
+  .location { font-size: 14px; }
+  .back-link { font-size: 14px; }
+  .article-meta { font-size: 13px; }
+  .article-footer { font-size: 15px; }
+  .newsletter > p { font-size: 15px; }
+  .newsletter .newsletter-help { font-size: 13px; }
+  .site-footer { font-size: 14px; }
   .experience-item { grid-template-columns: 1fr; gap: 7px; }
   .detail-list { grid-template-columns: 1fr; }
   .contact-main { min-height: auto; padding-bottom: 22px; }
   .contact-option { grid-template-columns: 1fr auto; gap: 11px; }
   .contact-option h2 { grid-column: 1 / -1; }
   .contact-option > div > a { font-size: 16px; }
+  .contact-option p { font-size: 14px; }
   .newsletter-form { grid-template-columns: 1fr; }
   .newsletter-form button { min-height: 43px; }
   .year-progress { flex-wrap: wrap; }
@@ -230,12 +256,12 @@ picture { display: block; }
 
 @media (max-width: 380px) {
   .shell { width: calc(100% - 36px); }
-  .site-nav { column-gap: 8px; font-size: 13px; }
+  .site-nav { column-gap: 10px; font-size: 14px; }
   h1 { font-size: 26px; }
   .project-row { grid-template-columns: 34px 1fr; gap: 12px; }
   .project-icon { width: 34px; height: 34px; border-radius: 8px; }
   .section-heading { gap: 12px; }
-  .section-heading > a { font-size: 12px; }
+  .section-heading > a { font-size: 13px; }
   .note { padding: 20px; }
 }
 

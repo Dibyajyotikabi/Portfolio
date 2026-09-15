@@ -3,7 +3,7 @@
 
   const root = document.documentElement;
   const themeKey = "clean-portfolio-theme";
-  const themeColors = { light: "#fafafa", dark: "#11151d", read: "#f7f1e6" };
+  const themeColors = { light: "#f7faff", dark: "#121a28", read: "#fffcf0" };
   const themes = ["light", "dark", "read"];
   const themeLabels = { light: "Light", dark: "Dark", read: "Reading" };
   const scriptUrl = new URL(document.currentScript.src);
