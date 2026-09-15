@@ -2,7 +2,9 @@
   "use strict";
 
   const root = document.documentElement;
-  const themeKey = "clean-portfolio-theme";
+  // v2 discards the older stored preference so the site opens on the light
+  // palette that matches the reference design.
+  const themeKey = "clean-portfolio-theme-v2";
   const themeColors = { light: "#f7faff", dark: "#121a28", read: "#fffcf0" };
   const themes = ["light", "dark", "read"];
   const themeLabels = { light: "Light", dark: "Dark", read: "Reading" };
@@ -11,7 +13,6 @@
     ? new URL("https://blogs.dibyajyotikabi.com/") : new URL("/", scriptUrl);
   const visitorsUrl = new URL("api/visitors", backendUrl);
   const validTheme = (value) => Object.hasOwn(themeColors, value);
-  const deviceTheme = window.matchMedia("(prefers-color-scheme: dark)");
   const sharedDomain = scriptUrl.hostname === "dibyajyotikabi.com" || scriptUrl.hostname.endsWith(".dibyajyotikabi.com");
   let temporaryTheme;
 
@@ -56,11 +57,10 @@
 
   function syncTheme() {
     preferredTheme = temporaryTheme || readTheme();
-    const theme = preferredTheme || (deviceTheme.matches ? "dark" : "light");
+    const theme = preferredTheme || "light";
     if (root.dataset.theme !== theme) applyTheme(theme);
   }
   syncTheme();
-  deviceTheme.addEventListener("change", syncTheme);
   window.addEventListener("focus", syncTheme);
   window.addEventListener("pageshow", syncTheme);
   window.addEventListener("storage", syncTheme);
