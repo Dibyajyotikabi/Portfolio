@@ -22,7 +22,7 @@ Production is published to `https://dibyajyotikabi.com/` by the parent repositor
 - `server.py` — static file server and persistent visitor counter, starting at 12,000
 - `feed.xml` — RSS feed for all three articles
 - `assets/` — `avatar.jpg` (117×117 header portrait on every page), `portrait.jpg` (1600×983 JPEG fallback and social preview), `portrait.webp` and `portrait-800.webp` (responsive About photo), and `favicon.svg`
-- `blog/` — independent Markdown blog and private editor for Coolify/Hetzner; see its README for development, storage, and deployment
+- `blog/` — independent Markdown blog, private editor, and an AI-facing API and MCP server for Coolify/Hetzner; see its README for development, storage, and deployment, and `blog/AGENT-API.md` for writing with any AI model
 
 Edit the HTML files to change the content. The color variables are at the top of `styles.css`. Each page contains its own navigation and footer, so update those across all pages when changing shared links. The footer's article and project totals and RSS feed reflect the current content.
 
