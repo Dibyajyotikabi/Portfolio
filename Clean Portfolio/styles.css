@@ -310,8 +310,9 @@ picture { display: block; }
 }
 
 @media (max-width: 380px) {
-  .shell { width: calc(100% - 36px); }
-  .site-nav { column-gap: 10px; font-size: 14px; }
+  /* .shell is full-width with a 16px gutter in every band, so there is
+     nothing to override here. The nav keeps the reference's 16px and
+     simply wraps, as the reference's own nav does at this width. */
   h1 { font-size: 26px; }
   .project-row { grid-template-columns: 34px 1fr; gap: 12px; }
   .project-icon { width: 34px; height: 34px; border-radius: 8px; }
