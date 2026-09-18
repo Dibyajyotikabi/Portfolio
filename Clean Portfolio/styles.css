@@ -229,7 +229,9 @@ mark.lavender { background: var(--lavender); }
 .footer-nav.secondary { font-size: 13px; color: var(--muted); gap: 10px 17px; margin-top: 13px; }
 .site-stats { margin-top: 23px; line-height: 1.8; color: var(--ink); }
 .site-stats p + p { margin-top: 0; }
-.site-stats a { text-decoration: none; }
+/* Tapping a stat should be as easy as reading it: the padding lifts these small
+   footer links to the 24px target size without disturbing the line rhythm. */
+.site-stats a { display: inline-block; padding-block: 4px; text-decoration: none; }
 .site-stats a:hover { color: var(--link); }
 .stats-separator { padding-inline: 7px; color: var(--muted); }
 .year-progress { display: flex; align-items: center; gap: 9px; margin-top: 7px; font: 12px ui-monospace, SFMono-Regular, Consolas, monospace; }
