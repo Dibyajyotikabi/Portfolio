@@ -18,6 +18,7 @@ execFileSync(process.execPath, [
 for (const entry of [
   'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
   'styles.css', 'site.js', 'sw.js', 'assets', 'writing', 'feed.xml', 'robots.txt', 'sitemap.xml',
+  'favicon.ico', 'site.webmanifest',
   '827e7df31e49331a435d8b7a0f6416fb.txt',
 ]) {
   cpSync(path.join(source, entry), path.join(dist, entry), { recursive: true });
@@ -34,7 +35,7 @@ writeFileSync(path.join(dist, '404.html'), `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, follow">
 <title>Page not found — Dibyajyoti Kabi</title>
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="/styles.css">
 </head><body><main class="shell hero"><h1>Page not found</h1>
 <p>That page isn’t here. <a href="/">Return to my website</a> or <a href="/old-themes/">visit the old theme</a>.</p>

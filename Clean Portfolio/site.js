@@ -328,12 +328,13 @@
     return true;
   }
 
-  // Other origins (the writing archive) warm the browser's own prefetch cache.
+  // Other origins (the blog) warm the browser's own prefetch cache. Do not mark
+  // this request as cross-origin: the blog's HTML carries no
+  // Access-Control-Allow-Origin header, so a CORS-mode prefetch is blocked and
+  // nothing is ever cached. A plain prefetch is what actually stores the page.
   function saveElsewhere(href) {
     const link = document.createElement("link");
     link.rel = "prefetch";
-    link.as = "document";
-    link.crossOrigin = "anonymous";
     link.href = href;
     document.head.append(link);
   }
