@@ -295,6 +295,8 @@
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const frugal = Boolean(connection && (connection.saveData || /^(slow-)?2g$/.test(connection.effectiveType || "")));
   const warmLimit = 12;
+  // The portfolio and its blog are one website, so a page on either may be saved.
+  const siblings = new Set(["dibyajyotikabi.com", "blogs.dibyajyotikabi.com"]);
   const warmed = new Set();
   let warmQueue = [];
   let warmTimer;
@@ -307,20 +309,23 @@
       anchor.target !== "_blank" && anchor.dataset.warm !== "off" && /^https?:$/.test(anchor.protocol);
   }
 
-  // intent is a hover, tap, or keyboard focus: a real chance of a click.
-  function saveLink(anchor, intent) {
-    if (frugal || warmed.size >= warmLimit) return;
+  const worthSaving = (url) => url.origin === location.origin || siblings.has(url.hostname);
+
+  // Returns true when this link was newly handed to the cache.
+  function saveLink(anchor) {
+    if (frugal || warmed.size >= warmLimit) return false;
     const url = new URL(anchor.href, location.href);
-    if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search) return;
-    if (!intent && url.origin !== location.origin) return;
-    if (warmed.has(url.href)) return;
+    if (!worthSaving(url)) return false;
+    if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search) return false;
+    if (warmed.has(url.href)) return false;
     warmed.add(url.href);
     if (url.origin === location.origin) {
       warmQueue.push(url.href);
       if (!warmTimer) warmTimer = setTimeout(flushWarmQueue, 60);
-      return;
+    } else {
+      saveElsewhere(url.href);
     }
-    saveElsewhere(url.href);
+    return true;
   }
 
   // Other origins (the writing archive) warm the browser's own prefetch cache.
@@ -342,6 +347,14 @@
     const controlling = navigator.serviceWorker?.controller;
     if (controlling) { send(controlling); return; }
     workerReady.then((worker) => (worker ? send(worker) : urls.forEach(saveElsewhere)));
+  }
+
+  function saveLinks(selector, limit) {
+    let saved = 0;
+    for (const anchor of document.querySelectorAll(selector)) {
+      if (saved >= limit) break;
+      if (warmable(anchor) && saveLink(anchor)) saved++;
+    }
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -374,15 +387,14 @@
     loadVisitors();
     loadWriting();
 
-    // Around a dozen pages cover this site, so the whole tour is warmed once the
-    // page is idle and quiet. Crawler-style prefetching never delays what is on
-    // screen: it waits for idle time and uses the browser's lowest priority.
-    const warmPageLinks = () => {
-      const anchors = document.querySelectorAll("nav a[href], header a[href], footer a[href], main a[href], article a[href]");
-      for (const anchor of anchors) if (warmable(anchor)) saveLink(anchor, false);
-    };
-    if ("requestIdleCallback" in window) requestIdleCallback(warmPageLinks, { timeout: 2500 });
-    else setTimeout(warmPageLinks, 1200);
+    // What the visitor is reading is saved first and straight away — the story
+    // list or the links inside an article. Those requests go out at the
+    // browser's lowest priority, so nothing already on screen is held back.
+    saveLinks("main a[href], article a[href]", 6);
+    // The navigation and footer matter less, so they wait for a quiet moment.
+    const warmChrome = () => saveLinks("nav a[href], header a[href], footer a[href]", 6);
+    if ("requestIdleCallback" in window) requestIdleCallback(warmChrome, { timeout: 2500 });
+    else setTimeout(warmChrome, 1200);
   });
 
   // Any link the visitor hovers, taps, or tabs into is saved as early as the
@@ -390,7 +402,7 @@
   for (const type of ["pointerover", "pointerdown", "focusin", "touchstart"]) {
     document.addEventListener(type, (event) => {
       const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
-      if (warmable(anchor)) saveLink(anchor, true);
+      if (warmable(anchor)) saveLink(anchor);
     }, { passive: true, capture: true });
   }
 

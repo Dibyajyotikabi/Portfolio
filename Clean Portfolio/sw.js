@@ -22,7 +22,9 @@ function keepAlive(event, promise) {
 function stored(cache, request) {
   // An in-flight refresh already covers this URL.
   if (refreshing.has(request.url)) return refreshing.get(request.url);
-  const job = fetch(request, { cache: "no-cache", credentials: "same-origin", redirect: "follow" })
+  // The browser's own rules decide freshness, so a copy it already holds fresh —
+  // including one a prefetch put there — is reused instead of re-fetched.
+  const job = fetch(request, { cache: "default", credentials: "same-origin", redirect: "follow" })
     .then((response) => {
       if (!response || !response.ok || response.type !== "basic" || uncacheable(response)) return response;
       return cache.put(request, response.clone()).then(() => response);
@@ -67,7 +69,8 @@ async function warm(urls) {
       const url = new URL(value, self.location.origin);
       if (url.origin !== self.location.origin || url.pathname.startsWith("/api/")) return;
       if (await cache.match(url.href)) return;
-      const response = await fetch(new Request(url.href, { credentials: "same-origin" }));
+      // Lowest priority: saving a page must never compete with the page on screen.
+      const response = await fetch(new Request(url.href, { credentials: "same-origin", priority: "low" }));
       if (response.ok && response.type === "basic" && !uncacheable(response)) await cache.put(url.href, response.clone());
     } catch { /* A page that cannot be warmed simply loads from the network. */ }
   }));
