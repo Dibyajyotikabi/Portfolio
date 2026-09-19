@@ -18,6 +18,7 @@ execFileSync(process.execPath, [
 for (const entry of [
   'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
   'styles.css', 'site.js', 'sw.js', 'assets', 'writing', 'feed.xml', 'robots.txt', 'sitemap.xml',
+  '827e7df31e49331a435d8b7a0f6416fb.txt',
 ]) {
   cpSync(path.join(source, entry), path.join(dist, entry), { recursive: true });
 }
@@ -46,8 +47,17 @@ for (const entry of ['CNAME', 'robots.txt', 'admin']) {
 }
 
 const archiveIndex = path.join(dist, 'old-themes/index.html');
-const archiveHtml = readFileSync(archiveIndex, 'utf8');
+let archiveHtml = readFileSync(archiveIndex, 'utf8');
 if (!/rel="canonical" href="https:\/\/dibyajyotikabi\.com\/"/.test(archiveHtml)) {
   throw new Error('The archived theme is missing its main-site canonical.');
 }
+// The archive is a keepsake, not a destination. Without this, search engines
+// keep offering the old design for the name that the current site should win.
+archiveHtml = archiveHtml.replace(/<meta\s[^>]*name="robots"[^>]*>/i, (tag) =>
+  tag.replace(/content="[^"]*"/i, 'content="noindex, follow"'));
+if (!/name="robots"\s+content="noindex, follow"/.test(archiveHtml) &&
+    !/content="noindex, follow"\s+name="robots"/.test(archiveHtml)) {
+  throw new Error('The archived theme could not be marked noindex.');
+}
+writeFileSync(archiveIndex, archiveHtml);
 console.log('Built the clean portfolio at / and the original theme at /old-themes/.');
