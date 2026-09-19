@@ -1,4 +1,5 @@
 import { cpSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -46,6 +47,27 @@ writeFileSync(path.join(dist, '404.html'), `<!doctype html>
 for (const entry of ['CNAME', 'robots.txt', 'admin']) {
   rmSync(path.join(dist, 'old-themes', entry), { recursive: true, force: true });
 }
+
+// A ?v= stamp has to change whenever the file it names changes. Hand-edited
+// numbers had drifted: site.js was fixed while every page still asked for
+// ?v=34, so browsers and the service worker kept serving the old script and the
+// fix reached nobody. Deriving the stamp from the file removes that failure for
+// good — the URL changes exactly when, and only when, the bytes do.
+const stamp = (file) =>
+  createHash('sha256').update(readFileSync(path.join(dist, file))).digest('hex').slice(0, 10);
+const versions = { 'site.js': stamp('site.js'), 'styles.css': stamp('styles.css') };
+for (const page of [
+  'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
+  'writing/core-web-vitals-on-live-newsrooms.html',
+  'writing/hermes-runbooks-for-editorial-teams.html',
+  'writing/scaling-wordpress-past-10m-pageviews.html',
+]) {
+  const file = path.join(dist, page);
+  const html = readFileSync(file, 'utf8');
+  writeFileSync(file, html.replace(/\b(site\.js|styles\.css)\?v=[\w.-]+/g,
+    (_, name) => `${name}?v=${versions[name]}`));
+}
+console.log(`Stamped site.js?v=${versions['site.js']} styles.css?v=${versions['styles.css']}.`);
 
 const archiveIndex = path.join(dist, 'old-themes/index.html');
 let archiveHtml = readFileSync(archiveIndex, 'utf8');
