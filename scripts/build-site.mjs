@@ -17,7 +17,7 @@ execFileSync(process.execPath, [
 // Only public portfolio files belong in the Pages artifact.
 for (const entry of [
   'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
-  'styles.css', 'site.js', 'assets', 'writing', 'feed.xml', 'robots.txt', 'sitemap.xml',
+  'styles.css', 'site.js', 'sw.js', 'assets', 'writing', 'feed.xml', 'robots.txt', 'sitemap.xml',
 ]) {
   cpSync(path.join(source, entry), path.join(dist, entry), { recursive: true });
 }

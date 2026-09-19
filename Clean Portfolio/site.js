@@ -290,6 +290,60 @@
     finally { clearTimeout(timeout); }
   }
 
+  // Save a page before the visitor commits to it. sw.js answers the click from
+  // the cache, so a warmed link opens without waiting for the network.
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const frugal = Boolean(connection && (connection.saveData || /^(slow-)?2g$/.test(connection.effectiveType || "")));
+  const warmLimit = 12;
+  const warmed = new Set();
+  let warmQueue = [];
+  let warmTimer;
+  // Resolves to the worker that can hold saved pages, or null when this site
+  // has none, so links still warm the browser's own cache.
+  let workerReady = Promise.resolve(null);
+
+  function warmable(anchor) {
+    return anchor instanceof HTMLAnchorElement && !anchor.hasAttribute("download") &&
+      anchor.target !== "_blank" && anchor.dataset.warm !== "off" && /^https?:$/.test(anchor.protocol);
+  }
+
+  // intent is a hover, tap, or keyboard focus: a real chance of a click.
+  function saveLink(anchor, intent) {
+    if (frugal || warmed.size >= warmLimit) return;
+    const url = new URL(anchor.href, location.href);
+    if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search) return;
+    if (!intent && url.origin !== location.origin) return;
+    if (warmed.has(url.href)) return;
+    warmed.add(url.href);
+    if (url.origin === location.origin) {
+      warmQueue.push(url.href);
+      if (!warmTimer) warmTimer = setTimeout(flushWarmQueue, 60);
+      return;
+    }
+    saveElsewhere(url.href);
+  }
+
+  // Other origins (the writing archive) warm the browser's own prefetch cache.
+  function saveElsewhere(href) {
+    const link = document.createElement("link");
+    link.rel = "prefetch";
+    link.as = "document";
+    link.crossOrigin = "anonymous";
+    link.href = href;
+    document.head.append(link);
+  }
+
+  function flushWarmQueue() {
+    warmTimer = undefined;
+    const urls = warmQueue;
+    warmQueue = [];
+    if (!urls.length) return;
+    const send = (worker) => worker.postMessage({ type: "warm", urls });
+    const controlling = navigator.serviceWorker?.controller;
+    if (controlling) { send(controlling); return; }
+    workerReady.then((worker) => (worker ? send(worker) : urls.forEach(saveElsewhere)));
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     applyTheme(root.dataset.theme);
     document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
@@ -319,5 +373,38 @@
     loadGithub(updateYear());
     loadVisitors();
     loadWriting();
+
+    // Around a dozen pages cover this site, so the whole tour is warmed once the
+    // page is idle and quiet. Crawler-style prefetching never delays what is on
+    // screen: it waits for idle time and uses the browser's lowest priority.
+    const warmPageLinks = () => {
+      const anchors = document.querySelectorAll("nav a[href], header a[href], footer a[href], main a[href], article a[href]");
+      for (const anchor of anchors) if (warmable(anchor)) saveLink(anchor, false);
+    };
+    if ("requestIdleCallback" in window) requestIdleCallback(warmPageLinks, { timeout: 2500 });
+    else setTimeout(warmPageLinks, 1200);
   });
+
+  // Any link the visitor hovers, taps, or tabs into is saved as early as the
+  // browser reports the intent, which is a fraction of a second before the click.
+  for (const type of ["pointerover", "pointerdown", "focusin", "touchstart"]) {
+    document.addEventListener(type, (event) => {
+      const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
+      if (warmable(anchor)) saveLink(anchor, true);
+    }, { passive: true, capture: true });
+  }
+
+  if ("serviceWorker" in navigator) {
+    // Caching is an enhancement; every page works without it.
+    workerReady = Promise.race([
+      navigator.serviceWorker.register("/sw.js", { scope: "/" })
+        .then((registration) => {
+          registration.update().catch(() => {});
+          return navigator.serviceWorker.ready;
+        })
+        .then((registration) => registration.active || navigator.serviceWorker.controller || null),
+      // If no worker is running in a moment, links warm the browser's cache instead.
+      new Promise((resolve) => { setTimeout(() => resolve(null), 4000); }),
+    ]).catch(() => null);
+  }
 })();
