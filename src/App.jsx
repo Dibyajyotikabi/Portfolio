@@ -40,7 +40,7 @@ const siLinkedin = {
 };
 
 const highlights = [
-  { label: '~$100k exit', detail: 'Built and sold RootMyGalaxy' },
+  { label: '~$150K exit', detail: 'Built and sold RootMyGalaxy' },
   { label: 'RMG Media Group', detail: 'Current management' },
   { label: 'TheDroidGuru', detail: 'Operations department' },
 ];
@@ -50,7 +50,7 @@ const featuredIn = ['Forbes', 'TechCrunch', 'Beebom', 'GSM Arena', 'India Today'
 const stats = [
   { label: 'Years experience', value: 10, suffix: '+', note: 'WordPress · web · publishing ops' },
   { label: 'Projects shipped', value: 120, suffix: '+', note: 'Themes, plugins, audits, fixes' },
-  { label: 'Exit value', value: 100, prefix: '$', suffix: 'k', note: 'RootMyGalaxy.net acquisition' },
+  { label: 'Exit value', value: 150, prefix: '$', suffix: 'K', note: 'RootMyGalaxy.net acquisition' },
   { label: 'Faster loads', value: 70, suffix: '%', note: 'Average across optimised sites' },
 ];
 
@@ -153,13 +153,13 @@ const terminalCommands = {
   about: [
     'wordpress + publishing operator based in bhubaneswar, odisha',
     'agent stacks: hermes patterns, openclaw gateways, mcp tooling',
-    'sold rootmygalaxy.net for around $100k',
+    'sold rootmygalaxy.net for $150K',
   ],
   skills: skillBars.map((item) => `${item.name.toLowerCase()} · ${item.value}%`),
   projects: [
     '→ hermes editorial automation',
     '→ openclaw ops hub',
-    '→ rootmygalaxy.net · sold (~$100k)',
+    '→ rootmygalaxy.net · sold (~$150K)',
     '→ rmg media group · current management',
     '→ thedroidguru.com · operations',
     '→ sam updater · samsung release tracking',
@@ -228,11 +228,11 @@ const experience = [
   },
   {
     company: 'RootMyGalaxy.net',
-    role: 'Founder & Publisher (exited ~$100k)',
+    role: 'Founder & Publisher (exited ~$150K)',
     period: '2018 – 2023',
     href: 'https://rootmygalaxy.net',
     detail:
-      'Built and scaled a high-traffic Android technology site, improved WordPress performance, led content operations, and sold the property for around $100,000.',
+      'Built and scaled a high-traffic Android technology site, improved WordPress performance, led content operations, and sold the property for $150,000.',
   },
 ];
 
@@ -300,7 +300,7 @@ const projects = [
     imageAlt:
       'Editorial growth represented by smartphones, article stacks, an ascending chart, and an acquisition handoff.',
     description:
-      'Built and scaled a high-traffic Android publication, improved WordPress performance, led editorial ops, and sold for around $100,000.',
+      'Built and scaled a high-traffic Android publication, improved WordPress performance, led editorial ops, and sold for $150,000.',
     stack: [siWordpress, siPhp],
     href: 'https://rootmygalaxy.net',
   },

@@ -40,5 +40,5 @@ export const profile = {
     'Core Web Vitals',
   ],
   aboutHeading:
-    'I build agent systems for publishing teams. Hermes runbooks, OpenClaw-style gateways, MCP skills, and practical setups around Claude, Codex, and Gemini. The goal is simple: less busywork, clearer workflows, and automation people can actually trust. That work sits on top of 10+ years in WordPress, technical SEO, and publishing ops. I founded RootMyGalaxy.net, scaled it past 10M+ pageviews, and sold it for around $100,000. Today I manage RMG Media Group and run operations at TheDroidGuru.com.',
+    'I build agent systems for publishing teams. Hermes runbooks, OpenClaw-style gateways, MCP skills, and practical setups around Claude, Codex, and Gemini. The goal is simple: less busywork, clearer workflows, and automation people can actually trust. That work sits on top of 10+ years in WordPress, technical SEO, and publishing ops. I founded RootMyGalaxy.net, scaled it past 10M+ pageviews, and sold it for $150,000. Today I manage RMG Media Group and run operations at TheDroidGuru.com.',
 };
