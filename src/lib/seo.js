@@ -12,7 +12,7 @@ export function absoluteUrl(path = '/') {
 
 export function defaultSeo() {
   return {
-    title: `Agent Systems & WordPress Engineer | ${profile.name}`,
+    title: `Co-founder & Chief Developer at Hatchnix | ${profile.name}`,
     description: profile.description,
     url: HOME_URL,
     image: absoluteUrl('/portrait.jpg'),
@@ -50,6 +50,12 @@ export function homeJsonLd() {
         url: HOME_URL,
         image: absoluteUrl(profile.photo),
         jobTitle: profile.jobTitle,
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Hatchnix',
+          alternateName: 'RMG Media India',
+          url: 'https://hatchnix.com/',
+        },
         description: profile.description,
         address: {
           '@type': 'PostalAddress',

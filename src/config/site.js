@@ -4,9 +4,9 @@ export const profile = {
   name: 'Dibyajyoti Kabi',
   photo: `${import.meta.env.BASE_URL}portrait.jpg`,
   imageAlt: 'Portrait of Dibyajyoti Kabi',
-  jobTitle: 'Agent Systems Architect',
+  jobTitle: 'Co-founder & Chief Developer',
   description:
-    'Dibyajyoti Kabi designs agent workflows, WordPress platforms, technical SEO, and publishing infrastructure for content teams operating at scale.',
+    'Dibyajyoti Kabi is co-founder and chief developer at Hatchnix (formerly RMG Media India), building agent workflows, WordPress platforms, and publishing infrastructure.',
   location: 'Bhubaneswar, Odisha [IN]',
   address: {
     locality: 'Bhubaneswar',
@@ -26,6 +26,7 @@ export const profile = {
   },
   tagline: ['Agent systems', 'for publishing', 'at scale.'],
   roles: [
+    'Co-founder & Chief Developer at Hatchnix',
     'Agent Systems Architect',
     'WordPress Performance Engineer',
     'Technical SEO Consultant',
@@ -40,5 +41,5 @@ export const profile = {
     'Core Web Vitals',
   ],
   aboutHeading:
-    'I build agent systems for publishing teams. Hermes runbooks, OpenClaw-style gateways, MCP skills, and practical setups around Claude, Codex, and Gemini. The goal is simple: less busywork, clearer workflows, and automation people can actually trust. That work sits on top of 10+ years in WordPress, technical SEO, and publishing ops. I founded RootMyGalaxy.net, scaled it past 10M+ pageviews, and sold it for $150,000. Today I manage RMG Media Group and run operations at TheDroidGuru.com.',
+    'I build agent systems for publishing teams. Hermes runbooks, OpenClaw-style gateways, MCP skills, and practical setups around Claude, Codex, and Gemini. The goal is simple: less busywork, clearer workflows, and automation people can actually trust. That work sits on top of 10+ years in WordPress, technical SEO, and publishing ops. I founded RootMyGalaxy.net, scaled it past 10M+ pageviews, and sold it for $150,000. Today I’m co-founder and chief developer at Hatchnix (formerly RMG Media India), and I run operations at TheDroidGuru.com.',
 };

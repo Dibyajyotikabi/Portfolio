@@ -41,7 +41,7 @@ const siLinkedin = {
 
 const highlights = [
   { label: '~$150K exit', detail: 'Built and sold RootMyGalaxy' },
-  { label: 'RMG Media Group', detail: 'Current management' },
+  { label: 'Hatchnix', detail: 'Co-founder & Chief Developer' },
   { label: 'TheDroidGuru', detail: 'Operations department' },
 ];
 
@@ -151,6 +151,7 @@ const terminalCommands = {
     '  clear         reset the screen',
   ],
   about: [
+    'co-founder & chief developer @ hatchnix (formerly rmg media india)',
     'wordpress + publishing operator based in bhubaneswar, odisha',
     'agent stacks: hermes patterns, openclaw gateways, mcp tooling',
     'sold rootmygalaxy.net for $150K',
@@ -160,7 +161,7 @@ const terminalCommands = {
     '→ hermes editorial automation',
     '→ openclaw ops hub',
     '→ rootmygalaxy.net · sold (~$150K)',
-    '→ rmg media group · current management',
+    '→ hatchnix · co-founder & chief developer',
     '→ thedroidguru.com · operations',
     '→ sam updater · samsung release tracking',
   ],
@@ -184,7 +185,7 @@ const socials = [
 ];
 
 const infoRows = [
-  { Icon: Briefcase, text: 'Director @ RMG Media Group · Ops @ TheDroidGuru' },
+  { Icon: Briefcase, text: 'Co-founder & Chief Developer @ Hatchnix · Ops @ TheDroidGuru' },
   { Icon: MapPin, text: profile.location },
   { Icon: Mail, text: profile.email },
   { Icon: Bot, text: '10+ years building web apps · 3+ years in agent workflows' },
@@ -203,12 +204,12 @@ const skills = [
 
 const experience = [
   {
-    company: 'RMG Media Group',
-    role: 'Director',
-    period: '2024 – Present',
-    href: profile.website,
+    company: 'Hatchnix',
+    role: 'Co-founder & Chief Developer',
+    period: 'Present',
+    href: 'https://hatchnix.com/',
     detail:
-      'Managing technical operations, content systems, WordPress workflows, performance, SEO execution, and publishing infrastructure across the network.',
+      'At Hatchnix (formerly RMG Media India), I lead development across content systems, WordPress workflows, performance, SEO, and publishing infrastructure.',
   },
   {
     company: 'TheDroidGuru.com',
@@ -305,8 +306,8 @@ const projects = [
     href: 'https://rootmygalaxy.net',
   },
   {
-    title: 'RMG Media Group',
-    label: 'Media Operations',
+    title: 'Hatchnix',
+    label: 'Publishing & Engineering',
     status: 'Live',
     live: true,
     accent: accents.amber,
@@ -314,9 +315,9 @@ const projects = [
     imageAlt:
       'Tactile media operations studio coordinating three distinct publishing stations.',
     description:
-      'Technical operations, content systems, WordPress workflows, performance, SEO, and publishing infrastructure across the network.',
+      'Co-founded Hatchnix (formerly RMG Media India) and lead development of content systems, WordPress workflows, and publishing infrastructure.',
     stack: [siWordpress, siPhp],
-    href: profile.website,
+    href: 'https://hatchnix.com/',
   },
   {
     title: 'TheDroidGuru Operations',
@@ -764,7 +765,7 @@ function HeroBanner({ theme, onThemeToggle }) {
       <div className="hero-copy">
         <p className="hero-kicker">
           <span aria-hidden="true" />
-          Independent systems architect · India / worldwide
+          Co-founder &amp; Chief Developer at Hatchnix · India / worldwide
         </p>
         <h1 className="hero-headline">
           <span className="hero-headline-primary">{profile.tagline[0]}</span>
@@ -775,8 +776,9 @@ function HeroBanner({ theme, onThemeToggle }) {
           </span>
         </h1>
         <p className="hero-summary">
-          I design dependable agent workflows, publishing infrastructure, and WordPress
-          systems for teams that need speed without chaos.
+          As co-founder and chief developer at Hatchnix, I build dependable agent
+          workflows, publishing infrastructure, and WordPress systems for teams that
+          need speed without chaos.
         </p>
         <div className="hero-actions">
           <a className="button primary" href="#work">
@@ -855,7 +857,7 @@ function ProfileCard({ time }) {
             <p className="profile-name">
               <span className="profile-name-text">{profile.name.toUpperCase()}</span>
             </p>
-            <p className="profile-role">Agent systems architect · Publishing infrastructure</p>
+            <p className="profile-role">Co-founder &amp; Chief Developer at Hatchnix · Publishing infrastructure</p>
           </div>
         </div>
         <span className="time-pill">IST {time}</span>
