@@ -5,7 +5,7 @@
    the blog, booking, and GitHub hosts pass straight through to the network. */
 "use strict";
 
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 const CACHE = `dibyajyoti-site-${CACHE_VERSION}`;
 // The shell is the only thing fetched during install, so a first visit stays light.
 const SHELL = ["/", "/assets/avatar.jpg", "/assets/favicon.svg"];
