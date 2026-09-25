@@ -410,7 +410,7 @@
   if ("serviceWorker" in navigator) {
     // Caching is an enhancement; every page works without it.
     workerReady = Promise.race([
-      navigator.serviceWorker.register("/sw.js", { scope: "/" })
+      navigator.serviceWorker.register("/sw.js?v=2", { scope: "/" })
         .then((registration) => {
           registration.update().catch(() => {});
           return navigator.serviceWorker.ready;
