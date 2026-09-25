@@ -12,6 +12,8 @@ export default function SiteFooter() {
         <div className="site-footer-meta">
           <p className="site-footer-copy">
             © {year} {profile.name}. Built in Bhubaneswar.
+            <br />
+            Developed and maintained by <a href="https://hatchnix.com/">hatchnix.com</a> with ❤️
           </p>
           <nav className="site-footer-nav" aria-label="Footer">
             <a href="/">Current website</a>

@@ -2606,6 +2606,16 @@ html[data-theme='dark'] .site-footer-grain {
   letter-spacing: 0.03em;
 }
 
+.site-footer-copy a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+}
+
+.site-footer-copy a:hover,
+.site-footer-copy a:focus-visible {
+  color: var(--accent);
+}
+
 .site-footer-nav {
   display: flex;
   flex-wrap: wrap;
