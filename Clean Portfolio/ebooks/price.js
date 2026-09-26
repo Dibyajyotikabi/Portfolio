@@ -1,5 +1,6 @@
-// Ebook prices are set in rupees. Visitors outside India see an approximate
-// price in their own currency; Dodo's checkout shows the exact amount.
+// Ebooks have two set prices, matching the Dodo product: rupees for India
+// (data-inr) and US dollars for everyone else (data-usd). Other currencies are
+// converted from the dollar price, as Dodo does, and marked approximate.
 // The country comes from Cloudflare's same-origin trace and the rates from
 // rates.json, which the build writes, so the page's CSP needs no new hosts.
 (() => {
@@ -13,7 +14,7 @@
   };
   const TRACE_TIMEOUT_MS = 2500;
 
-  const prices = document.querySelectorAll('[data-inr]');
+  const prices = document.querySelectorAll('[data-inr][data-usd]');
   if (!prices.length) return;
 
   const withTimeout = (url) => {
@@ -27,23 +28,35 @@
     return (text.match(/^loc=([A-Z]{2})$/m) || [])[1] || '';
   };
 
-  const format = (amount, currency) => new Intl.NumberFormat(navigator.language || 'en', {
-    style: 'currency', currency, maximumFractionDigits: amount < 100 ? 2 : 0,
-  }).format(amount);
+  // Whole prices read as "$19", converted ones keep their cents ("£14.37").
+  const format = (amount, currency) => {
+    const digits = Number.isInteger(amount) || amount >= 100 ? 0 : 2;
+    return new Intl.NumberFormat(navigator.language || 'en', {
+      style: 'currency', currency, minimumFractionDigits: digits, maximumFractionDigits: digits,
+    }).format(amount);
+  };
+
+  const showNote = () => document.querySelectorAll('[data-price-note]').forEach((el) => { el.hidden = false; });
+  const showDollars = () => {
+    prices.forEach((el) => { el.textContent = format(Number(el.dataset.usd), 'USD'); });
+  };
 
   (async () => {
     try {
       const loc = await country();
       if (!loc || loc === 'IN') return;
       const currency = EURO.includes(loc) ? 'EUR' : CURRENCY[loc] || 'USD';
-      const res = await withTimeout('/ebooks/rates.json');
-      if (!res.ok) return;
-      const rate = (await res.json()).rates?.[currency];
-      if (!rate) return;
+      let perDollar = 1;
+      if (currency !== 'USD') {
+        const res = await withTimeout('/ebooks/rates.json');
+        const rates = res.ok ? (await res.json()).rates : null;
+        if (!rates?.[currency] || !rates.USD) return showDollars();
+        perDollar = rates[currency] / rates.USD;
+      }
       prices.forEach((el) => {
-        el.textContent = format(Number(el.dataset.inr) * rate, currency);
+        el.textContent = format(Number(el.dataset.usd) * perDollar, currency);
       });
-      document.querySelectorAll('[data-price-note]').forEach((el) => { el.hidden = false; });
+      if (currency !== 'USD') showNote();
     } catch {
       // Keep the rupee prices already on the page.
     }
