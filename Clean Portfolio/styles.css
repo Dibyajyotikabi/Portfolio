@@ -469,6 +469,65 @@ picture { display: block; }
 .legal ul { margin: 8px 0 0; padding-left: 22px; }
 .legal li { padding: 3px 0; }
 .legal a { color: var(--link); }
+/* Store page feature card, in the book's own palette */
+@font-face { font-family: "Caveat"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/caveat-700-latin.woff2") format("woff2"); }
+.store .page-intro { padding-bottom: 22px; }
+.feature { --forest: #1f3a2f; --forest-deep: #13271f; --tomato: #e4572e; --mustard: #f2b33d; --cream: #f6f0e4; --sage: #a9c4a5;
+  position: relative; display: grid; grid-template-columns: 210px 1fr; gap: 34px; align-items: center; margin: 6px 0 40px; padding: 34px 34px 34px 38px;
+  border-radius: 14px; overflow: hidden; color: var(--cream);
+  background: radial-gradient(120% 90% at 85% 0%, #2d5444 0, var(--forest) 55%, var(--forest-deep) 100%);
+  box-shadow: 0 24px 50px -24px rgba(15, 23, 42, .55); }
+.feature::after { content: ""; position: absolute; right: -90px; bottom: -120px; width: 300px; height: 300px; border-radius: 50%; border: 44px solid rgba(242, 179, 61, .08); pointer-events: none; }
+.feature-cover { display: block; perspective: 1200px; }
+.feature-cover img { display: block; width: 100%; height: auto; border-radius: 2px 7px 7px 2px; transform: rotateY(-16deg) rotateX(3deg); transform-origin: left center;
+  box-shadow: 18px 26px 40px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(255, 255, 255, .08); transition: transform 300ms cubic-bezier(.16, 1, .3, 1); }
+.feature-cover:hover img { transform: rotateY(-6deg) rotateX(2deg) translateY(-4px); }
+.feature-kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--mustard); }
+.feature h2 { margin: 8px 0 10px; font-size: 32px; line-height: 1.1; font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: -.01em; }
+.feature h2 a { color: var(--cream); text-decoration: none; }
+.feature-sub { font-size: 15.5px; line-height: 1.55; color: #dfe7de; }
+.feature-facts { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 16px 0 0; padding: 0; }
+.feature-facts li { font-size: 12.5px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: rgba(246, 240, 228, .1); color: var(--cream); }
+.feature-facts li:last-child { background: var(--mustard); color: var(--forest); }
+.feature-price { margin-top: 18px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.feature-price strong { font-size: 30px; color: #fff; }
+.feature-price s { color: var(--sage); font-size: 16px; }
+.feature-price span { font-size: 12px; font-weight: 700; color: var(--forest); background: var(--mustard); padding: 3px 8px; border-radius: 4px; }
+.feature .feature-note { color: var(--sage); }
+.feature-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 18px; }
+.feature-btn { display: inline-flex; align-items: center; gap: .4em; padding: 11px 20px; border-radius: 999px; background: var(--tomato); color: #fff; font-weight: 700; font-size: 15px; text-decoration: none;
+  box-shadow: 0 5px 0 #b83d1b; transition: transform 160ms, box-shadow 160ms; }
+.feature-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 0 #b83d1b; color: #fff; }
+.feature-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #b83d1b; }
+.feature-link { color: var(--cream); font-weight: 600; font-size: 15px; text-underline-offset: 4px; text-decoration-color: var(--mustard); }
+.feature-link:hover { color: var(--mustard); }
+.peek h2 { margin-bottom: 14px; }
+.peek-pages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; list-style: none; margin: 0 0 40px; padding: 0; }
+.peek-pages li:nth-child(1) { transform: rotate(-2deg); }
+.peek-pages li:nth-child(3) { transform: rotate(2deg); }
+.peek-pages img { display: block; width: 100%; height: auto; border-radius: 4px; background: #fff; border: 1px solid var(--line); box-shadow: 0 10px 24px rgba(15, 23, 42, .1); transition: transform 200ms; }
+.peek-pages a:hover img { transform: translateY(-4px); }
+
+/* Live support note: a taped-on notebook page with handwriting */
+.hand { font-family: "Caveat", "Segoe Print", "Bradley Hand", cursive; font-weight: 700; }
+.support-note { position: relative; margin: 34px 0 36px; padding: 34px 30px 26px 64px; color: #17251f; transform: rotate(-.6deg);
+  background-color: #fbf6ea; border-radius: 3px; box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 18px 34px -18px rgba(15, 23, 42, .35);
+  background-image: linear-gradient(90deg, transparent 44px, rgba(228, 87, 46, .4) 44px 46px, transparent 46px),
+                    repeating-linear-gradient(to bottom, transparent 0 31px, rgba(51, 100, 160, .16) 31px 32px); }
+.support-note::before { content: ""; position: absolute; top: -12px; left: 50%; width: 110px; height: 26px; margin-left: -55px; transform: rotate(2deg);
+  background: rgba(242, 179, 61, .55); box-shadow: 0 1px 2px rgba(0, 0, 0, .08); }
+.support-kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #c9461f; }
+.support-note h2 { margin: 4px 0 6px; font-size: 42px; line-height: 1.05; color: #1f3a2f; }
+.support-big { font-size: 30px; line-height: 1.3; color: #3b4a42; }
+.circled { position: relative; display: inline-block; padding: 0 16px 0 20px; margin-right: 4px; color: #e4572e; font-size: 38px; }
+.circled svg { position: absolute; left: -6px; top: -5px; width: calc(100% + 12px); height: calc(100% + 10px); overflow: visible; }
+.circled path { fill: none; stroke: #1f3a2f; stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.support-note ul { list-style: none; margin: 10px 0 0; padding: 0; }
+.support-note li { font-size: 27px; line-height: 1.25; padding: 3px 0 3px 30px; position: relative; color: #17251f; }
+.support-note li::before { content: "✓"; position: absolute; left: 0; color: #1f3a2f; }
+.support-how { margin-top: 12px; font-size: 15px; line-height: 1.6; color: #3b4a42; }
+.support-how a { color: #c9461f; }
+.support-sign { text-align: right; font-size: 30px; color: #1f3a2f; margin-top: 2px; transform: rotate(-3deg); }
 @media (max-width: 620px) {
   .ebook-hero { grid-template-columns: 1fr; gap: 24px; }
   .ebook-cover { width: 60%; max-width: 240px; margin-inline: auto; }
@@ -477,11 +536,17 @@ picture { display: block; }
   .ebook-shelf-cover img { width: 72px; }
   .ebook-samples { grid-template-columns: repeat(2, 1fr); }
   .ebook-author { grid-template-columns: 1fr; padding: 18px; }
+  .feature { grid-template-columns: 1fr; padding: 26px 22px 28px; gap: 24px; }
+  .feature-cover { width: 52%; max-width: 200px; margin: 0 auto; }
+  .feature h2 { font-size: 28px; }
+  .peek-pages { gap: 10px; }
+  .support-note { padding: 30px 18px 22px 52px; transform: none; background-image: linear-gradient(90deg, transparent 34px, rgba(228, 87, 46, .4) 34px 36px, transparent 36px), repeating-linear-gradient(to bottom, transparent 0 31px, rgba(51, 100, 160, .16) 31px 32px); }
+  .support-note h2 { font-size: 36px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  a, .theme-toggle, .buy-button, .ebook-shelf-cover img, .ebook-samples img { transition: none; }
+  a, .theme-toggle, .buy-button, .ebook-shelf-cover img, .ebook-samples img, .feature-cover img, .feature-btn, .peek-pages img { transition: none; }
   .buy-button:hover, .ebook-shelf-cover:hover img, .ebook-samples li:hover img { transform: none; }
 }
 
