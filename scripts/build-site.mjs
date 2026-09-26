@@ -17,7 +17,8 @@ execFileSync(process.execPath, [
 
 // Only public portfolio files belong in the Pages artifact.
 for (const entry of [
-  'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
+  'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html', 'ebooks',
+  'terms.html', 'privacy.html', 'refund-policy.html',
   'styles.css', 'site.js', 'sw.js', 'assets', 'writing', 'feed.xml', 'robots.txt', 'sitemap.xml',
   'favicon.ico', 'site.webmanifest',
   '827e7df31e49331a435d8b7a0f6416fb.txt',
@@ -61,11 +62,19 @@ for (const page of [
   'writing/core-web-vitals-on-live-newsrooms.html',
   'writing/hermes-runbooks-for-editorial-teams.html',
   'writing/scaling-wordpress-past-10m-pageviews.html',
+  'ebooks/index.html', 'ebooks/blog-to-paycheck.html', 'ebooks/thank-you.html',
+  'terms.html', 'privacy.html', 'refund-policy.html',
 ]) {
   const file = path.join(dist, page);
   const html = readFileSync(file, 'utf8');
   writeFileSync(file, html.replace(/\b(site\.js|styles\.css)\?v=[\w.-]+/g,
     (_, name) => `${name}?v=${versions[name]}`));
+}
+// A store page must never ship a Buy button that goes nowhere.
+for (const page of ['ebooks/index.html', 'ebooks/blog-to-paycheck.html']) {
+  if (readFileSync(path.join(dist, page), 'utf8').includes('REPLACE_WITH_CHECKOUT_URL')) {
+    throw new Error(`${page} still has the placeholder checkout link. Paste the real Dodo (or other) checkout URL first.`);
+  }
 }
 console.log(`Stamped site.js?v=${versions['site.js']} styles.css?v=${versions['styles.css']}.`);
 

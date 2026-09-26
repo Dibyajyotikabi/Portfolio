@@ -56,5 +56,5 @@ jobs:
         run: |
           curl -sS --max-time 30 -X POST https://api.indexnow.org/indexnow \
             -H 'Content-Type: application/json; charset=utf-8' \
-            -d '{"host":"dibyajyotikabi.com","key":"827e7df31e49331a435d8b7a0f6416fb","keyLocation":"https://dibyajyotikabi.com/827e7df31e49331a435d8b7a0f6416fb.txt","urlList":["https://dibyajyotikabi.com/","https://dibyajyotikabi.com/projects.html","https://dibyajyotikabi.com/about.html","https://dibyajyotikabi.com/contact.html"]}' \
+            -d '{"host":"dibyajyotikabi.com","key":"827e7df31e49331a435d8b7a0f6416fb","keyLocation":"https://dibyajyotikabi.com/827e7df31e49331a435d8b7a0f6416fb.txt","urlList":["https://dibyajyotikabi.com/","https://dibyajyotikabi.com/projects.html","https://dibyajyotikabi.com/about.html","https://dibyajyotikabi.com/contact.html","https://dibyajyotikabi.com/ebooks/","https://dibyajyotikabi.com/ebooks/blog-to-paycheck.html"]}' \
             -o /dev/null -w 'IndexNow: %{http_code}\n' || true
