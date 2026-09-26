@@ -70,6 +70,20 @@ for (const page of [
   writeFileSync(file, html.replace(/\b(site\.js|styles\.css)\?v=[\w.-]+/g,
     (_, name) => `${name}?v=${versions[name]}`));
 }
+// Ebook prices are in rupees. price.js shows visitors abroad an approximate
+// local price from these rates, fetched once per deploy so the page never
+// calls a third-party host. If the fetch fails, pages simply stay in rupees.
+try {
+  const res = await fetch('https://open.er-api.com/v6/latest/INR', { signal: AbortSignal.timeout(10000) });
+  const data = await res.json();
+  if (data.result !== 'success') throw new Error(data['error-type'] || 'no rates');
+  writeFileSync(path.join(dist, 'ebooks/rates.json'),
+    JSON.stringify({ base: 'INR', updated: data.time_last_update_utc, rates: data.rates }));
+  console.log(`Saved INR exchange rates from ${data.time_last_update_utc}.`);
+} catch (error) {
+  console.warn(`Skipped exchange rates (${error.message}); ebook prices will show in rupees only.`);
+}
+
 // A store page must never ship a Buy button that goes nowhere.
 for (const page of ['ebooks/index.html', 'ebooks/blog-to-paycheck.html']) {
   if (readFileSync(path.join(dist, page), 'utf8').includes('REPLACE_WITH_CHECKOUT_URL')) {
