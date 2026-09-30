@@ -5,7 +5,7 @@
    the blog, booking, and GitHub hosts pass straight through to the network. */
 "use strict";
 
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3";
 const CACHE = `dibyajyoti-site-${CACHE_VERSION}`;
 // The shell is the only thing fetched during install, so a first visit stays light.
 const SHELL = ["/", "/assets/avatar.jpg", "/assets/favicon.svg"];
@@ -67,7 +67,8 @@ async function warm(urls) {
   await Promise.all(targets.map(async (value) => {
     try {
       const url = new URL(value, self.location.origin);
-      if (url.origin !== self.location.origin || url.pathname.startsWith("/api/")) return;
+      if (url.origin !== self.location.origin || url.pathname.startsWith("/api/") ||
+          url.pathname === "/ebooks/thank-you.html") return;
       if (await cache.match(url.href)) return;
       // Lowest priority: saving a page must never compete with the page on screen.
       const response = await fetch(new Request(url.href, { credentials: "same-origin", priority: "low" }));
@@ -103,7 +104,8 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET" || request.headers.has("range")) return;
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin || url.pathname.startsWith("/api/")) return;
+  if (url.origin !== self.location.origin || url.pathname.startsWith("/api/") ||
+      url.pathname === "/ebooks/thank-you.html") return;
   if (request.mode === "navigate") { event.respondWith(navigation(request, event)); return; }
   if (CACHEABLE.has(request.destination)) event.respondWith(asset(request, event));
 });

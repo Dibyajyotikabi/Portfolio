@@ -56,7 +56,10 @@ for (const entry of ['CNAME', 'robots.txt', 'admin']) {
 // good — the URL changes exactly when, and only when, the bytes do.
 const stamp = (file) =>
   createHash('sha256').update(readFileSync(path.join(dist, file))).digest('hex').slice(0, 10);
-const versions = { 'site.js': stamp('site.js'), 'styles.css': stamp('styles.css') };
+const versions = {
+  'site.js': stamp('site.js'), 'styles.css': stamp('styles.css'),
+  'price.js': stamp('ebooks/price.js'), 'order.js': stamp('ebooks/order.js'),
+};
 for (const page of [
   'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
   'writing/core-web-vitals-on-live-newsrooms.html',
@@ -67,7 +70,7 @@ for (const page of [
 ]) {
   const file = path.join(dist, page);
   const html = readFileSync(file, 'utf8');
-  writeFileSync(file, html.replace(/\b(site\.js|styles\.css)\?v=[\w.-]+/g,
+  writeFileSync(file, html.replace(/\b(site\.js|styles\.css|price\.js|order\.js)(?:\?v=[\w.-]+)?(?=["'])/g,
     (_, name) => `${name}?v=${versions[name]}`));
 }
 // Ebook prices are in rupees. price.js shows visitors abroad an approximate
@@ -86,8 +89,19 @@ try {
 
 // A store page must never ship a Buy button that goes nowhere.
 for (const page of ['ebooks/index.html', 'ebooks/blog-to-paycheck.html']) {
-  if (readFileSync(path.join(dist, page), 'utf8').includes('REPLACE_WITH_CHECKOUT_URL')) {
+  const html = readFileSync(path.join(dist, page), 'utf8');
+  if (html.includes('REPLACE_WITH_CHECKOUT_URL')) {
     throw new Error(`${page} still has the placeholder checkout link. Paste the real Dodo (or other) checkout URL first.`);
+  }
+  for (const anchor of html.match(/<a\b[^>]*\bdata-buy\b[^>]*>/g) || []) {
+    const href = anchor.match(/\bhref="([^"]+)"/)?.[1]?.replaceAll('&amp;', '&');
+    const checkout = new URL(href);
+    if (checkout.protocol !== 'https:' || checkout.hostname !== 'checkout.dodopayments.com' ||
+        !/^\/buy\/pdt_[A-Za-z0-9]+$/.test(checkout.pathname) ||
+        checkout.searchParams.get('quantity') !== '1' ||
+        checkout.searchParams.get('redirect_url') !== 'https://dibyajyotikabi.com/ebooks/thank-you.html') {
+      throw new Error(`${page} must use a live Dodo product link with quantity 1 and the ebook order-help redirect.`);
+    }
   }
 }
 console.log(`Stamped site.js?v=${versions['site.js']} styles.css?v=${versions['styles.css']}.`);

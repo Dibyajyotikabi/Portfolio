@@ -36,29 +36,38 @@
     }).format(amount);
   };
 
-  const showNote = () => document.querySelectorAll('[data-price-note]').forEach((el) => { el.hidden = false; });
+  const notes = document.querySelectorAll('[data-price-note]');
+  const hideNote = () => notes.forEach((el) => { el.hidden = true; });
+  const showNote = () => notes.forEach((el) => {
+    el.textContent = 'Approximate price in your currency, including tax. Checkout shows the exact amount.';
+    el.hidden = false;
+  });
   const showDollars = () => {
     prices.forEach((el) => { el.textContent = format(Number(el.dataset.usd), 'USD'); });
+    hideNote();
   };
 
   (async () => {
     try {
       const loc = await country();
-      if (!loc || loc === 'IN') return;
+      if (!loc) return;
+      if (loc === 'IN') return hideNote();
       const currency = EURO.includes(loc) ? 'EUR' : CURRENCY[loc] || 'USD';
       let perDollar = 1;
       if (currency !== 'USD') {
         const res = await withTimeout('/ebooks/rates.json');
         const rates = res.ok ? (await res.json()).rates : null;
-        if (!rates?.[currency] || !rates.USD) return showDollars();
+        if (!Number.isFinite(rates?.[currency]) || rates[currency] <= 0 ||
+            !Number.isFinite(rates?.USD) || rates.USD <= 0) return showDollars();
         perDollar = rates[currency] / rates.USD;
       }
       prices.forEach((el) => {
         el.textContent = format(Number(el.dataset.usd) * perDollar, currency);
       });
       if (currency !== 'USD') showNote();
+      else hideNote();
     } catch {
-      // Keep the rupee prices already on the page.
+      // Keep the rupee prices and the visible India/international explanation.
     }
   })();
 })();

@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Thank you for buying Blog to Paycheck. Your download link is on its way to your email.">
-  <meta name="theme-color" content="#f7faff"><title>Thank you | Blog to Paycheck</title>
+  <meta name="description" content="Payment and download help for your Blog to Paycheck ebook order.">
+  <meta name="theme-color" content="#f7faff"><title>Your ebook order | Blog to Paycheck</title>
   <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="alternate" type="application/rss+xml" title="Dibyajyoti Kabi — My Blogs" href="https://blogs.dibyajyotikabi.com/feed.xml">
   <link rel="preconnect" href="https://blogs.dibyajyotikabi.com" crossorigin>
   <script>(()=>{try{const k="clean-portfolio-theme-v2",c=document.cookie.split(";").map(v=>v.trim()).find(v=>v.startsWith(k+"="))?.slice(k.length+1),s=c||localStorage.getItem(k);if(s==="dark"||s==="read"||s==="light")document.documentElement.dataset.theme=s}catch{}})()</script>
   <link rel="stylesheet" href="../styles.css?v=35">
+  <script src="order.js" defer></script>
   <script src="../site.js?v=34" defer></script>
   <meta name="robots" content="noindex, nofollow">
 </head>
@@ -19,12 +20,13 @@
       <nav class="site-nav" aria-label="Main navigation"><a href="/">Home</a><span class="nav-sep" aria-hidden="true">✦</span><a href="../projects.html">Projects</a><span class="nav-sep" aria-hidden="true">✦</span><a href="../about.html">About</a><span class="nav-sep" aria-hidden="true">✦</span><a href="/ebooks/" aria-current="page">Ebooks</a><span class="nav-sep" aria-hidden="true">✦</span><a href="https://blogs.dibyajyotikabi.com/">My Blogs</a><span class="nav-sep" aria-hidden="true">✦</span><a href="../contact.html">Contact</a></nav>
     </header>
         <main id="main">
-      <div class="page-intro"><h1>Thank you!</h1><p>Your order went through. Blog to Paycheck is on its way.</p></div>
-      <ol class="ebook-list thank-steps">
-        <li>Check your email. The receipt has your download links for the PDF and the EPUB.</li>
+      <div class="page-intro" aria-live="polite"><h1 data-order-heading>Your ebook order</h1><p data-order-message>After a successful payment, Dodo Payments emails your receipt and access to the PDF and EPUB. Your receipt confirms your purchase.</p></div>
+      <ol class="ebook-list thank-steps" data-download-steps>
+        <li>Check your email for your receipt and digital delivery email from Dodo Payments. Open the delivery link to download the PDF and EPUB.</li>
         <li>Can't find it? Look in Spam or Promotions, and search for "Blog to Paycheck".</li>
         <li>Start with "A Note Before We Start", then do the first "Do this now" box. That's how you get results.</li>
       </ol>
+      <p data-order-retry hidden><a class="buy-button" href="/ebooks/blog-to-paycheck.html">Return to the book and try checkout again <span aria-hidden="true">→</span></a></p>
       <aside class="note"><p>Still no email after 15 minutes, or stuck on a step? Write to <a href="mailto:dibyajyotikabi@gmail.com?subject=Blog%20to%20Paycheck%20order">dibyajyotikabi@gmail.com</a> and I'll sort it out.</p></aside>
       <p><a href="/ebooks/">Back to Ebooks</a></p>
     </main>
