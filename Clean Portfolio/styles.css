@@ -665,10 +665,6 @@ picture { display: block; }
 .ebook-main .ebook-hindi-price strong { color: #17251f; }
 .ebook-main .buy-bar .buy-button { box-shadow: 0 3px 0 var(--tomato-deep); }
 @media (max-width: 620px) {
-  .sales-page .site-header { gap: 8px; padding: 12px 0 6px; }
-  .sales-page .site-nav { flex-wrap: nowrap; overflow-x: auto; gap: 0 1rem; font-size: 14px; scrollbar-width: none; }
-  .sales-page .site-nav::-webkit-scrollbar { display: none; }
-  .sales-page .site-nav a { flex: 0 0 auto; padding-block: 6px; }
   .sales-page .breadcrumbs { display: none; }
   .ebook-main .ebook-hero { padding: 20px 18px 22px; margin: 10px -4px 10px; }
   .ebook-main .ebook-cover { width: 104px; margin: 4px 4px 8px 14px; }
