@@ -571,7 +571,9 @@ picture { display: block; }
 .ebook-main .ebook-hero { position: relative; overflow: hidden; margin: 6px 0 10px; padding: 36px 36px 32px; border: 0; border-radius: 14px; color: var(--cream);
   background: radial-gradient(120% 90% at 85% 0%, #2d5444 0, var(--forest) 55%, var(--forest-deep) 100%); box-shadow: 0 24px 50px -24px rgba(15, 23, 42, .55); }
 .ebook-main .ebook-hero::before { content: ""; position: absolute; right: -90px; bottom: -120px; width: 300px; height: 300px; border-radius: 50%; border: 44px solid rgba(242, 179, 61, .08); pointer-events: none; }
-.ebook-main .ebook-cover { perspective: 1200px; }
+.ebook-main .ebook-cover { position: relative; perspective: 1200px; }
+.ebook-sticker { position: absolute; top: -14px; right: -14px; z-index: 1; display: grid; place-content: center; width: 70px; height: 70px; border-radius: 50%; background: var(--mustard); color: var(--forest-deep); font: 800 20px/1 system-ui, sans-serif; text-align: center; transform: rotate(12deg); box-shadow: 0 0 0 4px rgba(242, 179, 61, .25), 0 8px 16px rgba(0, 0, 0, .3); }
+.ebook-sticker small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .ebook-main .ebook-cover img { border-radius: 2px 7px 7px 2px; transform: rotateY(-14deg) rotateX(3deg); transform-origin: left center; box-shadow: 18px 26px 40px rgba(0, 0, 0, .45); }
 .ebook-main .ebook-kicker { color: var(--mustard); letter-spacing: .14em; font-size: 12px; font-weight: 700; }
 .ebook-main .ebook-summary { position: relative; }
@@ -586,12 +588,22 @@ picture { display: block; }
 .ebook-main .ebook-price .status { margin: 0; padding: 3px 8px; border-radius: 4px; background: var(--mustard); color: var(--forest); font-weight: 700; font-size: 12px; }
 .ebook-main .ebook-hero .ebook-price-note, .ebook-main .ebook-hero .ebook-fineprint { color: var(--sage); }
 .ebook-main .ebook-hero .ebook-fineprint a { color: var(--cream); text-decoration-color: var(--mustard); }
-.ebook-main .ebook-trust { color: var(--cream); }
-.ebook-main .ebook-trust li::before { color: var(--mustard); }
+.ebook-main .ebook-trust { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; font-size: 13px; color: var(--cream); }
+.ebook-main .ebook-trust li { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border: 1px solid rgba(246, 240, 228, .14); border-radius: 10px; background: rgba(246, 240, 228, .06); line-height: 1.25; }
+.ebook-main .ebook-trust li:first-child { border-color: var(--mustard); background: rgba(242, 179, 61, .12); }
+.ebook-main .ebook-trust li::before { content: none; }
+.ebook-main .ebook-trust svg { flex: 0 0 22px; width: 22px; height: 22px; fill: none; stroke: var(--mustard); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ebook-main .ebook-trust span { font-weight: 700; }
+.ebook-main .ebook-trust small { display: block; margin-top: 1px; font-size: 11.5px; font-weight: 400; color: var(--sage); }
+.ebook-main .ebook-hero .ebook-proof { margin-top: 18px; }
 .ebook-main .buy-button { padding: 13px 26px; border-radius: 999px; background: var(--tomato); color: #fff; font-weight: 700; box-shadow: 0 5px 0 var(--tomato-deep); transition: transform 160ms, box-shadow 160ms; }
 .ebook-main .buy-button:hover { background: var(--tomato); color: #fff; transform: translateY(-1px); box-shadow: 0 6px 0 var(--tomato-deep); }
 .ebook-main .buy-button:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--tomato-deep); }
-.ebook-main .ebook-hero .buy-button { margin-top: 18px; font-size: 17px; }
+.ebook-main .ebook-hero .buy-button { position: relative; overflow: hidden; margin-top: 18px; font-size: 17px; }
+.ebook-main .ebook-hero .buy-button::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: skewX(-20deg); animation: buy-shine 4.5s ease-in-out 1.5s infinite; }
+@keyframes buy-shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+.ebook-main .buy-bar { transition: transform 250ms ease; }
+.ebook-main .buy-bar.is-hidden { transform: translateY(110%); }
 .ebook-main .ebook-section h2 { font-family: Georgia, "Times New Roman", serif; font-size: 1.5em; }
 .ebook-main .ebook-samples li:nth-child(1) { transform: rotate(-2deg); }
 .ebook-main .ebook-samples li:nth-child(4) { transform: rotate(2deg); }
@@ -616,15 +628,37 @@ picture { display: block; }
 .ebook-cta-line { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 22px; font-weight: 700; }
 .ebook-main .buy-bar .buy-button { box-shadow: 0 3px 0 var(--tomato-deep); }
 @media (max-width: 620px) {
-  .ebook-main .ebook-hero { padding: 24px 20px 24px; margin-inline: -4px; }
+  .sales-page .site-header { gap: 8px; padding: 12px 0 6px; }
+  .sales-page .site-nav { flex-wrap: nowrap; overflow-x: auto; gap: 0 1rem; font-size: 14px; scrollbar-width: none; }
+  .sales-page .site-nav::-webkit-scrollbar { display: none; }
+  .sales-page .site-nav a { flex: 0 0 auto; padding-block: 6px; }
+  .sales-page .breadcrumbs { display: none; }
+  .ebook-main .ebook-hero { padding: 20px 18px 22px; margin: 10px -4px 10px; }
+  .ebook-main .ebook-cover { width: 104px; margin: 4px 4px 8px 14px; }
   .ebook-main .ebook-cover img { transform: rotate(3deg); box-shadow: 8px 12px 22px rgba(0, 0, 0, .45); }
-  .ebook-main .ebook-summary h1 { font-size: 1.9em; }
-  .ebook-main .ebook-hero .buy-button { display: flex; justify-content: center; width: 100%; }
+  .ebook-sticker { top: -10px; right: -10px; width: 52px; height: 52px; font-size: 15px; }
+  .ebook-sticker small { font-size: 9px; }
+  .ebook-main .ebook-kicker { font-size: 11px; }
+  .ebook-main .ebook-summary h1 { font-size: 1.75em; }
+  .ebook-main .ebook-subtitle { margin-top: 8px; font-size: 15px; line-height: 1.5; }
+  .ebook-main .ebook-facts { margin-top: 10px; gap: 5px; }
+  .ebook-main .ebook-facts li { padding: 3px 9px; font-size: 12px; }
+  .ebook-main .ebook-price { clear: both; margin-top: 14px; }
+  .ebook-main .ebook-price strong { font-size: 30px; }
+  .ebook-main .ebook-hero .buy-button { display: flex; justify-content: center; width: 100%; margin-top: 12px; padding: 14px; }
+  .ebook-main .ebook-trust { margin-top: 14px; gap: 6px; }
+  .ebook-main .ebook-trust li { padding: 8px; gap: 7px; font-size: 12.5px; }
+  .ebook-main .ebook-trust small { font-size: 11px; }
+  .ebook-main .buy-bar { background: var(--forest); border-top: 0; }
+  .ebook-main .buy-bar-price, .ebook-main .buy-bar-price s { color: var(--sage); }
+  .ebook-main .buy-bar-price strong { color: #fff; }
   .ebook-main .ebook-samples { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; padding: 6px 4px 14px; }
   .ebook-main .ebook-samples li { flex: 0 0 62%; scroll-snap-align: start; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ebook-main .buy-button:hover, .ebook-main .buy-button:active { transform: none; }
+  .ebook-main .ebook-hero .buy-button::after { animation: none; }
+  .ebook-main .buy-bar { transition: none; }
 }
 @media (max-width: 620px) {
   .ebook-hero { display: block; }
