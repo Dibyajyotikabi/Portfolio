@@ -59,7 +59,7 @@ const stamp = (file) =>
 const versions = {
   'site.js': stamp('site.js'), 'styles.css': stamp('styles.css'),
   'price.js': stamp('ebooks/price.js'), 'order.js': stamp('ebooks/order.js'),
-  'pixel.js': stamp('ebooks/pixel.js'),
+  'pixel.js': stamp('ebooks/pixel.js'), 'hindi.js': stamp('ebooks/hindi.js'),
 };
 for (const page of [
   'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
@@ -71,7 +71,7 @@ for (const page of [
 ]) {
   const file = path.join(dist, page);
   const html = readFileSync(file, 'utf8');
-  writeFileSync(file, html.replace(/\b(site\.js|styles\.css|price\.js|order\.js|pixel\.js)(?:\?v=[\w.-]+)?(?=["'])/g,
+  writeFileSync(file, html.replace(/\b(site\.js|styles\.css|price\.js|order\.js|pixel\.js|hindi\.js)(?:\?v=[\w.-]+)?(?=["'])/g,
     (_, name) => `${name}?v=${versions[name]}`));
 }
 // Ebook prices are in rupees. price.js shows visitors abroad an approximate

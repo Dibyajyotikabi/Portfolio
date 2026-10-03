@@ -490,6 +490,17 @@ picture { display: block; }
 .ebook-author p { font-size: 15px; line-height: 1.6; color: var(--muted); }
 .ebook-author a { color: var(--link); }
 .ebook-fineprint a { color: var(--link); }
+.ebook-proof { margin-top: 10px; padding-left: 10px; border-left: 3px solid var(--green-ink); font-size: 14px; line-height: 1.5; color: var(--muted); }
+.ebook-cta-mid { margin-top: 18px; }
+.ebook-hindi { margin: 26px 0 6px; padding: 20px 22px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.ebook-hindi[hidden] { display: none; }
+.ebook-hindi h2 { margin-bottom: 8px; font-size: 1.15em; }
+.ebook-hindi p, .ebook-hindi li { font-size: 16px; line-height: 1.7; }
+.ebook-hindi p { margin-top: 8px; }
+.ebook-hindi ul { margin: 10px 0 0; padding-left: 22px; }
+.ebook-hindi-price { color: var(--soft); }
+.ebook-hindi-price strong { font-size: 24px; color: var(--ink); margin-right: 4px; }
+.ebook-hindi .ebook-hindi-small { font-size: 13px; color: var(--soft); }
 .legal section { padding: 6px 0 18px; }
 .legal h2 { margin: 10px 0 10px; }
 .legal p, .legal li { font-size: 16px; line-height: 1.65; }
