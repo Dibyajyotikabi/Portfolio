@@ -1,4 +1,4 @@
-import { cpSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
@@ -121,4 +121,24 @@ if (!/name="robots"\s+content="noindex, follow"/.test(archiveHtml) &&
   throw new Error('The archived theme could not be marked noindex.');
 }
 writeFileSync(archiveIndex, archiveHtml);
+
+// The service worker answers repeat visits from its cache first, so a fixed
+// cache name kept returning visitors on the old pages after every deploy. Name
+// the cache after the published files instead: any change ships a new sw.js,
+// whose activate step deletes the stale cache. rates.json is skipped because it
+// changes on every build and the worker never caches it.
+const SW_SKIP = new Set(['sw.js', 'ebooks/rates.json']);
+const siteHash = createHash('sha256');
+for (const file of readdirSync(dist, { recursive: true }).map(String).sort()) {
+  const full = path.join(dist, file);
+  if (SW_SKIP.has(file.split(path.sep).join('/')) || !statSync(full).isFile()) continue;
+  siteHash.update(file).update(readFileSync(full));
+}
+const swFile = path.join(dist, 'sw.js');
+const swSource = readFileSync(swFile, 'utf8');
+const CACHE_VERSION_PATTERN = /const CACHE_VERSION = "[^"]*";/;
+if (!CACHE_VERSION_PATTERN.test(swSource)) throw new Error('sw.js no longer declares CACHE_VERSION; the cache cannot be versioned.');
+const cacheVersion = siteHash.digest('hex').slice(0, 10);
+writeFileSync(swFile, swSource.replace(CACHE_VERSION_PATTERN, `const CACHE_VERSION = "${cacheVersion}";`));
+console.log(`Stamped sw.js cache ${cacheVersion}.`);
 console.log('Built the clean portfolio at / and the original theme at /old-themes/.');

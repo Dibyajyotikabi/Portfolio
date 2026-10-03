@@ -10,6 +10,10 @@ const CACHE = `dibyajyoti-site-${CACHE_VERSION}`;
 // The shell is the only thing fetched during install, so a first visit stays light.
 const SHELL = ["/", "/assets/avatar.jpg", "/assets/favicon.svg"];
 const CACHEABLE = new Set(["style", "script", "image", "font", "manifest"]);
+// Pages are served for 10 minutes from the browser's HTTP cache, so a refetch
+// that trusted it could store the page from before a deploy. A conditional
+// request costs a 304 when nothing changed.
+const PAGE_FETCH = "no-cache";
 // Repeated background refreshes for the same URL are collapsed into one request.
 const refreshing = new Map();
 
@@ -19,12 +23,13 @@ function keepAlive(event, promise) {
   try { event.waitUntil(promise); } catch { /* The response itself is still delivered. */ }
 }
 
-function stored(cache, request) {
+function stored(cache, request, mode = "default") {
   // An in-flight refresh already covers this URL.
   if (refreshing.has(request.url)) return refreshing.get(request.url);
-  // The browser's own rules decide freshness, so a copy it already holds fresh —
-  // including one a prefetch put there — is reused instead of re-fetched.
-  const job = fetch(request, { cache: "default", credentials: "same-origin", redirect: "follow" })
+  // For assets the browser's own rules decide freshness, so a copy it already
+  // holds fresh (including one a prefetch put there) is reused instead of
+  // re-fetched. Pages pass "no-cache" so they always revalidate with the server.
+  const job = fetch(request, { cache: mode, credentials: "same-origin", redirect: "follow" })
     .then((response) => {
       if (!response || !response.ok || response.type !== "basic" || uncacheable(response)) return response;
       return cache.put(request, response.clone()).then(() => response);
@@ -40,10 +45,10 @@ async function navigation(request, event) {
   const cached = await cache.match(request);
   if (cached) {
     // Show the saved page now; the newest copy replaces it for the next click.
-    keepAlive(event, stored(cache, request));
+    keepAlive(event, stored(cache, request, PAGE_FETCH));
     return cached;
   }
-  const fresh = await stored(cache, request);
+  const fresh = await stored(cache, request, PAGE_FETCH);
   // A real 404 stays a 404; only a network that cannot answer falls back to home.
   if (fresh) return fresh;
   return (await cache.match("/")) || Response.error();

@@ -408,6 +408,12 @@
   }
 
   if ("serviceWorker" in navigator) {
+    // A page answered by an older worker came from the old deploy's cache. When
+    // the new worker takes over, load the page once more so the visitor sees
+    // the current version instead of waiting for their next visit.
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.addEventListener("controllerchange", () => { window.location.reload(); }, { once: true });
+    }
     // Caching is an enhancement; every page works without it.
     workerReady = Promise.race([
       navigator.serviceWorker.register("/sw.js?v=2", { scope: "/" })
