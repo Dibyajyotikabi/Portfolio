@@ -252,9 +252,42 @@
     }
   }
 
+  const postCountKey = "portfolio-post-total";
+  const validPostCount = (value) => Number.isSafeInteger(value) && value > 0;
+
+  // Every page shows the article count, so it has to follow the blog
+  // everywhere, not only where the story list is. The last known count shows
+  // first so a returning visitor never sees the stale number in the HTML.
+  function showPostCount(total) {
+    document.querySelectorAll("[data-post-count]").forEach(element => { element.textContent = total; });
+  }
+
+  function writingRow(post, number) {
+    const url = new URL(post.url);
+    const date = new Date(post.date);
+    if (url.origin !== backendUrl.origin || typeof post.title !== "string" || !Number.isFinite(date.getTime())) throw new Error("Invalid story");
+    const row = document.createElement("li"); row.className = "writing-row";
+    row.dataset.number = String(number);
+    const link = document.createElement("a"); link.href = url.href;
+    const title = document.createElement("span"); title.textContent = post.title;
+    link.append(title);
+    const meta = document.createElement("ul"); meta.className = "writing-meta";
+    const metaItem = document.createElement("li");
+    const kind = document.createElement("span");
+    kind.className = "entry-kind entry-kind-blog"; kind.setAttribute("aria-hidden", "true");
+    const time = document.createElement("time"); time.dateTime = date.toISOString();
+    time.textContent = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+    metaItem.append(kind, time); meta.append(metaItem);
+    row.append(link, meta); return row;
+  }
+
   async function loadWriting() {
     const list = document.querySelector("[data-latest-writing]");
-    if (!list) return;
+    if (!list && !document.querySelector("[data-post-count]")) return;
+    try {
+      const cached = Number(localStorage.getItem(postCountKey));
+      if (validPostCount(cached)) showPostCount(cached);
+    } catch { /* A blocked cache leaves the published count in place. */ }
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
     try {
@@ -262,30 +295,15 @@
       if (!response.ok) throw new Error("Writing unavailable");
       const data = await response.json();
       if (!Array.isArray(data.posts)) throw new Error("Invalid writing response");
-      const shown = data.posts.slice(0, 3);
-      const rows = shown.map((post, index) => {
-        const url = new URL(post.url);
-        const date = new Date(post.date);
-        if (url.origin !== backendUrl.origin || typeof post.title !== "string" || !Number.isFinite(date.getTime())) throw new Error("Invalid story");
-        const row = document.createElement("li"); row.className = "writing-row";
-        const total = Number.isSafeInteger(data.total) && data.total > 0 ? data.total : shown.length;
-        row.dataset.number = String(total - index);
-        const link = document.createElement("a"); link.href = url.href;
-        const title = document.createElement("span"); title.textContent = post.title;
-        link.append(title);
-        const meta = document.createElement("ul"); meta.className = "writing-meta";
-        const metaItem = document.createElement("li");
-        const kind = document.createElement("span");
-        kind.className = "entry-kind entry-kind-blog"; kind.setAttribute("aria-hidden", "true");
-        const time = document.createElement("time"); time.dateTime = date.toISOString();
-        time.textContent = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
-        metaItem.append(kind, time); meta.append(metaItem);
-        row.append(link, meta); return row;
-      });
-      if (rows.length) list.replaceChildren(...rows);
-      if (Number.isSafeInteger(data.total) && data.total >= 0) {
-        document.querySelectorAll("[data-post-count]").forEach(element => { element.textContent = data.total; });
+      if (validPostCount(data.total)) {
+        showPostCount(data.total);
+        try { localStorage.setItem(postCountKey, String(data.total)); } catch { /* The live count is already visible. */ }
       }
+      if (!list) return;
+      const shown = data.posts.slice(0, 3);
+      const total = validPostCount(data.total) ? data.total : shown.length;
+      const rows = shown.map((post, index) => writingRow(post, total - index));
+      if (rows.length) list.replaceChildren(...rows);
     } catch { /* Keep the published article links available if the blog cannot be reached. */ }
     finally { clearTimeout(timeout); }
   }
