@@ -81,8 +81,10 @@ test('India and US visitors see the actual discounted checkout prices', async ()
   const us = await price('US');
   assert.equal(india.prices[0].textContent, '₹199');
   assert.equal(us.prices[0].textContent, '$8.99');
-  assert.equal(india.notes[0].hidden, true);
-  assert.equal(us.notes[0].hidden, true);
+  // The note stays where it is (hiding it late shifted the page) and keeps its text.
+  assert.equal(india.notes[0].hidden, false);
+  assert.equal(us.notes[0].hidden, false);
+  assert.match(us.notes[0].textContent, /US\$8\.99/);
 });
 
 test('missing geolocation or offline detection keeps both market prices explained', async () => {
