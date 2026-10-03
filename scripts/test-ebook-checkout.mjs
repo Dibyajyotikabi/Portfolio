@@ -59,8 +59,8 @@ test('direct visits and unknown statuses never claim that payment succeeded', ()
 });
 
 async function price(country, rates, fail = false) {
-  const prices = [{ dataset: { inr: '499', usd: '19' }, textContent: '₹499' }];
-  const notes = [{ hidden: false, textContent: 'India: ₹499. Outside India: US$19.' }];
+  const prices = [{ dataset: { inr: '199', usd: '8.99' }, textContent: '₹199' }];
+  const notes = [{ hidden: false, textContent: 'India: ₹199. Outside India: US$8.99.' }];
   vm.runInNewContext(priceSource, {
     Intl, AbortController, setTimeout, clearTimeout,
     navigator: { language: 'en-US' },
@@ -79,8 +79,8 @@ async function price(country, rates, fail = false) {
 test('India and US visitors see the actual discounted checkout prices', async () => {
   const india = await price('IN');
   const us = await price('US');
-  assert.equal(india.prices[0].textContent, '₹499');
-  assert.equal(us.prices[0].textContent, '$19');
+  assert.equal(india.prices[0].textContent, '₹199');
+  assert.equal(us.prices[0].textContent, '$8.99');
   assert.equal(india.notes[0].hidden, true);
   assert.equal(us.notes[0].hidden, true);
 });
@@ -88,16 +88,16 @@ test('India and US visitors see the actual discounted checkout prices', async ()
 test('missing geolocation or offline detection keeps both market prices explained', async () => {
   for (const result of [await price(''), await price('', null, true)]) {
     assert.equal(result.notes[0].hidden, false);
-    assert.match(result.notes[0].textContent, /US\$19/);
+    assert.match(result.notes[0].textContent, /US\$8\.99/);
   }
 });
 
 test('converted prices are approximate and invalid rates fall back to USD', async () => {
   const gb = await price('GB', { USD: 1, GBP: 0.75 });
-  assert.equal(gb.prices[0].textContent, '£14.25');
+  assert.equal(gb.prices[0].textContent, '£6.74');
   assert.match(gb.notes[0].textContent, /Approximate/);
   const invalid = await price('GB', { USD: 0, GBP: 0.75 });
-  assert.equal(invalid.prices[0].textContent, '$19');
+  assert.equal(invalid.prices[0].textContent, '$8.99');
 });
 
 test('order return URLs bypass the service-worker cache', async () => {
