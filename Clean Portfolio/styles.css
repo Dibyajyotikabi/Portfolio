@@ -489,7 +489,9 @@ picture { display: block; }
 .ebook-proof { margin-top: 10px; padding-left: 10px; border-left: 3px solid var(--green-ink); font-size: 14px; line-height: 1.5; color: var(--muted); }
 .ebook-cta-mid { margin-top: 18px; }
 .ebook-hindi { margin: 26px 0 6px; padding: 20px 22px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
-.ebook-hindi[hidden] { display: none; }
+/* Shown only when hindi.js (in the head, before first paint) adds .show-hindi. */
+.ebook-hindi { display: none; }
+.show-hindi .ebook-hindi { display: block; }
 .ebook-hindi h2 { margin-bottom: 8px; font-size: 1.15em; }
 .ebook-hindi p, .ebook-hindi li { font-size: 16px; line-height: 1.7; }
 .ebook-hindi p { margin-top: 8px; }
@@ -505,7 +507,7 @@ picture { display: block; }
 .legal li { padding: 3px 0; }
 .legal a { color: var(--link); }
 /* Store page feature card, in the book's own palette */
-@font-face { font-family: "Caveat"; font-style: normal; font-weight: 700; font-display: swap; src: url("/assets/fonts/caveat-700-latin.woff2") format("woff2"); }
+@font-face { font-family: "Caveat"; font-style: normal; font-weight: 700; font-display: optional; src: url("/assets/fonts/caveat-700-latin.woff2") format("woff2"); }
 .store .page-intro { padding-bottom: 22px; }
 .feature { --forest: #1f3a2f; --forest-deep: #13271f; --tomato: #e4572e; --mustard: #f2b33d; --cream: #f6f0e4; --sage: #a9c4a5;
   position: relative; display: grid; grid-template-columns: 210px 1fr; gap: 34px; align-items: center; margin: 6px 0 40px; padding: 34px 34px 34px 38px;
@@ -596,10 +598,10 @@ picture { display: block; }
 .ebook-main .buy-button:hover { background: var(--tomato); color: #fff; transform: translateY(-1px); box-shadow: 0 6px 0 var(--tomato-deep); }
 .ebook-main .buy-button:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--tomato-deep); }
 .ebook-main .ebook-hero .buy-button { position: relative; overflow: hidden; margin-top: 18px; font-size: 17px; }
-.ebook-main .ebook-hero .buy-button::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: skewX(-20deg); animation: buy-shine 4.5s ease-in-out 1.5s infinite; }
-@keyframes buy-shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
-.ebook-main .buy-bar { transition: transform 250ms ease; }
-.ebook-main .buy-bar.is-hidden { transform: translateY(110%); }
+.ebook-main .ebook-hero .buy-button::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: translateX(-150%) skewX(-20deg); animation: buy-shine 4.5s ease-in-out 1.5s infinite; }
+@keyframes buy-shine { 0%, 70% { transform: translateX(-150%) skewX(-20deg); } 100% { transform: translateX(325%) skewX(-20deg); } }
+.ebook-main .buy-bar { transform: translateY(110%); transition: transform 250ms ease; }
+.ebook-main .buy-bar.is-shown { transform: none; }
 .ebook-main .ebook-section { padding-top: 46px; }
 .ebook-main .ebook-section h2 { margin-bottom: 14px; color: var(--sales-head); font-family: Georgia, "Times New Roman", serif; font-size: 1.75em; line-height: 1.15; letter-spacing: -.01em; }
 .ebook-main .ebook-section h2::before { counter-increment: sec; content: counter(sec, decimal-leading-zero); display: block; width: fit-content; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 2px solid var(--mustard); color: var(--tomato); font: 700 12px/1 system-ui, sans-serif; letter-spacing: .16em; }

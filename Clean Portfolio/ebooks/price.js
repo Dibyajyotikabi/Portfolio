@@ -36,22 +36,22 @@
     }).format(amount);
   };
 
+  // The India/international note stays put for India and dollar visitors (it
+  // already reads right for them). Hiding it after the trace returned made the
+  // page jump up a second after it loaded; the text is only swapped in place.
   const notes = document.querySelectorAll('[data-price-note]');
-  const hideNote = () => notes.forEach((el) => { el.hidden = true; });
   const showNote = () => notes.forEach((el) => {
     el.textContent = 'Approximate price in your currency, including tax. Checkout shows the exact amount.';
     el.hidden = false;
   });
   const showDollars = () => {
     prices.forEach((el) => { el.textContent = format(Number(el.dataset.usd), 'USD'); });
-    hideNote();
   };
 
   (async () => {
     try {
       const loc = await country();
-      if (!loc) return;
-      if (loc === 'IN') return hideNote();
+      if (!loc || loc === 'IN') return;
       const currency = EURO.includes(loc) ? 'EUR' : CURRENCY[loc] || 'USD';
       let perDollar = 1;
       if (currency !== 'USD') {
@@ -65,7 +65,6 @@
         el.textContent = format(Number(el.dataset.usd) * perDollar, currency);
       });
       if (currency !== 'USD') showNote();
-      else hideNote();
     } catch {
       // Keep the rupee prices and the visible India/international explanation.
     }

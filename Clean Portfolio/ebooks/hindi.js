@@ -1,6 +1,9 @@
 // Visitors from the Hindi ad (or with Hindi as their browser language) see a
 // short Hindi summary right under the hero, so they don't land on a page that
 // is only in English. Everyone else never sees it.
+// This runs in the head, before the page paints, and only sets a class on
+// <html> that the CSS reads, so the box is there from the first frame instead
+// of pushing the page down once the page has loaded.
 (() => {
   const KEY = 'b2p-hindi';
   const content = new URLSearchParams(location.search).get('utm_content') || '';
@@ -11,5 +14,5 @@
   try { remembered = sessionStorage.getItem(KEY) === '1'; } catch {}
   if (!fromAd && !prefersHindi && !remembered) return;
   try { sessionStorage.setItem(KEY, '1'); } catch {}
-  document.querySelector('[data-hindi]')?.removeAttribute('hidden');
+  document.documentElement.classList.add('show-hindi');
 })();
