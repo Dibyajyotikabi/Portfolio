@@ -4,7 +4,7 @@
 // Load before order.js: it strips the Dodo return query this file reads.
 (() => {
   const PIXEL_ID = '2402424140581163';
-  const PRICE = { value: '199', currency: 'INR' };
+  const PRICE = { value: '99', currency: 'INR' };
   const FBC_KEY = 'ebook-fbc';
   const FBC_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 

@@ -59,8 +59,8 @@ test('direct visits and unknown statuses never claim that payment succeeded', ()
 });
 
 async function price(country, rates, fail = false) {
-  const prices = [{ dataset: { inr: '199', usd: '8.99' }, textContent: '₹199' }];
-  const notes = [{ hidden: false, textContent: 'India: ₹199. Outside India: US$8.99.' }];
+  const prices = [{ dataset: { inr: '99', usd: '8.99' }, textContent: '₹99' }];
+  const notes = [{ hidden: false, textContent: 'India: ₹99. Outside India: US$8.99.' }];
   vm.runInNewContext(priceSource, {
     Intl, AbortController, setTimeout, clearTimeout,
     navigator: { language: 'en-US' },
@@ -79,7 +79,7 @@ async function price(country, rates, fail = false) {
 test('India and US visitors see the actual discounted checkout prices', async () => {
   const india = await price('IN');
   const us = await price('US');
-  assert.equal(india.prices[0].textContent, '₹199');
+  assert.equal(india.prices[0].textContent, '₹99');
   assert.equal(us.prices[0].textContent, '$8.99');
   // The note stays where it is (hiding it late shifted the page) and keeps its text.
   assert.equal(india.notes[0].hidden, false);
