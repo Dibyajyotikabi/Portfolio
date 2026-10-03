@@ -708,6 +708,11 @@ picture { display: block; }
   .ebook-main .ebook-author p { font-size: 15.5px; }
   .ebook-order { margin-top: 42px; padding: 26px 20px 22px; }
   .ebook-order-total { margin-inline: -20px; padding-inline: 20px; }
+  /* Hindi ad visitors: price and buy button on the first phone screen. */
+  .show-hindi .ebook-main .ebook-kicker, .show-hindi .ebook-main .ebook-facts { display: none; }
+  .show-hindi .ebook-main .ebook-hook { margin-top: 0; font-size: 18px; }
+  .show-hindi .ebook-main .ebook-summary h1 { margin-bottom: 6px; }
+  .show-hindi .ebook-main .ebook-price { margin-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ebook-main .buy-button:hover, .ebook-main .buy-button:active { transform: none; }
