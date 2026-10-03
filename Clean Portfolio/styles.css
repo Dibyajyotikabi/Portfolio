@@ -340,6 +340,11 @@ picture { display: block; }
 .skill-list li:has(.logo) { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 7px; font-size: 14px; }
 .project-list .logo { margin: -3px 10px 0 0; }
 .project-list .project-name { font-size: 1.05em; }
+/* Homepage picks: the same round logo as Experience, with name, badge and
+   description flowing beside it. */
+.project-list-featured { list-style: none; padding-left: 0; }
+.project-list-featured li { position: relative; min-height: 44px; padding: 12px 0 12px 58px; }
+.project-list-featured .logo { position: absolute; top: 12px; left: 0; margin: 0; }
 .contact-option .logo { margin: -4px 9px 0 0; }
 @media (prefers-reduced-motion: reduce) { .logo-lg { transition: none; } .experience-item:hover .logo-lg { transform: none; } }
 .contact-main { padding-bottom: 30px; }
