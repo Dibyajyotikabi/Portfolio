@@ -670,6 +670,41 @@ picture { display: block; }
 .ebook-main .ebook-hindi .ebook-hindi-small, .ebook-main .ebook-hindi-price { color: #4b5a52; }
 .ebook-main .ebook-hindi-price strong { color: #17251f; }
 .ebook-main .buy-bar .buy-button { box-shadow: 0 3px 0 var(--tomato-deep); }
+/* Kids Worksheets: same sales layout in the book's blue and yellow. */
+.ebook-main.kids { --sales-head: #243b80; --sales-line: rgba(36, 59, 128, .14); --forest: #243b80; --forest-deep: #172a63; --mustard: #ffd23f; --sage: #c3cdf0; }
+.ebook-main.kids .ebook-hero { background: radial-gradient(120% 90% at 85% 0%, #3557c8 0, var(--forest) 55%, var(--forest-deep) 100%); }
+.ebook-main.kids .ebook-hero::before { border-color: rgba(255, 210, 63, .1); }
+.ebook-main.kids .ebook-subtitle { color: #e3e8fb; }
+.ebook-main.kids .ebook-hindi, .ebook-main.kids .ebook-hindi-price strong { color: #17213f; }
+.ebook-main.kids .ebook-hindi .ebook-hindi-small, .ebook-main.kids .ebook-hindi-price { color: #4a5370; }
+.feature-kids { --forest: #243b80; --forest-deep: #172a63; --mustard: #ffd23f; --sage: #c3cdf0; margin-top: 40px; background: radial-gradient(120% 90% at 85% 0%, #3557c8 0, var(--forest) 55%, var(--forest-deep) 100%); }
+.feature-kids .feature-sub { color: #e3e8fb; }
+.ebook-main.kids .ebook-samples { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ebook-alt-link { display: inline-block; margin: 18px 0 0 18px; color: var(--cream); font-weight: 600; text-decoration-color: var(--mustard); }
+.ebook-videos { display: flex; justify-content: center; gap: 16px; margin-top: 16px; }
+.ebook-videos video { display: block; width: 100%; max-width: 300px; height: auto; border-radius: 12px; background: #000; box-shadow: 0 18px 36px -20px rgba(15, 23, 42, .6); }
+.ebook-videos .ebook-video-hi { display: none; }
+.show-hindi .ebook-videos .ebook-video-hi { display: block; }
+.ebook-packs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; list-style: none; margin: 18px 0 0; padding: 0; }
+.ebook-packs li { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 16px; border: 1px solid var(--sales-line); border-radius: 14px; background: var(--sales-card); }
+.ebook-packs img { width: 100%; height: auto; border-radius: 4px; box-shadow: 0 6px 14px rgba(15, 23, 42, .18); }
+.ebook-pack-body { display: flex; flex-direction: column; }
+.ebook-packs h3 { color: var(--sales-head); font: 700 18px/1.25 Georgia, "Times New Roman", serif; }
+.ebook-main .ebook-packs p { margin-top: 4px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.ebook-main .ebook-packs .ebook-pack-count { margin-top: 2px; color: var(--tomato); font-size: 13px; font-weight: 700; }
+.ebook-main .ebook-packs .ebook-pack-price { margin-top: auto; padding-top: 8px; }
+.ebook-pack-price strong { color: var(--ink); font: 700 24px/1 Georgia, "Times New Roman", serif; }
+.ebook-pack-price s { margin-left: 4px; color: var(--soft); }
+.ebook-main .ebook-packs .buy-button { display: flex; justify-content: center; margin-top: 10px; padding: 10px 12px; font-size: 15px; }
+.ebook-packs .ebook-pack-best { border: 2px solid var(--mustard); box-shadow: 0 18px 36px -24px rgba(15, 23, 42, .5); }
+.ebook-main .ebook-packs .ebook-pack-tag { width: fit-content; margin: 0 0 6px; padding: 2px 8px; border-radius: 4px; background: var(--mustard); color: var(--forest-deep); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 620px) {
+  .ebook-alt-link { display: block; margin: 12px 0 0; text-align: center; }
+  .ebook-packs { grid-template-columns: 1fr; }
+  .ebook-packs li { grid-template-columns: 84px 1fr; padding: 14px; }
+  .ebook-videos video { max-width: 260px; }
+  .show-hindi .ebook-videos video { max-width: none; width: calc(50% - 8px); }
+}
 @media (max-width: 620px) {
   .sales-page .breadcrumbs { display: none; }
   .ebook-main .ebook-hero { padding: 20px 18px 22px; margin: 10px -4px 10px; }
@@ -741,10 +776,76 @@ picture { display: block; }
   .support-note h2 { font-size: 36px; }
 }
 
+/* Diwali Shop Post Kit: maroon, marigold orange and gold. */
+.ebook-main.diwali { --sales-head: #6b1020; --sales-line: rgba(107, 16, 32, .14); --forest: #6b1020; --forest-deep: #430812; --tomato: #e8701a; --tomato-deep: #a94c0a; --mustard: #f5b83d; --cream: #fbf1e3; --sage: #f0c9b8; }
+.ebook-main.diwali .ebook-hero { background: radial-gradient(120% 90% at 85% 0%, #a3243a 0, var(--forest) 55%, var(--forest-deep) 100%); }
+.ebook-main.diwali .ebook-hero::before { border-color: rgba(245, 184, 61, .1); }
+.ebook-main.diwali .ebook-subtitle { color: #f6e2d6; }
+.ebook-main.diwali .ebook-hindi, .ebook-main.diwali .ebook-hindi-price strong { color: #2a1015; }
+.ebook-main.diwali .ebook-hindi .ebook-hindi-small, .ebook-main.diwali .ebook-hindi-price { color: #6a4a4f; }
+.ebook-main.diwali .ebook-samples { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+/* Hindi AI Prompt Kit for Teachers: blackboard green with chalk yellow. The
+   page is in Hindi, so its Hindi block and Hindi video always show. */
+.ebook-main.teachers { --sales-head: #0f3b2e; --sales-line: rgba(15, 59, 46, .14); --forest: #0f3b2e; --forest-deep: #082419; --tomato: #d9822b; --tomato-deep: #9c5a17; --mustard: #ffd36a; --cream: #f4f1e6; --sage: #a9d1c0; }
+.ebook-main.teachers .ebook-hero { background: radial-gradient(120% 90% at 85% 0%, #1d6b52 0, var(--forest) 55%, var(--forest-deep) 100%); }
+.ebook-main.teachers .ebook-hero::before { border-color: rgba(255, 211, 106, .1); }
+.ebook-main.teachers .ebook-subtitle { color: #dcebe4; }
+.ebook-main.teachers .ebook-hindi, .ebook-main.teachers .ebook-videos .ebook-video-hi { display: block; }
+.ebook-main.teachers .ebook-hindi, .ebook-main.teachers .ebook-hindi-price strong { color: #10241d; }
+.ebook-main.teachers .ebook-hindi .ebook-hindi-small, .ebook-main.teachers .ebook-hindi-price { color: #47584f; }
+.ebook-main.teachers .ebook-samples { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ebook-shot { margin: 18px 0 0; text-align: center; }
+.ebook-shot img { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto; border-radius: 12px; box-shadow: 0 18px 36px -20px rgba(15, 23, 42, .55); }
+.ebook-shot figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; }
+
+/* Store grid: one card per product, each in its own palette. The title link
+   stretches over the whole card, so the card is one tap target. */
+.shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; list-style: none; margin: 6px 0 36px; padding: 0; }
+.shop-card { --c1: #2d5444; --c2: #1f3a2f; --c3: #13271f; --accent: #f2b33d;
+  position: relative; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--surface);
+  box-shadow: 0 18px 36px -28px rgba(15, 23, 42, .45); transition: transform 220ms cubic-bezier(.16, 1, .3, 1), box-shadow 220ms; }
+.shop-card:hover { transform: translateY(-4px); box-shadow: 0 28px 48px -26px rgba(15, 23, 42, .5); }
+.shop-card:focus-within { outline: 2px solid var(--link); outline-offset: 3px; }
+.shop-diwali { --c1: #a3243a; --c2: #6b1020; --c3: #430812; --accent: #f5b83d; }
+.shop-teachers { --c1: #1d6b52; --c2: #0f3b2e; --c3: #082419; --accent: #ffd36a; }
+.shop-kids { --c1: #3557c8; --c2: #243b80; --c3: #172a63; --accent: #ffd23f; }
+.shop-art { position: relative; display: grid; place-items: center; height: 280px; overflow: hidden; background: radial-gradient(120% 90% at 85% 0%, var(--c1) 0, var(--c2) 55%, var(--c3) 100%); }
+.shop-art::after { content: ""; position: absolute; right: -80px; bottom: -110px; width: 260px; height: 260px; border-radius: 50%; border: 40px solid rgba(255, 255, 255, .06); pointer-events: none; }
+.shop-art img { position: relative; z-index: 1; display: block; width: auto; height: 224px; border-radius: 2px 6px 6px 2px; box-shadow: 14px 20px 32px rgba(0, 0, 0, .45); transform: rotate(-3deg); transition: transform 300ms cubic-bezier(.16, 1, .3, 1); }
+.shop-card:hover .shop-art img { transform: rotate(0) translateY(-4px) scale(1.03); }
+.shop-badge { position: absolute; top: 16px; left: 16px; z-index: 2; padding: 3px 9px; border-radius: 4px; background: var(--accent); color: var(--c3); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.shop-body { display: flex; flex: 1; flex-direction: column; padding: 22px 24px 24px; }
+.shop-type { color: var(--soft); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.shop-card h2 { margin: 6px 0 8px; font: 700 24px/1.15 Georgia, "Times New Roman", serif; letter-spacing: -.01em; }
+.shop-card h2 a { color: var(--ink); text-decoration: none; }
+.shop-card h2 a::after { content: ""; position: absolute; inset: 0; z-index: 3; }
+.shop-card h2 a:focus-visible { outline: none; }
+.shop-sub { color: var(--muted); font-size: 15px; line-height: 1.55; }
+.shop-facts { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 14px 0 0; padding: 0; }
+.shop-facts li { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 12.5px; font-weight: 600; }
+.shop-price { display: flex; align-items: baseline; gap: 8px; margin-top: auto; padding-top: 18px; }
+.shop-price strong { color: var(--ink); font: 700 28px/1 Georgia, "Times New Roman", serif; }
+.shop-price s, .shop-price span { color: var(--soft); font-size: 15px; }
+.shop-note { margin-top: 4px; color: var(--soft); font-size: 12.5px; line-height: 1.45; }
+.shop-btn { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; padding: 11px 18px; border-radius: 999px; background: var(--c2); color: #fff; font-size: 15px; font-weight: 700; transition: background 160ms; }
+.shop-btn::after { content: ""; width: 7px; height: 7px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; transform: rotate(45deg); }
+.shop-card:hover .shop-btn { background: var(--c3); }
+:root[data-theme="dark"] .shop-btn { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+@media (max-width: 700px) {
+  .shop-grid { grid-template-columns: 1fr; gap: 20px; }
+  .shop-art { height: 230px; }
+  .shop-art img { height: 184px; }
+  .shop-body { padding: 18px 18px 20px; }
+}
+@media (max-width: 620px) {
+  .ebook-main.teachers .ebook-videos video { max-width: none; width: calc(50% - 8px); }
+  .ebook-shot img { max-width: 280px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  a, .theme-toggle, .buy-button, .ebook-shelf-cover img, .ebook-samples img, .feature-cover img, .feature-btn, .peek-pages img { transition: none; }
-  .buy-button:hover, .ebook-shelf-cover:hover img, .ebook-samples li:hover img { transform: none; }
+  a, .theme-toggle, .buy-button, .ebook-shelf-cover img, .ebook-samples img, .feature-cover img, .feature-btn, .peek-pages img, .shop-card, .shop-art img { transition: none; }
+  .buy-button:hover, .ebook-shelf-cover:hover img, .ebook-samples li:hover img, .shop-card:hover, .shop-card:hover .shop-art img { transform: none; }
 }
 
 @media print {

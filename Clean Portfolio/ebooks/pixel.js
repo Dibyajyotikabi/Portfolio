@@ -4,7 +4,10 @@
 // Load before order.js: it strips the Dodo return query this file reads.
 (() => {
   const PIXEL_ID = '2402424140581163';
-  const PRICE = { value: '99', currency: 'INR' };
+  const CURRENCY = 'INR';
+  // Buy links without data-value are the ₹99 Blog to Paycheck book.
+  const DEFAULT_VALUE = '99';
+  const CHECKOUT_KEY = 'ebook-checkout';
   const FBC_KEY = 'ebook-fbc';
   const FBC_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -42,16 +45,41 @@
       .catch(() => {});
   };
 
+  // Each buy link carries its rupee price in data-value. The thank-you page
+  // has no buy links, so the last clicked value is kept for the Purchase.
+  const priceOf = (value) => ({
+    value: /^\d+(\.\d+)?$/.test(value || '') ? value : DEFAULT_VALUE,
+    currency: CURRENCY,
+  });
+  const savedValue = () => {
+    try {
+      return sessionStorage.getItem(CHECKOUT_KEY) || '';
+    } catch {
+      return '';
+    }
+  };
+  const saveValue = (value) => {
+    try {
+      sessionStorage.setItem(CHECKOUT_KEY, value);
+    } catch {
+      // Private mode: the Purchase falls back to the default price.
+    }
+  };
+
   track('PageView');
 
   document.querySelectorAll('a[data-buy]').forEach((link) => {
-    link.addEventListener('click', () => track('InitiateCheckout', PRICE));
+    link.addEventListener('click', () => {
+      const price = priceOf(link.dataset.value);
+      saveValue(price.value);
+      track('InitiateCheckout', price);
+    });
   });
 
   const query = new URLSearchParams(window.location.search);
   if (document.querySelector('[data-order-heading]') &&
       (query.get('status') || '').toLowerCase() === 'succeeded') {
     // The payment id stops a double count if Meta sees the same sale twice.
-    track('Purchase', PRICE, query.get('payment_id') || '');
+    track('Purchase', priceOf(savedValue()), query.get('payment_id') || '');
   }
 })();

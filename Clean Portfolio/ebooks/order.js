@@ -25,7 +25,7 @@
     steps.hidden = true;
   } else if (status === 'succeeded') {
     heading.textContent = 'Check your download email';
-    message.textContent = 'Dodo Payments sends your receipt and access to Blog to Paycheck after confirming payment. Your receipt confirms your purchase.';
+    message.textContent = 'Dodo Payments sends your receipt and your download after confirming payment. Your receipt confirms your purchase.';
   }
-  document.title = `${heading.textContent} | Blog to Paycheck`;
+  document.title = `${heading.textContent} | Ebooks`;
 })();

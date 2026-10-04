@@ -119,3 +119,59 @@ test('order return URLs bypass the service-worker cache', async () => {
     assert.equal(intercepted, false);
   }
 });
+
+const pixelSource = readFileSync(new URL('../Clean Portfolio/ebooks/pixel.js', import.meta.url), 'utf8');
+
+function pixel({ search = '', links = [], isThankYou = false, session = new Map() } = {}) {
+  const sent = [];
+  const buttons = links.map(value => {
+    const handlers = {};
+    return {
+      dataset: value === undefined ? {} : { value },
+      addEventListener: (name, fn) => { handlers[name] = fn; },
+      click: () => handlers.click(),
+    };
+  });
+  const storage = map => ({ getItem: key => map.get(key) ?? null, setItem: (key, value) => map.set(key, value) });
+  vm.runInNewContext(pixelSource, {
+    URLSearchParams, Date,
+    window: { location: { search, origin: 'https://dibyajyotikabi.com', pathname: '/ebooks/kids-worksheets.html' } },
+    document: {
+      querySelectorAll: () => buttons,
+      querySelector: selector => (isThankYou && selector === '[data-order-heading]' ? {} : null),
+    },
+    localStorage: storage(new Map()),
+    sessionStorage: storage(session),
+    fetch: async url => { sent.push(new URL(url).searchParams); },
+  });
+  const events = name => sent.filter(params => params.get('ev') === name);
+  return { buttons, events, session };
+}
+
+test('each buy link reports its own price to the pixel', () => {
+  const { buttons, events } = pixel({ links: ['149', '399'] });
+  buttons[1].click();
+  buttons[0].click();
+  assert.deepEqual(events('InitiateCheckout').map(params => params.get('cd[value]')), ['399', '149']);
+  assert.equal(events('InitiateCheckout')[0].get('cd[currency]'), 'INR');
+});
+
+test('buy links without a valid data-value fall back to the default price', () => {
+  const { buttons, events } = pixel({ links: [undefined, '<b>9</b>'] });
+  buttons.forEach(button => button.click());
+  assert.deepEqual(events('InitiateCheckout').map(params => params.get('cd[value]')), ['99', '99']);
+});
+
+test('the purchase uses the price of the pack that was clicked', () => {
+  const session = new Map();
+  pixel({ links: ['399'], session }).buttons[0].click();
+  const { events } = pixel({ search: '?status=succeeded&payment_id=pay_1', isThankYou: true, session });
+  assert.equal(events('Purchase').length, 1);
+  assert.equal(events('Purchase')[0].get('cd[value]'), '399');
+  assert.equal(events('Purchase')[0].get('eid'), 'pay_1');
+});
+
+test('a purchase with no saved checkout still reports the default price', () => {
+  const { events } = pixel({ search: '?status=succeeded', isThankYou: true });
+  assert.equal(events('Purchase')[0].get('cd[value]'), '99');
+});

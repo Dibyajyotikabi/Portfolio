@@ -66,7 +66,7 @@ for (const page of [
   'writing/core-web-vitals-on-live-newsrooms.html',
   'writing/hermes-runbooks-for-editorial-teams.html',
   'writing/scaling-wordpress-past-10m-pageviews.html',
-  'ebooks/index.html', 'ebooks/blog-to-paycheck.html', 'ebooks/thank-you.html',
+  'ebooks/index.html', 'ebooks/blog-to-paycheck.html', 'ebooks/kids-worksheets.html', 'ebooks/diwali-shop-post-kit.html', 'ebooks/hindi-ai-prompt-kit-teachers.html', 'ebooks/thank-you.html',
   'terms.html', 'privacy.html', 'refund-policy.html',
 ]) {
   const file = path.join(dist, page);
@@ -89,7 +89,7 @@ try {
 }
 
 // A store page must never ship a Buy button that goes nowhere.
-for (const page of ['ebooks/index.html', 'ebooks/blog-to-paycheck.html']) {
+for (const page of ['ebooks/index.html', 'ebooks/blog-to-paycheck.html', 'ebooks/kids-worksheets.html', 'ebooks/diwali-shop-post-kit.html', 'ebooks/hindi-ai-prompt-kit-teachers.html']) {
   const html = readFileSync(path.join(dist, page), 'utf8');
   if (html.includes('REPLACE_WITH_CHECKOUT_URL')) {
     throw new Error(`${page} still has the placeholder checkout link. Paste the real Dodo (or other) checkout URL first.`);
