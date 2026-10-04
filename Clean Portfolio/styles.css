@@ -682,9 +682,11 @@ picture { display: block; }
 .ebook-main.kids .ebook-samples { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .ebook-alt-link { display: inline-block; margin: 18px 0 0 18px; color: var(--cream); font-weight: 600; text-decoration-color: var(--mustard); }
 .ebook-videos { display: flex; justify-content: center; gap: 16px; margin-top: 16px; }
-.ebook-videos video { display: block; width: 100%; max-width: 300px; height: auto; border-radius: 12px; background: #000; box-shadow: 0 18px 36px -20px rgba(15, 23, 42, .6); }
-.ebook-videos .ebook-video-hi { display: none; }
-.show-hindi .ebook-videos .ebook-video-hi { display: block; }
+.ebook-videos figure { flex: 0 1 300px; min-width: 0; margin: 0; }
+.ebook-videos video { display: block; width: 100%; height: auto; border-radius: 12px; background: #000; box-shadow: 0 18px 36px -20px rgba(15, 23, 42, .6); }
+.ebook-videos figcaption { margin-top: 10px; color: var(--sales-head, var(--ink)); font-size: 14px; font-weight: 700; letter-spacing: .04em; text-align: center; }
+/* Both videos always show. Hindi visitors get the Hindi one first. */
+.show-hindi .ebook-videos .ebook-video-hi { order: -1; }
 .ebook-packs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; list-style: none; margin: 18px 0 0; padding: 0; }
 .ebook-packs li { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 16px; border: 1px solid var(--sales-line); border-radius: 14px; background: var(--sales-card); }
 .ebook-packs img { width: 100%; height: auto; border-radius: 4px; box-shadow: 0 6px 14px rgba(15, 23, 42, .18); }
@@ -702,8 +704,9 @@ picture { display: block; }
   .ebook-alt-link { display: block; margin: 12px 0 0; text-align: center; }
   .ebook-packs { grid-template-columns: 1fr; }
   .ebook-packs li { grid-template-columns: 84px 1fr; padding: 14px; }
-  .ebook-videos video { max-width: 260px; }
-  .show-hindi .ebook-videos video { max-width: none; width: calc(50% - 8px); }
+  .ebook-videos { gap: 12px; }
+  .ebook-videos figure { flex: 1 1 0; }
+  .ebook-videos figcaption { margin-top: 8px; font-size: 13px; }
 }
 @media (max-width: 620px) {
   .sales-page .breadcrumbs { display: none; }
@@ -785,12 +788,12 @@ picture { display: block; }
 .ebook-main.diwali .ebook-hindi .ebook-hindi-small, .ebook-main.diwali .ebook-hindi-price { color: #6a4a4f; }
 .ebook-main.diwali .ebook-samples { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 /* Hindi AI Prompt Kit for Teachers: blackboard green with chalk yellow. The
-   page is in Hindi, so its Hindi block and Hindi video always show. */
+   page is in Hindi, so its Hindi block always shows. */
 .ebook-main.teachers { --sales-head: #0f3b2e; --sales-line: rgba(15, 59, 46, .14); --forest: #0f3b2e; --forest-deep: #082419; --tomato: #d9822b; --tomato-deep: #9c5a17; --mustard: #ffd36a; --cream: #f4f1e6; --sage: #a9d1c0; }
 .ebook-main.teachers .ebook-hero { background: radial-gradient(120% 90% at 85% 0%, #1d6b52 0, var(--forest) 55%, var(--forest-deep) 100%); }
 .ebook-main.teachers .ebook-hero::before { border-color: rgba(255, 211, 106, .1); }
 .ebook-main.teachers .ebook-subtitle { color: #dcebe4; }
-.ebook-main.teachers .ebook-hindi, .ebook-main.teachers .ebook-videos .ebook-video-hi { display: block; }
+.ebook-main.teachers .ebook-hindi { display: block; }
 .ebook-main.teachers .ebook-hindi, .ebook-main.teachers .ebook-hindi-price strong { color: #10241d; }
 .ebook-main.teachers .ebook-hindi .ebook-hindi-small, .ebook-main.teachers .ebook-hindi-price { color: #47584f; }
 .ebook-main.teachers .ebook-samples { grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -838,7 +841,6 @@ picture { display: block; }
   .shop-body { padding: 18px 18px 20px; }
 }
 @media (max-width: 620px) {
-  .ebook-main.teachers .ebook-videos video { max-width: none; width: calc(50% - 8px); }
   .ebook-shot img { max-width: 280px; }
 }
 
