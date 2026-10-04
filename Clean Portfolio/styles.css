@@ -857,3 +857,17 @@ picture { display: block; }
   .hero, .page-intro { padding-block: 24px; }
   .project-list li, .experience-item { break-inside: avoid; }
 }
+
+/* Reader reviews on ebook pages */
+.reviews-summary { font-size: 16px; color: var(--muted); }
+.reviews-summary strong { color: var(--ink); }
+.reviews-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 12px; }
+.review { display: flex; gap: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.review-photo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex: none; }
+.review-stars { margin: 0; color: var(--mustard, #b53d1a); letter-spacing: .08em; font-size: 15px; }
+.review-text { margin-top: 6px; font-size: 16px; line-height: 1.6; }
+.review-by { margin-top: 6px; font-size: 14px; color: var(--soft); }
+.reviews-invite { font-size: 15px; color: var(--muted); }
+.reviews-invite a { color: var(--link); }
+.ebook-main .ebook-hero .ebook-proof { color: var(--cream); border-left-color: var(--mustard); font-size: 15px; }
+.ebook-main .ebook-hero .ebook-proof strong { color: var(--cream); }
