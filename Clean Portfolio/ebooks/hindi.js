@@ -6,7 +6,11 @@
 // of pushing the page down once the page has loaded.
 (() => {
   const KEY = 'b2p-hindi';
-  const content = new URLSearchParams(location.search).get('utm_content') || '';
+  const params = new URLSearchParams(location.search);
+  const content = params.get('utm_content') || '';
+  // Visitors from a paid ad get a clean landing view: no menu, so the buy
+  // button is the only thing to tap.
+  if (/paid/i.test(params.get('utm_medium') || '')) document.documentElement.classList.add('from-ad');
   const fromAd = /hindi|india/i.test(content);
   const prefersHindi = (navigator.languages || [navigator.language || ''])
     .some((lang) => /^hi\b/i.test(lang));

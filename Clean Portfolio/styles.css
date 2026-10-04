@@ -494,6 +494,8 @@ picture { display: block; }
 .show-hindi .ebook-hindi { display: block; }
 /* Hindi ad visitors also get the hero and buy buttons in Hindi, matching the ad. */
 .lang-hi { display: none; }
+.from-ad .sales-page .site-nav, .from-ad .sales-page .breadcrumbs, .from-ad .sales-page .theme-toggle { display: none; }
+.from-ad .sales-page .site-header { padding-bottom: 10px; }
 .show-hindi .lang-hi { display: inline; }
 .show-hindi p.lang-hi { display: block; }
 .show-hindi .lang-en { display: none; }
