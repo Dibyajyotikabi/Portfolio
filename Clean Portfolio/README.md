@@ -13,7 +13,7 @@ Then visit http://127.0.0.1:4173.
 Production is published to `https://dibyajyotikabi.com/` by the parent repository's GitHub Pages workflow. Run `npm run build` from the parent directory: it packages these public files at the site root and builds the original React portfolio at `/old-themes/`, linked from every footer. `robots.txt`, `sitemap.xml`, canonical URLs, social metadata, and structured data are included. The build excludes the Python server, private blog editor, and development files. The live visitor total and latest writing load from the existing blog server at `https://blogs.dibyajyotikabi.com`. Writing links point to individual blog articles; the previous portfolio article URLs redirect there.
 
 - `index.html` — introduction and selected projects
-- `projects.html` — all 13 projects, including SamUpdater, AI Update Notes, and Cricket Scoreboard
+- `projects.html` — all 15 projects, including SamUpdater, Sam Updater Android App, AI Update Notes, and Cricket Scoreboard
 - `about.html` — biography, experience, education and training, certifications, services, tools, and press mentions
 - `writing.html` and `writing/` — the three articles from the existing portfolio
 - `contact.html` — email, booking, and social links
