@@ -19,6 +19,8 @@
      "Rated 4.5 by 62 buyers on Amazon"
     ],
     "rating": 4.5,
+    "bought": 300,
+    "reviews": 62,
     "buyUrl": "https://www.amazon.in/dp/B0F5HTR3QJ",
     "store": "amazon",
     "category": "Monitors & Gaming",

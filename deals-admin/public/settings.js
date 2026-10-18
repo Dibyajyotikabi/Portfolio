@@ -37,6 +37,7 @@ const settingsForm = () => h('form', { class: 'card settings', novalidate: true 
   ]),
   h('h4', {}, ['Changes']),
   toggle('editOnChange', 'Edit posts when I change a deal', 'Price, notes or photo edits update the post that is already in the channel'),
+  toggle('popularOnly', 'Only post popular deals', 'Needs proof people buy it (sales, reviews, a badge or trending), a real discount and a good rating'),
   toggle('skipTelegramSourced', 'Skip deals that came from a Telegram post', 'Deals copied from another channel are not posted again'),
   h('fieldset', { class: 'radios' }, [h('legend', {}, ['When a deal leaves the site']),
     ...REMOVE_OPTIONS.map(([v, label, hint]) => h('label', { class: 'radio' }, [h('input', { type: 'radio', name: 'onRemove', value: v }), h('span', {}, [h('b', {}, [label]), h('small', {}, [hint])])]))]),
@@ -60,7 +61,7 @@ const read = (form, s) => {
     ...s, enabled: e.enabled.checked, chatId: e.chatId.value.trim(), postSince: since ? new Date(since).toISOString() : '',
     maxPerRun: Number(e.maxPerRun.value), withPhoto: e.withPhoto.checked, silent: e.silent.checked,
     buttonText: e.buttonText.value.trim(), footer: e.footer.value.trim(), editOnChange: e.editOnChange.checked,
-    skipTelegramSourced: e.skipTelegramSourced.checked, onRemove: e.onRemove.value,
+    skipTelegramSourced: e.skipTelegramSourced.checked, popularOnly: e.popularOnly.checked, onRemove: e.onRemove.value,
   };
 };
 

@@ -1,6 +1,8 @@
 /* Turns a deal into a Telegram post and works out what has to change in the channel.
    Pure functions only: the CI sync (sync.mjs), the admin panel preview and the tests
    all use this file, so a post looks the same everywhere it is shown. */
+import { popularity } from '../lib/deals.mjs';
+
 export const DEFAULT_SETTINGS = Object.freeze({
   enabled: false,
   chatId: '',
@@ -10,6 +12,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
   editOnChange: true,
   onRemove: 'mark',
   skipTelegramSourced: true,
+  popularOnly: true,
   maxPerRun: 10,
   buttonText: 'Buy on Amazon',
   footer: 'More checked deals: https://dibyajyotikabi.com/deals/',
@@ -110,6 +113,9 @@ export const eligibility = (deal, settings) => {
   const s = mergeSettings(settings);
   if (!s.enabled) return { ok: false, reason: 'Auto-post is off in settings' };
   if (deal.telegram === false) return { ok: false, reason: 'Turned off for this deal' };
+  /* checked before the per-deal "on" switch, so nothing unpopular reaches the channel */
+  const pop = popularity(deal);
+  if (s.popularOnly && !pop.ok) return { ok: false, reason: `Not popular enough: ${pop.misses.join('; ')}` };
   if (deal.telegram === true) return { ok: true, reason: 'Turned on for this deal' };
   if (s.skipTelegramSourced && isTelegramSourced(deal)) return { ok: false, reason: 'Already came from a Telegram post' };
   const since = Date.parse(s.postSince);

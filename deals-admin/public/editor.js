@@ -1,7 +1,7 @@
 /* The deal editor: a drawer with every field, live checks and both previews.
    Saving writes the file right away; nothing reaches the site or Telegram until Publish. */
 import { $, h, api, toast, ask, debounce } from './ui.js';
-import { validateDeal, asinOf, affiliateUrl, tagOf, FEEDS } from '/lib/deals.mjs';
+import { validateDeal, popularity, asinOf, affiliateUrl, tagOf, FEEDS, BADGES, POPULAR } from '/lib/deals.mjs';
 import { siteCard, telegramPost } from './preview.js';
 
 const NOTE_SLOTS = 4;
@@ -49,6 +49,18 @@ const priceSection = (d) => h('section', { class: 'card' }, [
   ]),
 ]);
 
+const popularSection = (d) => h('section', { class: 'card' }, [
+  h('h4', {}, ['Is it popular?']),
+  h('div', { class: 'grid4' }, [
+    field('Bought last month', input('bought', d.bought, { type: 'number', min: '0', step: '1', inputmode: 'numeric', placeholder: '300' }), 'From "300+ bought in past month"'),
+    field('Reviews', input('reviews', d.reviews, { type: 'number', min: '0', step: '1', inputmode: 'numeric', placeholder: '1200' }), 'Number of ratings'),
+    field('Amazon badge', h('select', { name: 'badge' }, [h('option', { value: '' }, ['None']),
+      ...BADGES.map((b) => h('option', { value: b, selected: d.badge === b }, [b]))])),
+  ]),
+  h('p', { class: 'pop', id: 'pop', 'aria-live': 'polite' }),
+  h('p', { class: 'hint' }, [`Posted only with ${POPULAR.bought}+ bought, ${POPULAR.reviews}+ reviews at ${POPULAR.rating}+, a badge or trending, plus ${POPULAR.discount}%+ off and no rating under ${POPULAR.minRating}.`]),
+]);
+
 const notesSection = (d) => h('section', { class: 'card' }, [
   h('h4', {}, ['Why this deal']),
   ...Array.from({ length: NOTE_SLOTS }, (_, i) => input(`note${i}`, (d.notes || [])[i], { maxlength: '200', spellcheck: 'true', placeholder: i ? '' : 'At its tracked low on Amazon right now' })),
@@ -84,6 +96,7 @@ const readForm = (form, base, ctx) => {
     ...rest,
     id: v('id'), name: v('name'), fullName: v('fullName'), category: v('category'), image: v('image') || null, buyUrl,
     price: v('price'), mrp: v('mrp'), best: v('best'), rating: v('rating'),
+    bought: v('bought'), reviews: v('reviews'), badge: v('badge'),
     pct: mrp > price && price > 0 ? Math.round((1 - price / mrp) * 100) : 0,
     atLow: form.elements.atLow.checked, lowLabel: v('lowLabel'),
     notes: Array.from({ length: NOTE_SLOTS }, (_, i) => v(`note${i}`)).filter(Boolean),
@@ -110,6 +123,10 @@ const syncDerived = (form, deal, isNew, feed) => {
   $('#pct', form).textContent = deal.pct ? `${deal.pct}% off` : 'No discount';
   $('.thumb', form).src = deal.image || '';
   form.elements.lowLabel.hidden = !deal.atLow;
+  const pop = popularity({ ...deal, trending: feed === 'trending' });
+  const popEl = $('#pop', form);
+  popEl.className = `pop ${pop.ok ? 'ok' : 'no'}`;
+  popEl.textContent = pop.ok ? `Popular: ${pop.signals.join(', ')}` : `Not posted to Telegram: ${pop.misses.join('; ')}`;
 };
 
 export const openEditor = ({ deal, feed: startFeed, isNew }, ctx) => {
@@ -122,7 +139,7 @@ export const openEditor = ({ deal, feed: startFeed, isNew }, ctx) => {
     h('header', { class: 'drawer-head' }, [h('h3', {}, [isNew ? 'New deal' : 'Edit deal']), feedPick,
       h('button', { type: 'button', class: 'icon-btn', 'data-act': 'close', 'aria-label': 'Close' }, ['✕'])]),
     h('div', { class: 'drawer-body' }, [
-      h('div', { class: 'col form-col' }, [errorsEl, productSection(deal, ctx), priceSection(deal), notesSection(deal), telegramSection(deal), advancedSection(deal, isNew)]),
+      h('div', { class: 'col form-col' }, [errorsEl, productSection(deal, ctx), priceSection(deal), popularSection(deal), notesSection(deal), telegramSection(deal), advancedSection(deal, isNew)]),
       h('div', { class: 'col preview-col' }, [h('h4', {}, ['On the site']), card.el, h('h4', {}, ['In the Telegram channel']), tg.el]),
     ]),
     actionsBar(isNew, feed),

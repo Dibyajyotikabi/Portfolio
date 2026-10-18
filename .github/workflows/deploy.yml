@@ -56,17 +56,22 @@ jobs:
         uses: actions/deploy-pages@v4
 
       # Cloudflare sits in front of Pages and caches the HTML, so without a purge
-      # the old pages keep being served long after a deploy.
+      # the old pages keep being served long after a deploy. Pages can still hand out
+      # the old files for a few seconds after the deploy step, and Cloudflare would
+      # cache those again, so it is purged a second time once that window has passed.
       - name: Purge the Cloudflare cache
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
         run: |
-          body=$(curl -sS --max-time 30 -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
-            -H "Authorization: Bearer $CF_API_TOKEN" -H 'Content-Type: application/json' \
-            -d '{"purge_everything":true}')
-          echo "$body" | grep -q '"success":true' || { echo "Cloudflare purge failed: $body"; exit 1; }
-          echo 'Cloudflare cache purged.'
+          for wait in 0 20; do
+            sleep "$wait"
+            body=$(curl -sS --max-time 30 -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+              -H "Authorization: Bearer $CF_API_TOKEN" -H 'Content-Type: application/json' \
+              -d '{"purge_everything":true}')
+            echo "$body" | grep -q '"success":true' || { echo "Cloudflare purge failed: $body"; exit 1; }
+            echo "Cloudflare cache purged after ${wait}s."
+          done
 
       - name: Tell IndexNow about the new build
         run: |

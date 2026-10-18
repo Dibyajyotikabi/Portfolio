@@ -141,7 +141,7 @@ export const saveSettings = (input) => {
     enabled: s.enabled === true, chatId,
     postSince: s.postSince ? isoDate(Date.parse(s.postSince)) : '',
     withPhoto: s.withPhoto !== false, silent: s.silent === true, editOnChange: s.editOnChange !== false,
-    onRemove: s.onRemove, skipTelegramSourced: s.skipTelegramSourced !== false, maxPerRun: max,
+    onRemove: s.onRemove, skipTelegramSourced: s.skipTelegramSourced !== false, popularOnly: s.popularOnly !== false, maxPerRun: max,
     buttonText: String(s.buttonText || DEFAULT_SETTINGS.buttonText).trim().slice(0, 40),
     footer: String(s.footer ?? '').trim().slice(0, 200),
   };

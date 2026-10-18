@@ -2,13 +2,13 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { postText, postPayload, eligibility, planSync, fingerprint, messageLink, endedText, DEFAULT_SETTINGS } from '../deals-admin/telegram/format.mjs';
-import { validateDeal, liveDeals, affiliateUrl, asinOf, checkFeed } from '../deals-admin/lib/deals.mjs';
+import { validateDeal, liveDeals, affiliateUrl, asinOf, checkFeed, popularity } from '../deals-admin/lib/deals.mjs';
 
 const ON = { ...DEFAULT_SETTINGS, enabled: true, postSince: '2026-10-01T00:00:00+00:00' };
 const deal = (over = {}) => ({
   id: 'a-B0C8MTWMK2', name: 'Samsung 24-inch Monitor', fullName: 'Samsung 24-inch FHD Monitor',
   image: 'https://m.media-amazon.com/images/I/71Sqk+ry2oL._SL1500_.jpg', price: 1651, mrp: 17000, pct: 90, best: null,
-  notes: ['At its tracked low on Amazon right now'], rating: 4.4, category: 'Monitors & Gaming',
+  notes: ['At its tracked low on Amazon right now'], rating: 4.4, bought: 500, category: 'Monitors & Gaming',
   buyUrl: 'https://www.amazon.in/dp/B0C8MTWMK2?tag=wwwbestdeal0d-21', date: '2026-10-15T13:45:22+00:00', ...over,
 });
 const feed = (deals) => ({ success: true, data: { deals } });
@@ -58,6 +58,25 @@ test('eligibility follows the settings and the per-deal switch', () => {
   assert.equal(eligibility(deal({ post: 'https://t.me/dealsupdateralert/1' }), { ...ON, skipTelegramSourced: false }).ok, true);
 });
 
+test('a deal is popular with one demand signal, a real discount and no weak rating', () => {
+  const plain = { ...deal(), bought: undefined };
+  assert.equal(popularity(plain).ok, false);
+  assert.deepEqual(popularity(deal()).signals, ['500+ bought last month']);
+  assert.equal(popularity({ ...plain, reviews: 2400 }).signals[0], 'Rated 4.4 by 2,400 buyers');
+  assert.equal(popularity({ ...plain, reviews: 2400, rating: 3.9 }).ok, false, 'a 3.9 rating is not a review signal');
+  assert.equal(popularity({ ...plain, badge: "Amazon's Choice" }).ok, true);
+  assert.equal(popularity({ ...plain, trending: true }).ok, true);
+  assert.match(popularity(deal({ mrp: 1700 })).misses.join(), /discount is under 10%/);
+  assert.match(popularity(deal({ rating: 3.5 })).misses.join(), /rating is under 3.8/);
+});
+
+test('only popular deals are posted, even when a deal is switched on', () => {
+  const plain = deal({ bought: 40, telegram: true });
+  assert.match(eligibility(plain, ON).reason, /Not popular enough/);
+  assert.equal(eligibility(plain, { ...ON, popularOnly: false }).ok, true);
+  assert.deepEqual(planSync([plain], {}, ON), []);
+});
+
 test('planSync posts new deals oldest first and respects the per-run cap', () => {
   const deals = [deal({ id: 'b', date: '2026-10-16T00:00:00Z' }), deal({ id: 'a', date: '2026-10-15T00:00:00Z' }), deal({ id: 'c', date: '2026-10-17T00:00:00Z' })];
   assert.deepEqual(planSync(deals, {}, ON).map((x) => x.id), ['a', 'b', 'c']);
@@ -96,6 +115,11 @@ test('validateDeal cleans a good deal and computes the discount', () => {
   assert.deepEqual(clean.notes, ['a', 'b']);
   assert.equal(clean.telegram, true);
   assert.equal(clean.date, '2026-10-15T13:45:22+00:00');
+  assert.equal(clean.bought, 500);
+  const extra = validateDeal({ ...deal(), reviews: '1200', badge: "Amazon's Choice" }, 'main').deal;
+  assert.deepEqual([extra.reviews, extra.badge], [1200, "Amazon's Choice"]);
+  assert.match(validateDeal({ ...deal(), badge: 'Hot' }, 'main').errors[0], /Badge/);
+  assert.match(validateDeal({ ...deal(), bought: 1.5 }, 'main').errors[0], /whole number/);
 });
 
 test('validateDeal rejects unsafe links and bad values', () => {

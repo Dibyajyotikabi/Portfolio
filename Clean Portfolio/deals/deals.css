@@ -110,6 +110,11 @@
    and logos line up under "Deals" while staying outside the heading. Sizes follow the hero's own width (cqi). */
 .dz .dz-hero{ padding-top: 48px; container: hero / inline-size; overflow-x: clip; }
 
+/* the first line of the page: what this list is, before the poster */
+.dz .dz-kicker{ display:flex; flex-wrap:wrap; align-items:baseline; gap: 4px 14px; margin: 0 0 14px; color: var(--ink-blue); }
+.dz .dz-kicker .hl{ font: 800 clamp(20px, 2.6cqi, 34px)/1.1 var(--f-display); font-stretch: 80%; text-transform: uppercase; letter-spacing: .01em; }
+.dz .dz-kicker-sub{ font: 400 clamp(15px, 1.6cqi, 20px)/1.2 var(--f-hand); color: var(--ink-pink-deep); }
+
 .dz .poster{ position:relative; isolation:isolate; display:grid; grid-template-columns: minmax(0,1fr) 38cqi; min-height: 17.5cqi;
   box-shadow: 0 30px 44px -30px color-mix(in srgb, var(--ink-blue) 60%, transparent), 0 2px 0 color-mix(in srgb, var(--ink-blue) 8%, transparent); }
 
@@ -292,6 +297,10 @@
 
 /* until the script has counted the matches, show only the first page, so nothing flashes */
 @media (scripting: enabled){ .dz .deals:not(.go) > .coupon:nth-child(n+25){ display:none; } }
+
+/* a deal that arrived while the page was open fades in, so the change is easy to spot */
+@media (prefers-reduced-motion: no-preference){ .dz .coupon.fresh{ animation: fresh-in .5s var(--ease-pop, ease-out) both; } }
+@keyframes fresh-in{ from{ opacity: 0; translate: 0 10px; } }
 
 /* Offscreen coupons are skipped by the browser. The padding keeps the lift and shadow of a hovered coupon inside the box that is clipped. */
 .dz .coupon{ position:relative; display:flex; min-width:0; content-visibility: auto; contain-intrinsic-size: auto 420px; padding: 6px 0 14px; }

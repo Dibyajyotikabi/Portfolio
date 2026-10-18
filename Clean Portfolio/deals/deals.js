@@ -1,7 +1,9 @@
 /* /deals: the build prerenders every coupon and chip from deals.json and trending.json
    (scripts/prerender-deals.mjs), so this script only wires up search, sort, category and
    "show more". When the page is served without the build, it fetches the files and builds
-   the same markup through render.js. DOM methods only, so feed text is never parsed as HTML. */
+   the same markup through render.js. DOM methods only, so feed text is never parsed as HTML.
+   The page also re-reads the feeds in the background (on load, when the tab comes back and
+   every minute or so), so a new deal shows up even when the HTML itself came from a cache. */
 import { parseFeed, mergeDeals, views, asofText } from './render.js';
 
 const SVG = 'http://www.w3.org/2000/svg';
@@ -31,11 +33,11 @@ const scissors = () => s('svg', { viewBox: '0 0 46 32', 'aria-hidden': 'true' },
   s('circle', { cx: '23', cy: '16', r: '1.7', fill: '#E6407A' }),
 ]);
 
-const build = (deals, data) => {
-  const { cats, chips, cards } = views(h, s).page(deals);
-  $('chips').append(...chips);
-  $('deals').append(...cards);
-  const n = String(deals.length);
+const REFRESH_MS = 75e3;
+const REFRESH_GAP_MS = 20e3;
+
+const setMeta = (count, data) => {
+  const n = String(count);
   document.querySelectorAll('.hp-num .riso-b, .hp-num .riso-p').forEach((el) => { el.textContent = n; });
   $('q').placeholder = `Search ${n} deals`;
   const t = Date.parse(data.syncedAt);
@@ -43,8 +45,20 @@ const build = (deals, data) => {
     $('asof').setAttribute('datetime', new Date(t).toISOString());
     $('asof').textContent = asofText(t);
   }
+};
+
+const build = (deals, data) => {
+  const { cats, chips, cards } = views(h, s).page(deals);
+  $('chips').append(...chips);
+  $('deals').append(...cards);
+  setMeta(deals.length, data);
   return cats;
 };
+
+/* what a shopper would notice changing on a card */
+const cardKey = (li) => [li.querySelector('.cta')?.href, li.dataset.p, li.dataset.l, li.querySelector('.name')?.textContent,
+  li.querySelector('img')?.getAttribute('src'), li.querySelector('.notes')?.textContent].join('|');
+const coupons = () => [...$('deals').children].filter((li) => li.classList.contains('coupon'));
 
 /* the prerendered chips carry the category names, so search can match on them */
 const prerendered = () => [...$('chips').children].slice(1).map((b) => b.firstChild.textContent.trim());
@@ -52,10 +66,9 @@ const prerendered = () => [...$('chips').children].slice(1).map((b) => b.firstCh
 const stale = () => {
   const t = Date.parse($('asof').getAttribute('datetime'));
   const hrs = Math.floor((Date.now() - t) / 36e5);
-  if (!t || hrs < 7) return;
   const st = $('stale');
-  st.textContent = `Last checked ${hrs < 48 ? hrs + ' hours' : Math.floor(hrs / 24) + ' days'} ago.`;
-  st.hidden = false;
+  st.hidden = !t || hrs < 7;
+  if (!st.hidden) st.textContent = `Last checked ${hrs < 48 ? hrs + ' hours' : Math.floor(hrs / 24) + ' days'} ago.`;
 };
 
 const failed = (message) => {
@@ -71,7 +84,7 @@ const failed = (message) => {
 function filters(cats) {
   const list = $('deals'), countEl = $('count'), moreRow = $('more-row'), moreLeft = $('more-left'), emptyEl = $('empty');
   const chipsEl = $('chips'), chipsWrap = $('chips-wrap'), qEl = $('q'), sortEl = $('sort'), controls = $('controls');
-  const chips = [...chipsEl.children];
+  let chips = [...chipsEl.children];
   const deskMQ = matchMedia('(min-width:900px)'), reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
   const smooth = () => (reduceMQ.matches ? 'auto' : 'smooth');
   const SORTS = {
@@ -80,11 +93,12 @@ function filters(cats) {
     low: (a, b) => a.l - b.l || a.r - b.r,
     high: (a, b) => b.l - a.l || a.r - b.r,
   };
-  let items = [...list.children].map((el) => {
+  const index = () => coupons().map((el) => {
     const n = el.querySelector('.name');
     return { el, c: el.dataset.c, r: +el.dataset.r, p: +el.dataset.p, l: +el.dataset.l,
       hay: `${n.textContent} ${n.title} ${cats[+el.dataset.c] || ''}`.toLowerCase() };
   });
+  let items = index();
   const state = { q: '', cat: 'all', sort: 'rank' };
   let domSort = 'rank', current = [], shown = 0, page = 24;
 
@@ -211,6 +225,21 @@ function filters(cats) {
     jump.addEventListener('click', (e) => { e.preventDefault(); controls.scrollIntoView({ block: 'start', behavior: smooth() }); });
   }
 
+  /* new feed, same search, category, sort and "show more" depth */
+  const reload = (nextCats) => {
+    const name = state.cat === 'all' ? null : cats[+state.cat];
+    cats = nextCats;
+    state.cat = name && cats.includes(name) ? String(cats.indexOf(name)) : 'all';
+    chips = [...chipsEl.children];
+    pressCat(state.cat);
+    items = index();
+    domSort = 'rank';
+    const before = shown;
+    apply(false);
+    if (before > shown) { shown = Math.min(before, current.length); paint(); }
+    chipEnds();
+  };
+
   addEventListener('keydown', (e) => {
     const t = e.target.tagName;
     if (e.key !== '/' || ['INPUT', 'TEXTAREA', 'SELECT'].includes(t) || e.metaKey || e.ctrlKey) return;
@@ -223,30 +252,80 @@ function filters(cats) {
   apply(false);
   chipEnds();
   document.fonts?.ready.then(chipEnds);
+  return { reload };
 }
 
 const load = (url) => fetch(url, { cache: 'no-cache' })
   .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`); return r.json(); })
   .then((body) => parseFeed(body, url));
 
+/* trending.json is a hand-picked list that sits on top; the page still works without it */
+const feeds = () => Promise.all([load('/deals/deals.json'), load('/deals/trending.json').catch((err) => {
+  console.warn('Trending deals skipped:', err);
+  return { list: [] };
+})]).then(([main, top]) => {
+  const deals = mergeDeals(main, top);
+  if (!deals.length) throw new Error('No deals in the file');
+  return { deals, data: main.data };
+});
+
+/* Keeps the card the reader is looking at in the same spot while the list above it changes */
+const keepPlace = (swap) => {
+  const list = $('deals');
+  if (list.getBoundingClientRect().top >= 0) return swap();
+  const anchor = coupons().find((li) => !li.hidden && li.getBoundingClientRect().bottom > 0);
+  const href = anchor?.querySelector('.cta')?.href, y = anchor?.getBoundingClientRect().top;
+  swap();
+  const same = href && coupons().find((li) => li.querySelector('.cta')?.href === href);
+  if (same && !same.hidden) window.scrollBy(0, same.getBoundingClientRect().top - y);
+};
+
+const live = (ctl, isFresh) => {
+  let busy = false, last = Date.now();
+  const check = async () => {
+    if (busy || document.hidden) return;
+    busy = true;
+    last = Date.now();
+    try {
+      const { deals, data } = await feeds();
+      const view = views(h, s).page(deals);
+      const known = new Set(coupons().map((li) => li.querySelector('.cta')?.href));
+      setMeta(deals.length, data);
+      stale();
+      if (view.cards.map(cardKey).join('\n') === coupons().map(cardKey).join('\n')) return;
+      view.cards.forEach((li) => { if (!known.has(li.querySelector('.cta')?.href)) li.classList.add('fresh'); });
+      keepPlace(() => {
+        $('chips').replaceChildren(...view.chips);
+        $('deals').replaceChildren(...view.cards);
+        ctl.reload(view.cats);
+      });
+    } catch (err) {
+      console.warn('Deals refresh skipped:', err);
+    } finally {
+      busy = false;
+    }
+  };
+  const soon = () => { if (Date.now() - last > REFRESH_GAP_MS) check(); };
+  document.addEventListener('visibilitychange', soon);
+  addEventListener('focus', soon);
+  setInterval(check, REFRESH_MS);
+  /* a prerendered page may be a cached copy, so check once the first paint is done */
+  if (isFresh) return;
+  if ('requestIdleCallback' in window) requestIdleCallback(check, { timeout: 1500 });
+  else setTimeout(check, 1500);
+};
+
 const start = () => {
   if ($('deals').children.length) {
     stale();
-    filters(prerendered());
+    live(filters(prerendered()), false);
     return;
   }
-  /* trending.json is a hand-picked list that sits on top; the page still works without it */
-  const trending = load('/deals/trending.json').catch((err) => {
-    console.warn('Trending deals skipped:', err);
-    return { list: [] };
-  });
-  Promise.all([load('/deals/deals.json'), trending])
-    .then(([main, top]) => {
-      const deals = mergeDeals(main, top);
-      if (!deals.length) throw new Error('No deals in the file');
-      const cats = build(deals, main.data);
+  feeds()
+    .then(({ deals, data }) => {
+      const cats = build(deals, data);
       stale();
-      filters(cats);
+      live(filters(cats), true);
     })
     .catch((err) => {
       console.error('Deals failed to load:', err);
