@@ -420,19 +420,20 @@ picture { display: block; }
   .note { padding: 20px; }
 }
 
-/* Six nav links (Ebooks added) fit beside the name at 15px with ~30px to
-   spare. The identity never shrinks, so the theme toggle stays on its row. */
+/* Seven nav links fit beside the name at 15px only with the tighter gaps
+   below. The identity never shrinks, so the theme toggle stays on its row. */
 @media (min-width: 661px) {
+  .site-header { gap: 12px; }
   .identity { flex-shrink: 0; flex-wrap: nowrap; }
-  .site-nav { gap: .4rem .3rem; font-size: 15px; }
-  .site-nav a { padding: .35rem .18rem; }
+  .site-nav { gap: .4rem .2rem; font-size: 15px; }
+  .site-nav a { padding: .35rem .12rem; }
   .nav-sep { font-size: .65em; }
 }
 
-/* The six nav links wrap to two rows below ~700px, which would strand a
-   separator at the end of the first row. Hide the diamonds and let the gap
-   do the separating until there is room for the full row again. */
-@media (max-width: 720px) {
+/* The seven nav links wrap to two rows when the 720px shell loses width to
+   the scrollbar, which would strand a separator at the end of the first row.
+   Hide the diamonds and let the gap do the separating until there is room. */
+@media (max-width: 740px) {
   .nav-sep { display: none; }
 }
 

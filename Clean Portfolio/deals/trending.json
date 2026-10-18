@@ -3,6 +3,31 @@
  "data": {
   "deals": [
    {
+    "id": "t-B0F8HJJVW1",
+    "name": "Nova Electric Milk Frother",
+    "fullName": "Nova Electric Milk Frother for Coffee, Rechargeable Handheld Frother for Cold Coffee, Latte and Cappuccino (Black)",
+    "image": "https://m.media-amazon.com/images/I/71TD7nkRWtL._SL1500_.jpg",
+    "price": 274,
+    "mrp": 500,
+    "pct": 45,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "A popular pick in Instagram reels and on X right now",
+     "45% below the list price of ₹500",
+     "10K+ bought on Amazon in the past month",
+     "Rated 4.5 by 5,006 buyers on Amazon"
+    ],
+    "rating": 4.5,
+    "buyUrl": "https://www.amazon.in/dp/B0F8HJJVW1?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "rank": 1,
+    "date": "2026-10-18T15:30:00+00:00"
+   },
+   {
     "id": "t-B0DSKNKCYX",
     "name": "Samsung Galaxy S25 Ultra",
     "fullName": "Samsung Galaxy S25 Ultra 5G (Titanium Silverblue, 12GB RAM, 256GB Storage), S Pen Included",
@@ -24,8 +49,33 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 1,
+    "rank": 2,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0DVJF7528",
+    "name": "Amazon Fire TV Stick HD",
+    "fullName": "Amazon Fire TV Stick HD (newest model) with Alexa+ voice remote",
+    "image": "https://m.media-amazon.com/images/I/61ymtKd3WxL._SL1500_.jpg",
+    "price": 2999,
+    "mrp": 5499,
+    "pct": 45,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "Trending in the Amazon Great Indian Festival 2026 sale",
+     "45% below the list price of ₹5,499",
+     "5K+ bought on Amazon in the past month",
+     "Rated 3.9 by 992 buyers on Amazon"
+    ],
+    "rating": 3.9,
+    "buyUrl": "https://www.amazon.in/dp/B0DVJF7528?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "TVs & Projectors",
+    "confirmed": true,
+    "rank": 3,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0FDGVNSLH",
@@ -49,8 +99,33 @@
     "store": "amazon",
     "category": "Audio",
     "confirmed": true,
-    "rank": 2,
+    "rank": 4,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0D9S9TV5Q",
+    "name": "Ambrane Magnetic Power Bank 10000mAh",
+    "fullName": "Ambrane Aerosync Snap 10000mAh Magnetic Wireless Power Bank, 22.5W Output, with Magnetic Ring (Purple)",
+    "image": "https://m.media-amazon.com/images/I/6199hEwNH6L._SL1500_.jpg",
+    "price": 1299,
+    "mrp": 2999,
+    "pct": 57,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "A popular pick in Instagram reels and on X right now",
+     "57% below the list price of ₹2,999",
+     "9K+ bought on Amazon in the past month",
+     "Rated 3.9 by 10,091 buyers on Amazon"
+    ],
+    "rating": 3.9,
+    "buyUrl": "https://www.amazon.in/dp/B0D9S9TV5Q?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Accessories & Storage",
+    "confirmed": true,
+    "rank": 5,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0DGHZWBYB",
@@ -74,8 +149,33 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 3,
+    "rank": 6,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0FD9T4NPJ",
+    "name": "Desidiya Sunset Lamp",
+    "fullName": "Desidiya 16-Color LED Sunset Projection Lamp with Remote, 360 Degree Rotating Mood Light",
+    "image": "https://m.media-amazon.com/images/I/713fAW3HyUL._SL1280_.jpg",
+    "price": 279,
+    "mrp": 1999,
+    "pct": 86,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "A popular pick in Instagram reels and on X right now",
+     "86% below the list price of ₹1,999",
+     "3K+ bought on Amazon in the past month",
+     "Rated 3.8 by 1,013 buyers on Amazon"
+    ],
+    "rating": 3.8,
+    "buyUrl": "https://www.amazon.in/dp/B0FD9T4NPJ?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "rank": 7,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0G2B251KD",
@@ -99,8 +199,33 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 4,
+    "rank": 8,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0F6K264BY",
+    "name": "E GATE Atom 3X Projector",
+    "fullName": "E GATE Atom 3X Smart Projector, 1080p Native, 4K Support, Auto Keystone, Android 14, Wi-Fi 6",
+    "image": "https://m.media-amazon.com/images/I/71BoB+5wXXL._SL1500_.jpg",
+    "price": 7990,
+    "mrp": 21990,
+    "pct": 64,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "A popular pick in Instagram reels and on X right now",
+     "64% below the list price of ₹21,990",
+     "2K+ bought on Amazon in the past month",
+     "Rated 4.0 by 7,239 buyers on Amazon"
+    ],
+    "rating": 4.0,
+    "buyUrl": "https://www.amazon.in/dp/B0F6K264BY?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "TVs & Projectors",
+    "confirmed": true,
+    "rank": 9,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0H1WX51F1",
@@ -124,8 +249,33 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 5,
+    "rank": 10,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0CNLQYLS4",
+    "name": "AGARO Royal Electric Spin Scrubber",
+    "fullName": "AGARO Royal Electric Spin Scrubber, 400RPM, 8 Brush Heads, 90 Min Work Time (White)",
+    "image": "https://m.media-amazon.com/images/I/71zBxjyW9OL._SL1500_.jpg",
+    "price": 2812,
+    "mrp": 5999,
+    "pct": 53,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "A popular pick in Instagram reels and on X right now",
+     "53% below the list price of ₹5,999",
+     "3K+ bought on Amazon in the past month",
+     "Rated 4.0 by 4,006 buyers on Amazon"
+    ],
+    "rating": 4.0,
+    "buyUrl": "https://www.amazon.in/dp/B0CNLQYLS4?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "rank": 11,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0DYDPBM8K",
@@ -149,8 +299,33 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 6,
+    "rank": 12,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0GSDWKFLL",
+    "name": "Portronics Airloop Desk Fan",
+    "fullName": "Portronics Airloop Rechargeable Desk Fan, Auto Oscillation, BLDC Motor, 4000mAh Battery, Type-C Charging",
+    "image": "https://m.media-amazon.com/images/I/71ztdcvQn0L._SL1500_.jpg",
+    "price": 1066,
+    "mrp": 3999,
+    "pct": 73,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "Trending in the Amazon Great Indian Festival 2026 sale",
+     "73% below the list price of ₹3,999",
+     "7K+ bought on Amazon in the past month",
+     "Rated 4.1 by 975 buyers on Amazon"
+    ],
+    "rating": 4.1,
+    "buyUrl": "https://www.amazon.in/dp/B0GSDWKFLL?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "rank": 13,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0GRB3FBBB",
@@ -174,8 +349,33 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 7,
+    "rank": 14,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0DVT5SCQ9",
+    "name": "SEZNIK Mini Thermal Printer",
+    "fullName": "SEZNIK Mini Printer, Inkless Thermal Portable Bluetooth Printer (Stealth Velvet)",
+    "image": "https://m.media-amazon.com/images/I/71F0XnIIg6L._SL1500_.jpg",
+    "price": 1659,
+    "mrp": 4999,
+    "pct": 67,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "A popular pick in Instagram reels and on X right now",
+     "67% below the list price of ₹4,999",
+     "400+ bought on Amazon in the past month",
+     "Rated 4.4 by 356 buyers on Amazon"
+    ],
+    "rating": 4.4,
+    "buyUrl": "https://www.amazon.in/dp/B0DVT5SCQ9?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "More gadgets",
+    "confirmed": true,
+    "rank": 15,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0GWLHVJRH",
@@ -199,8 +399,33 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 8,
+    "rank": 16,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B0H5VWCNWN",
+    "name": "JioTag (2nd Gen)",
+    "fullName": "JioTag (2nd Generation) Item Finder, Android and iOS Compatible, IP64 Rated (Grey)",
+    "image": "https://m.media-amazon.com/images/I/61CmAF8p-9L._SL1500_.jpg",
+    "price": 999,
+    "mrp": 2999,
+    "pct": 67,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "Trending in the Amazon Great Indian Festival 2026 sale",
+     "67% below the list price of ₹2,999",
+     "5K+ bought on Amazon in the past month",
+     "Rated 3.7 by 410 buyers on Amazon"
+    ],
+    "rating": 3.7,
+    "buyUrl": "https://www.amazon.in/dp/B0H5VWCNWN?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "More gadgets",
+    "confirmed": true,
+    "rank": 17,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0H3Q5DPP9",
@@ -224,8 +449,33 @@
     "store": "amazon",
     "category": "Audio",
     "confirmed": true,
-    "rank": 9,
+    "rank": 18,
     "date": "2026-10-18T13:15:00+00:00"
+   },
+   {
+    "id": "t-B09B8M1M51",
+    "name": "Amazon Echo Dot (5th Gen)",
+    "fullName": "Amazon Echo Dot (5th Gen) smart speaker with Alexa+, motion detection and temperature sensor (White)",
+    "image": "https://m.media-amazon.com/images/I/61xfyLnWPxL._SL1500_.jpg",
+    "price": 4499,
+    "mrp": 5499,
+    "pct": 18,
+    "best": null,
+    "atLow": false,
+    "trending": true,
+    "notes": [
+     "Trending in the Amazon Great Indian Festival 2026 sale",
+     "18% below the list price of ₹5,499",
+     "2K+ bought on Amazon in the past month",
+     "Rated 4.1 by 13,928 buyers on Amazon"
+    ],
+    "rating": 4.1,
+    "buyUrl": "https://www.amazon.in/dp/B09B8M1M51?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Audio",
+    "confirmed": true,
+    "rank": 19,
+    "date": "2026-10-18T15:30:00+00:00"
    },
    {
     "id": "t-B0FDL54NGG",
@@ -248,11 +498,11 @@
     "store": "amazon",
     "category": "Phones & Tablets",
     "confirmed": true,
-    "rank": 10,
+    "rank": 20,
     "date": "2026-10-18T13:15:00+00:00"
    }
   ],
-  "checkedAt": "2026-10-18T13:15:00+00:00",
-  "source": "https://www.aboutamazon.in/news/retail/amazon-great-indian-festival-smartphone-deals"
+  "checkedAt": "2026-10-18T15:30:00+00:00",
+  "source": "https://www.aboutamazon.in/news/retail/amazon-great-indian-festival-2026-deals"
  }
 }

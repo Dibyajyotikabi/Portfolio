@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { prerenderDeals } from './prerender-deals.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const dist = path.join(root, 'dist');
@@ -27,6 +28,8 @@ for (const entry of [
 }
 cpSync(path.join(root, 'public/CNAME'), path.join(dist, 'CNAME'));
 writeFileSync(path.join(dist, '.nojekyll'), '');
+
+await prerenderDeals(dist);
 
 // Preserve the old public portrait URL used by existing social previews.
 cpSync(path.join(root, 'public/portrait.jpg'), path.join(dist, 'portrait.jpg'));
@@ -56,11 +59,18 @@ for (const entry of ['CNAME', 'robots.txt', 'admin']) {
 // good — the URL changes exactly when, and only when, the bytes do.
 const stamp = (file) =>
   createHash('sha256').update(readFileSync(path.join(dist, file))).digest('hex').slice(0, 10);
+// deals.js imports render.js, so stamp that import first; the deals.js stamp
+// below then covers the change too.
+const renderVersion = stamp('deals/render.js');
+const dealsScript = path.join(dist, 'deals/deals.js');
+const dealsSource = readFileSync(dealsScript, 'utf8');
+if (!dealsSource.includes("from './render.js';")) throw new Error('deals.js no longer imports ./render.js; the import cannot be versioned.');
+writeFileSync(dealsScript, dealsSource.replace("from './render.js';", `from './render.js?v=${renderVersion}';`));
 const versions = {
   'site.js': stamp('site.js'), 'styles.css': stamp('styles.css'),
   'price.js': stamp('ebooks/price.js'), 'order.js': stamp('ebooks/order.js'),
   'pixel.js': stamp('ebooks/pixel.js'), 'hindi.js': stamp('ebooks/hindi.js'), 'buy-bar.js': stamp('ebooks/buy-bar.js'),
-  'deals.js': stamp('deals/deals.js'), 'deals.css': stamp('deals/deals.css'),
+  'deals.js': stamp('deals/deals.js'), 'deals.css': stamp('deals/deals.css'), 'render.js': renderVersion,
 };
 for (const page of [
   'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
@@ -73,7 +83,7 @@ for (const page of [
 ]) {
   const file = path.join(dist, page);
   const html = readFileSync(file, 'utf8');
-  writeFileSync(file, html.replace(/\b(site\.js|styles\.css|price\.js|order\.js|pixel\.js|hindi\.js|buy-bar\.js|deals\.js|deals\.css)(?:\?v=[\w.-]+)?(?=["'])/g,
+  writeFileSync(file, html.replace(/\b(site\.js|styles\.css|price\.js|order\.js|pixel\.js|hindi\.js|buy-bar\.js|deals\.js|deals\.css|render\.js)(?:\?v=[\w.-]+)?(?=["'])/g,
     (_, name) => `${name}?v=${versions[name]}`));
 }
 // Ebook prices are in rupees. price.js shows visitors abroad an approximate
