@@ -17,7 +17,7 @@ execFileSync(process.execPath, [
 
 // Only public portfolio files belong in the Pages artifact.
 for (const entry of [
-  'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html', 'ebooks',
+  'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html', 'ebooks', 'deals',
   'terms.html', 'privacy.html', 'refund-policy.html',
   'styles.css', 'site.js', 'sw.js', 'assets', 'writing', 'feed.xml', 'robots.txt', 'sitemap.xml',
   'favicon.ico', 'site.webmanifest',
@@ -60,6 +60,7 @@ const versions = {
   'site.js': stamp('site.js'), 'styles.css': stamp('styles.css'),
   'price.js': stamp('ebooks/price.js'), 'order.js': stamp('ebooks/order.js'),
   'pixel.js': stamp('ebooks/pixel.js'), 'hindi.js': stamp('ebooks/hindi.js'), 'buy-bar.js': stamp('ebooks/buy-bar.js'),
+  'deals.js': stamp('deals/deals.js'), 'deals.css': stamp('deals/deals.css'),
 };
 for (const page of [
   'index.html', 'projects.html', 'about.html', 'writing.html', 'contact.html',
@@ -67,11 +68,12 @@ for (const page of [
   'writing/hermes-runbooks-for-editorial-teams.html',
   'writing/scaling-wordpress-past-10m-pageviews.html',
   'ebooks/index.html', 'ebooks/blog-to-paycheck.html', 'ebooks/kids-worksheets.html', 'ebooks/diwali-shop-post-kit.html', 'ebooks/hindi-ai-prompt-kit-teachers.html', 'ebooks/thank-you.html',
+  'deals/index.html',
   'terms.html', 'privacy.html', 'refund-policy.html',
 ]) {
   const file = path.join(dist, page);
   const html = readFileSync(file, 'utf8');
-  writeFileSync(file, html.replace(/\b(site\.js|styles\.css|price\.js|order\.js|pixel\.js|hindi\.js|buy-bar\.js)(?:\?v=[\w.-]+)?(?=["'])/g,
+  writeFileSync(file, html.replace(/\b(site\.js|styles\.css|price\.js|order\.js|pixel\.js|hindi\.js|buy-bar\.js|deals\.js|deals\.css)(?:\?v=[\w.-]+)?(?=["'])/g,
     (_, name) => `${name}?v=${versions[name]}`));
 }
 // Ebook prices are in rupees. price.js shows visitors abroad an approximate

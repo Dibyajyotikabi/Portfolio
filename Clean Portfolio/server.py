@@ -12,7 +12,7 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 COOKIE = "clean_portfolio_visit"
-PUBLIC_TYPES = {".html", ".css", ".js", ".svg", ".jpg", ".png", ".webp", ".ico", ".xml"}
+PUBLIC_TYPES = {".html", ".css", ".js", ".svg", ".jpg", ".png", ".webp", ".ico", ".xml", ".json"}
 
 
 class PortfolioHandler(SimpleHTTPRequestHandler):
