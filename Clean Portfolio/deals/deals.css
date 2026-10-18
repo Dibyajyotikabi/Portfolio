@@ -164,7 +164,7 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
 .dz .hp-art .art-spark.s2{ fill: var(--ink-pink); }
 .dz .hp-art .art-dot{ fill: var(--ink-yellow); stroke: var(--ink-blue); stroke-width: 2; }
 
-.dz .hp-stamp{ position:absolute; z-index:3; display:block; width: 9.5cqi; height:auto; aspect-ratio: 1; top: 1.8cqi; left: 54%; rotate: -12deg; color: var(--ink-pink); --st-fill: var(--stock-butter); }
+.dz .hp-stamp{ position:absolute; z-index:3; display:block; width: 9.5cqi; height:auto; aspect-ratio: 1; top: 1.4cqi; left: 61%; rotate: -12deg; color: var(--ink-pink); --st-fill: var(--stock-butter); }
 
 @media (prefers-reduced-motion: no-preference){
   .dz .hp-num .riso-b{ animation: register 1.1s .3s var(--ease-pop) backwards; }
@@ -179,36 +179,30 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
 
 /* phones: the count and "Deals by" side by side, the note and logos on one line under both, photo on the right */
 @container hero (max-width: 640px){
-  .dz .hp-copy{ padding: 4cqi 0 4.2cqi 4cqi; column-gap: 2.2cqi; }
+  .dz .poster{ grid-template-columns: minmax(0,1fr) 34cqi; }
+  .dz .hp-copy{ padding: 5cqi 0 5cqi 5cqi; column-gap: 2.6cqi; }
 
-  .dz .hp-top{ font-size: 5.3cqi; }
+  .dz .hp-top{ font-size: max(15px, 6.2cqi); }
 
-  .dz .hp-num{ grid-row: 2; font-size: 18.5cqi; --stroke: 1.6px; margin: .4cqi 0 0 -.3cqi; }
+  .dz .hp-num{ grid-row: 2; font-size: 25cqi; --stroke: 1.8px; margin: .4cqi 0 0 -.3cqi; }
 
-  .dz .hp-deals{ font-size: 5.9cqi; line-height: .95; }
+  .dz .hp-deals{ font-size: max(17px, 7cqi); line-height: .95; }
 
-  .dz .hp-meta{ grid-column: 1 / 3; grid-row: 3; flex-wrap: nowrap; gap: 1.4cqi; margin-top: 2.6cqi; }
+  .dz .hp-meta{ grid-column: 1 / 3; grid-row: 3; flex-wrap: wrap; gap: 2.4cqi 3cqi; margin-top: 3.4cqi; }
 
-  .dz .hp-sub{ font-size: 4.2cqi; }
+  .dz .hp-sub{ font-size: max(14px, 4.6cqi); white-space: normal; line-height: 1.15; }
 
-  .dz .hp-sub svg{ width: 4.6cqi; }
+  .dz .hp-sub svg{ width: max(18px, 5cqi); flex: none; }
 
-  .dz .hp-logos{ gap: 1.4cqi; }
+  .dz .hp-photo{ margin-left: 0; }
 
-  .dz .hp-lg{ padding: 1.2cqi 1.5cqi 1cqi; border-radius: 6px; }
+  .dz .hp-photo::before{ width: 40cqi; right: -6cqi; }
 
-  .dz .hp-lg img{ height: 3.4cqi; }
- .dz .hp-lg.f img{ height: 3.6cqi; }
+  .dz .hp-dots{ inset: 20% -10% -6% 0; }
 
-  .dz .hp-photo{ margin-left: -10cqi; }
+  .dz .hp-art{ inset: 4% -2cqi 4% auto; height: 92%; }
 
-  .dz .hp-photo::before{ width: 44cqi; right: -4cqi; }
-
-  .dz .hp-dots{ inset: 26% -10% -6% 10%; }
-
-  .dz .hp-art{ right: 0; height: 86%; }
-
-  .dz .hp-stamp{ width: 15.6cqi; top: 2.4cqi; left: auto; right: 33cqi; rotate: -10deg; }
+  .dz .hp-stamp{ display: none; }
 
 }
 
@@ -338,9 +332,10 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
 
 .dz .rank .riso{ --stroke: 1.4px; font: 800 42px/.78 var(--f-display); font-stretch: 75%; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -.01em; }
 
-.dz .name{ margin: 0; font: 800 18.5px/1.08 var(--f-display); font-stretch: 86%; letter-spacing: .004em; text-wrap: balance; overflow-wrap: anywhere; }
+.dz .name{ margin: 0; font: 800 18.5px/1.08 var(--f-display); font-stretch: 86%; letter-spacing: .004em; text-wrap: pretty; overflow-wrap: break-word; hyphens: manual; }
 
 .dz .prev{ margin: 5px 0 0; font-size: 14px; line-height:1.35; }
+.dz .trend{ display:inline-block; margin: 0 0 5px; padding: 2px 8px 1px; border-radius: 4px; background: var(--ink-pink); color:#fff; font: 700 12px/1.3 var(--f-display); letter-spacing: .08em; text-transform: uppercase; rotate: -2deg; box-shadow: 0 2px 0 var(--ink-blue); }
 
 .dz .prev b{ font-weight: 700; }
 
@@ -610,7 +605,7 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
 
   .dz .sort .c-label{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
-  .dz .sort select{ flex: 1; min-width: 0; height: 46px; padding: 2px 30px 0 10px; font-size: 14px; background-position: right 10px center, 0 0, 0 0; }
+  .dz .sort select{ flex: 1; min-width: 0; height: 46px; padding: 2px 30px 0 10px; font-size: 14px; background-position: right 17px center, right 10px center, 0 0, 0 0; }
 
   /* the count stays for screen readers (it is a live region); on screen, "Show more deals" says how many are left */
   .dz .count{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
@@ -636,11 +631,13 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
 
 }
 
-/* store pills in text, no logo files */
-.dz .hp-lt{ display:block; font: 800 2.1cqi/1 var(--f-display); font-stretch: 85%; letter-spacing: .01em; color: var(--ink-blue); text-transform: lowercase; }
-.dz .hp-lg.f .hp-lt{ font-style: italic; }
+/* store badge in text, no logo files: solid ink with a yellow smile so it reads on any paper */
+.dz .hp-lg{ background: var(--ink-blue); color: #fff; padding: .55em .8em .5em; border-radius: 8px; box-shadow: 0 3px 0 var(--ink-pink-deep); rotate: -2deg; }
+.dz .hp-lt{ position:relative; display:block; padding-bottom: .34em; font: 800 max(15px, 2.3cqi)/1 var(--f-display); font-stretch: 88%; letter-spacing: .01em; color: #fff; text-transform: lowercase; }
+.dz .hp-lt::after{ content:""; position:absolute; left: 10%; right: 6%; bottom: 0; height: .4em; border-bottom: .13em solid var(--ink-yellow); border-radius: 0 0 50% 50% / 0 0 100% 100%; }
 @container hero (max-width: 640px){
-  .dz .hp-lt{ font-size: 3.4cqi; }
+  .dz .hp-lg{ font-size: 13px; padding: .5em .75em .45em; }
+  .dz .hp-lt{ font-size: 15px; }
 }
 
 /* ---------- fit inside the portfolio page ---------- */
@@ -664,4 +661,3 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
   .dz .find{ flex-basis: 100%; }
   .dz .find .c-label{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
   .dz .find input{ height: 46px; }
-}

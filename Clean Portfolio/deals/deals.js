@@ -15,13 +15,18 @@
     } catch { return null; }
   };
 
+  /* Amazon serves any size from the same image id, and 400px is plenty for a 240px card */
+  const small = (url) => url && url.replace(/\._[A-Z]{2}\d+_\./, '._SL400_.');
+  const asin = (url) => (url.match(/\/dp\/([A-Z0-9]{10})/) || [])[1] || url;
+
   const clean = (d, i) => {
     const price = Number(d.price), mrp = Number(d.mrp), best = Number(d.best), rating = Number(d.rating);
     const buyUrl = safeUrl(d.buyUrl, ['amazon.in', 'amzn.to']);
     if (!d.name || !buyUrl || !(price > 0)) return null;
     return {
       name: String(d.name), fullName: String(d.fullName || d.name), buyUrl,
-      image: safeUrl(d.image, ['media-amazon.com', 'ssl-images-amazon.com']),
+      image: small(safeUrl(d.image, ['media-amazon.com', 'ssl-images-amazon.com'])),
+      trending: d.trending === true,
       price, mrp: mrp > price ? mrp : null, pct: Math.max(0, Math.round(Number(d.pct) || 0)),
       category: String(d.category || 'More gadgets'),
       atLow: Boolean(d.atLow), lowLabel: String(d.lowLabel || 'tracked low'),
@@ -91,7 +96,7 @@
     const body = h('div', { class: 'body' }, [
       h('div', { class: 'b-main' }, [
         h('div', { class: 'pic-wrap' }, [pic, h('span', { class: 'rank' }, [h('span', { class: 'vh' }, ['Rank ']), riso(String(i + 1))]), d.pct ? burst(d.pct) : null]),
-        h('div', { class: 'b-txt' }, [h('h3', { class: 'name', id: nameId, title: d.fullName }, [d.name]), prevLine(d)]),
+        h('div', { class: 'b-txt' }, [d.trending ? h('p', { class: 'trend' }, ['Trending']) : null, h('h3', { class: 'name', id: nameId, title: d.fullName }, [d.name]), prevLine(d)]),
       ]),
       h('details', { class: 'why' }, [h('summary', {}, ['Why this deal']), h('ul', { class: 'notes' }, notesFor(d).map((n) => h('li', {}, [n])))]),
     ]);
@@ -305,13 +310,25 @@
     document.fonts?.ready.then(chipEnds);
   }
 
-  fetch('/deals/deals.json', { cache: 'no-cache' })
-    .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+  const load = (url) => fetch(url, { cache: 'no-cache' })
+    .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`); return r.json(); })
     .then((body) => {
-      if (!body || !body.success || !Array.isArray(body.data?.deals)) throw new Error('Bad deals file');
-      const deals = body.data.deals.map(clean).filter(Boolean).sort((a, b) => a.rank - b.rank);
+      if (!body || !body.success || !Array.isArray(body.data?.deals)) throw new Error(`Bad deals file: ${url}`);
+      return { list: body.data.deals.map(clean).filter(Boolean).sort((a, b) => a.rank - b.rank), data: body.data };
+    });
+
+  /* trending.json is a hand-picked list that sits on top; the page still works without it */
+  const trending = load('/deals/trending.json').catch((err) => {
+    console.warn('Trending deals skipped:', err);
+    return { list: [] };
+  });
+
+  Promise.all([load('/deals/deals.json'), trending])
+    .then(([main, top]) => {
+      const seen = new Set(top.list.map((d) => asin(d.buyUrl)));
+      const deals = [...top.list, ...main.list.filter((d) => !seen.has(asin(d.buyUrl)))];
       if (!deals.length) throw new Error('No deals in the file');
-      filters(build(deals, body.data));
+      filters(build(deals, main.data));
     })
     .catch((err) => {
       console.error('Deals failed to load:', err);
