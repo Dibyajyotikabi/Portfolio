@@ -1,6 +1,6 @@
-/* Service worker: keeps the shared shell on the device, answers repeat
-   navigations from the cache before the network replies, and stores the pages
-   a visitor is about to open so a click lands on an already-loaded document.
+/* Service worker: keeps the shared shell on the device, loads pages from the
+   network first so a deploy shows up on the next visit, and falls back to the
+   saved copy when the network is down or slow.
    Only same-origin GET requests are touched; live numbers and every request to
    the blog, booking, and GitHub hosts pass straight through to the network. */
 "use strict";
@@ -14,6 +14,8 @@ const CACHEABLE = new Set(["style", "script", "image", "font", "manifest"]);
 // that trusted it could store the page from before a deploy. A conditional
 // request costs a 304 when nothing changed.
 const PAGE_FETCH = "no-cache";
+// A page waits this long for the network before the saved copy is shown instead.
+const PAGE_TIMEOUT_MS = 2500;
 // Repeated background refreshes for the same URL are collapsed into one request.
 const refreshing = new Map();
 
@@ -40,18 +42,18 @@ function stored(cache, request, mode = "default") {
   return job;
 }
 
+const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function navigation(request, event) {
   const cache = await caches.open(CACHE);
-  const cached = await cache.match(request);
-  if (cached) {
-    // Show the saved page now; the newest copy replaces it for the next click.
-    keepAlive(event, stored(cache, request, PAGE_FETCH));
-    return cached;
-  }
-  const fresh = await stored(cache, request, PAGE_FETCH);
-  // A real 404 stays a 404; only a network that cannot answer falls back to home.
+  // Serving the saved page first meant every deploy showed the old page until a
+  // second reload. The network answers first now; the copy is only a fallback.
+  const network = stored(cache, request, PAGE_FETCH);
+  keepAlive(event, network);
+  const fresh = await Promise.race([network, timeout(PAGE_TIMEOUT_MS)]);
+  // A real 404 stays a 404; only a network that cannot answer falls back.
   if (fresh) return fresh;
-  return (await cache.match("/")) || Response.error();
+  return (await cache.match(request)) || (await network) || (await cache.match("/")) || Response.error();
 }
 
 async function asset(request, event) {

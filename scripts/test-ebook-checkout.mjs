@@ -120,6 +120,40 @@ test('order return URLs bypass the service-worker cache', async () => {
   }
 });
 
+async function navigate(network) {
+  const handlers = {};
+  const saved = new Map([['https://dibyajyotikabi.com/deals/', new Response('old page')]]);
+  const cache = { match: async (r) => saved.get(typeof r === 'string' ? r : r.url)?.clone(), put: async () => {} };
+  const swSource = readFileSync(new URL('../Clean Portfolio/sw.js', import.meta.url), 'utf8');
+  vm.runInNewContext(swSource, {
+    URL, Request, Response, setTimeout,
+    self: { location: { origin: 'https://dibyajyotikabi.com' }, addEventListener: (name, fn) => { handlers[name] = fn; } },
+    caches: { open: async () => cache },
+    fetch: network,
+  });
+  let reply;
+  handlers.fetch({
+    request: { url: 'https://dibyajyotikabi.com/deals/', method: 'GET', headers: new Headers(), mode: 'navigate' },
+    respondWith: (p) => { reply = p; },
+    waitUntil: () => {},
+  });
+  return (await reply).text();
+}
+
+test('pages come from the network first so a deploy shows on the next visit', async () => {
+  const text = await navigate(async () => {
+    const live = new Response('new page');
+    Object.defineProperty(live, 'type', { value: 'basic' });
+    return live;
+  });
+  assert.equal(text, 'new page');
+});
+
+test('pages fall back to the saved copy when the network fails', async () => {
+  const text = await navigate(async () => { throw new TypeError('offline'); });
+  assert.equal(text, 'old page');
+});
+
 const pixelSource = readFileSync(new URL('../Clean Portfolio/ebooks/pixel.js', import.meta.url), 'utf8');
 
 function pixel({ search = '', links = [], isThankYou = false, session = new Map() } = {}) {
