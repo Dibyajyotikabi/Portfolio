@@ -1,0 +1,7 @@
+/* The card preview frame: just the card, on the site's paper background */
+html, body { margin: 0; background: var(--paper, #fbf6ec); }
+main.dz { min-height: 0; padding: 12px; }
+main.dz .deals-sec { padding: 0; margin: 0; }
+main.dz .wrap { max-width: 420px; padding: 0; margin: 0 auto; }
+main.dz .deals { display: block; margin: 0; padding: 0; }
+main.dz .deals a { cursor: default; }

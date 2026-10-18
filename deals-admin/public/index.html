@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Deals Admin</title>
+  <link rel="stylesheet" href="/admin.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo" aria-hidden="true">₹</span><span>Deals admin</span></div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button type="button" role="tab" data-tab="deals" aria-selected="true">Deals</button>
+      <button type="button" role="tab" data-tab="telegram" aria-selected="false">Telegram</button>
+      <button type="button" role="tab" data-tab="activity" aria-selected="false">Activity</button>
+    </nav>
+    <span class="grow"></span>
+    <span id="deploy" class="pill run" hidden></span>
+    <span id="pending" class="pill">Loading</span>
+    <a class="btn ghost" href="https://dibyajyotikabi.com/deals/" target="_blank" rel="noopener">View site</a>
+    <button id="publish" type="button" class="btn primary">Publish</button>
+  </header>
+  <main id="view" class="view"></main>
+  <datalist id="cats"></datalist>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+</body>
+</html>

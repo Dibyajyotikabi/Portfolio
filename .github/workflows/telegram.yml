@@ -1,0 +1,63 @@
+name: Telegram deals
+
+# After every successful deploy, post the new live deals to the Telegram channel and
+# save the post ids in deals-admin/data/posted.json so nothing is posted twice.
+on:
+  workflow_run:
+    workflows: ["Deploy to GitHub Pages"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: "Only print what would be posted"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Sync deals to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DRY: ${{ inputs.dry }}
+        run: |
+          if [ "$DRY" = "true" ]; then
+            node deals-admin/telegram/sync.mjs --dry
+          else
+            node deals-admin/telegram/sync.mjs
+          fi
+
+      # Runs even when some posts failed, so the ones that did go out are recorded
+      - name: Save the post ledger
+        if: always() && inputs.dry != true
+        run: |
+          git diff --quiet -- deals-admin/data/posted.json && { echo 'No new posts to record.'; exit 0; }
+          git config user.name 'Dibyajyoti Kabi'
+          git config user.email '166307538+Dibyajyotikabi@users.noreply.github.com'
+          git add deals-admin/data/posted.json
+          git commit -m 'chore: record Telegram deal posts [skip ci]'
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((attempt * 5))
+          done
+          echo 'Could not push posted.json'; exit 1

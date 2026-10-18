@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
       - name: Verify ebook checkout behavior
-        run: node --test scripts/test-ebook-checkout.mjs
+        run: node --test scripts/test-ebook-checkout.mjs scripts/test-deals-admin.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

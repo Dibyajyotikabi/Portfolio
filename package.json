@@ -7,7 +7,10 @@
     "dev": "vite --host 0.0.0.0",
     "build": "node scripts/build-site.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "cms": "npx decap-server"
+    "cms": "npx decap-server",
+    "admin": "node deals-admin/server.mjs",
+    "telegram:sync": "node deals-admin/telegram/sync.mjs",
+    "test": "node --test scripts/test-ebook-checkout.mjs scripts/test-deals-admin.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

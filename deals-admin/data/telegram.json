@@ -1,0 +1,13 @@
+{
+ "enabled": false,
+ "chatId": "",
+ "postSince": "2026-10-18T16:00:00+00:00",
+ "withPhoto": true,
+ "silent": false,
+ "editOnChange": true,
+ "onRemove": "mark",
+ "skipTelegramSourced": true,
+ "maxPerRun": 10,
+ "buttonText": "Buy on Amazon",
+ "footer": "More checked deals: https://dibyajyotikabi.com/deals/"
+}
