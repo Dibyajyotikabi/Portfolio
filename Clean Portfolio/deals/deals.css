@@ -51,8 +51,9 @@
   background: linear-gradient(100deg, transparent .15em, var(--ink-yellow) .3em, var(--ink-yellow) calc(100% - .35em), transparent calc(100% - .1em)) 0 62% / 100% 74% no-repeat;
   -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
-/* controls need the script; without it every deal is simply listed */
-html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
+/* controls need the script; without it every deal is simply listed. A media query, not an
+   inline script, because the site CSP blocks inline scripts it has no hash for. */
+@media (scripting: none){ .dz .controls, .dz .jump{ display:none !important; } }
 
 /* paper with grain: one rule, so every sheet looks the same */
 .dz .paper{ background-color: var(--stock); background-image: var(--grain); background-size: 260px 260px; }
@@ -290,7 +291,7 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
 .dz .deals{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 214px), 1fr)); gap: 4px 18px; align-items: stretch; }
 
 /* until the script has counted the matches, show only the first page, so nothing flashes */
-.js .dz .deals:not(.go) > .coupon:nth-child(n+25){ display:none; }
+@media (scripting: enabled){ .dz .deals:not(.go) > .coupon:nth-child(n+25){ display:none; } }
 
 /* Offscreen coupons are skipped by the browser. The padding keeps the lift and shadow of a hovered coupon inside the box that is clipped. */
 .dz .coupon{ position:relative; display:flex; min-width:0; content-visibility: auto; contain-intrinsic-size: auto 420px; padding: 6px 0 14px; }
@@ -627,7 +628,7 @@ html:not(.js) .dz .controls, html:not(.js) .dz .jump{ display:none !important; }
 
   .dz .coupon{ content-visibility: visible; break-inside: avoid; }
 
-  .js .dz .deals:not(.go) > .coupon:nth-child(n+25){ display:flex; }
+  .dz .deals:not(.go) > .coupon:nth-child(n+25){ display:flex; }
 
 }
 

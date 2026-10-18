@@ -19,18 +19,19 @@ const API = 'https://api.cloudflare.com/client/v4';
 const THEME_HASH = "'sha256-nuNF0hABcbtwsKwLa0TQpgu0zJO5RKXrPFdL4Oon/4E='";
 
 /**
- * The main site loads nothing from a third party except the blog API and the
- * GitHub contributions feed. default-src lists the blog because link
+ * The main site loads nothing from a third party except the blog API, the
+ * GitHub contributions feed, and on /deals the Amazon product photos and the
+ * Google Fonts the coupons are set in. default-src lists the blog because link
  * rel=prefetch is checked against default-src, not script-src — leave it out
  * and the cross-origin prefetch starts failing again.
  */
 const MAIN_CSP = [
   "default-src 'self' https://blogs.dibyajyotikabi.com",
   `script-src 'self' ${THEME_HASH}`,
-  "style-src 'self'",
-  "img-src 'self' data: https://www.facebook.com",
+  "style-src 'self' https://fonts.googleapis.com",
+  "img-src 'self' data: https://www.facebook.com https://m.media-amazon.com",
   "connect-src 'self' https://blogs.dibyajyotikabi.com https://github-contributions-api.jogruber.de https://www.facebook.com",
-  "font-src 'self'",
+  "font-src 'self' https://fonts.gstatic.com",
   "object-src 'none'",
   "base-uri 'self'",
   "frame-ancestors 'none'",
