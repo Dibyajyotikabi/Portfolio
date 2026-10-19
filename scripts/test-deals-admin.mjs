@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { postText, postPayload, eligibility, planSync, postSlots, fingerprint, messageLink, endedText, DEFAULT_SETTINGS } from '../deals-admin/telegram/format.mjs';
 import { validateDeal, liveDeals, affiliateUrl, asinOf, checkFeed, popularity } from '../deals-admin/lib/deals.mjs';
+import { planImport, parseCount, commonTag, existingAsins } from '../deals-admin/lib/importer.mjs';
 
 const ON = { ...DEFAULT_SETTINGS, enabled: true, postSince: '2026-10-01T00:00:00+00:00' };
 const deal = (over = {}) => ({
@@ -162,4 +163,63 @@ test('the real deal files pass the checks the admin and the Telegram sync use', 
   assert.ok(liveDeals(main, trending).length > 0);
   const settings = JSON.parse(readFileSync(new URL('../deals-admin/data/telegram.json', import.meta.url), 'utf8'));
   assert.ok(Date.parse(settings.postSince), 'postSince must be set so old deals are not flooded into the channel');
+});
+
+const candidate = (over = {}) => ({
+  asin: 'B0DSC4YJRD', name: 'Ambrane 20000mAh Power Bank', image: 'https://m.media-amazon.com/images/I/61Xh55+Wm0L._SL1000_.jpg',
+  price: '₹1,399', mrp: '₹3,800', rating: '4.2', reviews: '2,518', bought: '10K+ bought in past month',
+  category: 'Accessories & Storage', notes: ['Festival price', 'The cable is built in'], checked: true, ...over,
+});
+const NOW = Date.parse('2026-10-19T10:00:00Z');
+
+test('parseCount reads Amazon prices, review counts and bought labels', () => {
+  assert.equal(parseCount('₹1,399.00'), 1399);
+  assert.equal(parseCount('2,518'), 2518);
+  assert.equal(parseCount('10K+ bought in past month'), 10000);
+  assert.equal(parseCount('1.5K+'), 1500);
+  assert.equal(parseCount(4.2), 4.2);
+  assert.equal(parseCount(''), null);
+});
+
+test('planImport turns a checked candidate into a tagged deal dated now', () => {
+  const { accepted, skipped } = planImport({ candidates: [candidate()], listed: new Set(), tag: 'mytag-21', now: NOW });
+  assert.equal(skipped.length, 0);
+  const [d] = accepted;
+  assert.equal(d.id, 'a-B0DSC4YJRD');
+  assert.equal(d.buyUrl, 'https://www.amazon.in/dp/B0DSC4YJRD?tag=mytag-21');
+  assert.deepEqual([d.price, d.mrp, d.pct, d.rating, d.reviews, d.bought], [1399, 3800, 63, 4.2, 2518, 10000]);
+  assert.equal(d.date, '2026-10-19T10:00:00+00:00');
+});
+
+test('planImport skips listed, unchecked, unpopular and badly written candidates', () => {
+  const candidates = [
+    candidate(),
+    candidate({ asin: 'B0AAAAAAAA', checked: false }),
+    candidate({ asin: 'B0BBBBBBBB', bought: '', reviews: '20', rating: '4.5' }),
+    candidate({ asin: 'B0CCCCCCCC', mrp: '₹1,450' }),
+    candidate({ asin: 'B0DDDDDDDD', notes: ['Great price \u2014 grab it', 'Second note'] }),
+    candidate({ asin: 'B0EEEEEEEE', notes: ['Only one note'] }),
+    candidate({ asin: 'B0FFFFFFFF', rating: '3.5' }),
+  ];
+  const { accepted, skipped } = planImport({ candidates, listed: new Set(['B0DSC4YJRD']), tag: 't-21', now: NOW });
+  assert.equal(accepted.length, 0);
+  assert.deepEqual(skipped.map((s) => s.reason.split(':')[0]), [
+    'already listed', 'not confirmed on the product page', 'not popular', 'not popular',
+    'notes use dashes, arrows or ellipsis characters', 'needs at least 2 notes', 'not popular',
+  ]);
+});
+
+test('planImport keeps the same product once, staggers dates and stops at the limit', () => {
+  const asins = ['B0A0000001', 'B0A0000002', 'B0A0000001', 'B0A0000003'];
+  const { accepted, skipped } = planImport({ candidates: asins.map((asin) => candidate({ asin })), listed: new Set(), tag: 't-21', now: NOW, limit: 2 });
+  assert.deepEqual(accepted.map((d) => d.id), ['a-B0A0000001', 'a-B0A0000002']);
+  assert.ok(Date.parse(accepted[0].date) > Date.parse(accepted[1].date));
+  assert.deepEqual(skipped.map((s) => s.reason), ['already listed', 'over the limit of 2']);
+});
+
+test('commonTag and existingAsins read the current deal files', () => {
+  const deals = [deal(), deal({ buyUrl: 'https://www.amazon.in/dp/B07LB6K93N' })];
+  assert.equal(commonTag(deals), 'wwwbestdeal0d-21');
+  assert.equal(commonTag([]), 'wwwbestdeal0d-21');
+  assert.deepEqual([...existingAsins(deals)], ['B0C8MTWMK2', 'B07LB6K93N']);
 });
