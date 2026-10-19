@@ -204,7 +204,7 @@ test('planImport skips listed, unchecked, unpopular and badly written candidates
   const { accepted, skipped } = planImport({ candidates, listed: new Set(['B0DSC4YJRD']), tag: 't-21', now: NOW });
   assert.equal(accepted.length, 0);
   assert.deepEqual(skipped.map((s) => s.reason.split(':')[0]), [
-    'already listed', 'not confirmed on the product page', 'not popular', 'not popular',
+    'already listed', 'not confirmed on Amazon', 'not popular', 'not popular',
     'notes use dashes, arrows or ellipsis characters', 'needs at least 2 notes', 'not popular',
   ]);
 });

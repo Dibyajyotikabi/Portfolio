@@ -25,6 +25,7 @@
      "save": 2850,
      "card": "Amazon Pay ICICI card"
     },
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
     "notes": [
      "Mega Festival Deal price, ₹35,000 below the list price",
@@ -58,6 +59,7 @@
       "card": "SBI Credit Card"
      }
     ],
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
     "notes": [
      "Great Indian Festival price, 47% below the list price",
@@ -97,6 +99,7 @@
      "save": 42,
      "card": "Amazon Pay ICICI card"
     },
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
     "notes": [
      "80% off, a calling smartwatch for just ₹1,099",
@@ -136,6 +139,7 @@
      "save": 990,
      "card": "Amazon Pay ICICI card"
     },
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
     "notes": [
      "Great Indian Festival price, 34% below the list price",
@@ -179,6 +183,7 @@
      "save": 1250,
      "card": "SBI Credit Card"
     },
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
     "notes": [
      "Limited time deal, 25% off the 2026 model",
@@ -428,6 +433,7 @@
     "pct": 42,
     "best": 15149,
     "bestVia": "coupon + SBI card",
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
     "notes": [
      "42% off Samsung's newest Pro earbuds",
@@ -1651,6 +1657,7 @@
     "mrp": 7198,
     "pct": 63,
     "best": 2376,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": true,
     "lowLabel": "90-day low",
     "notes": [
@@ -1797,8 +1804,8 @@
     "mrp": 3990,
     "pct": 78,
     "best": 786,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
-    "lowLabel": "",
     "notes": [
      "78% below the list price of ₹3,990",
      "₹786 with coupon + ICICI card",
@@ -1993,8 +2000,8 @@
     "mrp": 2990,
     "pct": 73,
     "best": 776,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
-    "lowLabel": "",
     "notes": [
      "73% below the list price of ₹2,990",
      "₹776 with Amazon Pay ICICI Bank Credit Card",
@@ -2288,6 +2295,7 @@
     "mrp": 16900,
     "pct": 41,
     "best": 9000,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": true,
     "lowLabel": "90-day low",
     "notes": [
@@ -2360,8 +2368,8 @@
     "mrp": 2799,
     "pct": 54,
     "best": 1099,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
-    "lowLabel": "",
     "notes": [
      "54% below the list price of ₹2,799",
      "₹1,099 with any bank card",
@@ -2409,8 +2417,8 @@
     "mrp": 29990,
     "pct": 53,
     "best": 11739,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
-    "lowLabel": "",
     "notes": [
      "53% below the list price of ₹29,990",
      "₹11,739 with SBI credit card",
@@ -2458,8 +2466,8 @@
     "mrp": 45999,
     "pct": 50,
     "best": 22310,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
-    "lowLabel": "",
     "notes": [
      "50% below the list price of ₹45,999",
      "₹22,310 with Amazon Pay ICICI card",
@@ -2483,6 +2491,7 @@
     "mrp": 5990,
     "pct": 35,
     "best": 2421,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": true,
     "lowLabel": "90-day low",
     "notes": [
@@ -2604,8 +2613,8 @@
     "mrp": 29990,
     "pct": 43,
     "best": 14731,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
-    "lowLabel": "",
     "notes": [
      "43% below the list price of ₹29,990",
      "₹14,731 with coupon + ICICI card",
@@ -2629,8 +2638,8 @@
     "mrp": 34990,
     "pct": 40,
     "best": 20361,
+    "offersAt": "2026-10-19T04:58:39+00:00",
     "atLow": false,
-    "lowLabel": "",
     "notes": [
      "40% below the list price of ₹34,990",
      "₹20,361 with Amazon Pay ICICI card",
@@ -2670,6 +2679,6 @@
    }
   ],
   "checked": 90,
-  "syncedAt": "2026-10-19T04:58:39+00:00"
+  "syncedAt": "2026-10-19T05:35:31+00:00"
  }
 }

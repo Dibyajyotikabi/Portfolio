@@ -98,7 +98,7 @@ const readForm = (form, base, ctx) => {
     id: v('id'), name: v('name'), fullName: v('fullName'), category: v('category'), image: v('image') || null, buyUrl,
     price: v('price'), mrp: v('mrp'), best: v('best'), bestVia: v('bestVia'), rating: v('rating'),
     /* the saved offer steps add up to the old best price, so a hand-typed one drops them */
-    ...(Number(v('best')) !== Number(base.best) ? { offers: [], nonPrime: null } : {}),
+    ...(Number(v('best')) !== Number(base.best) ? { offers: [], nonPrime: null, offersAt: new Date().toISOString() } : {}),
     bought: v('bought'), reviews: v('reviews'), badge: v('badge'),
     pct: mrp > price && price > 0 ? Math.round((1 - price / mrp) * 100) : 0,
     atLow: form.elements.atLow.checked, lowLabel: v('lowLabel'),

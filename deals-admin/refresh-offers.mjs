@@ -6,7 +6,11 @@
 
    With ASINs it checks only those products. A deal keeps its old data when its page
    can't be read. When Amazon answers with a bot check, the run stops and saves what it
-   has. Exit code 2 means Amazon blocked it before any deal was checked. */
+   has. Exit code 2 means Amazon blocked it before any deal was checked.
+
+   This one reads product pages, so run it by hand from your own computer when you want
+   the coupon and card prices. The scheduled API refresh (refresh-deals.mjs) keeps what
+   it saves for two days, or until the Amazon price changes. */
 import { readState, patchDeals } from './store.mjs';
 import { asinOf } from './lib/deals.mjs';
 import { parseProduct, repriceNotes } from './lib/amazon.mjs';
@@ -48,6 +52,7 @@ const checkDeal = async (deal, asin) => {
       bestVia: result ? result.bestVia : '',
       offers: result ? result.offers : [],
       nonPrime: result?.nonPrime || null,
+      offersAt: result ? new Date().toISOString() : null,
     },
   };
 };

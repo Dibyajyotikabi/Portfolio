@@ -51,6 +51,7 @@ export const toDeal = (c, { tag, date }) => {
     ...(bought ? { bought: Math.round(bought) } : {}),
     ...(reviews ? { reviews: Math.round(reviews) } : {}),
     ...(c.badge ? { badge: c.badge } : {}),
+    ...(parseCount(c.salesRank) ? { salesRank: Math.round(parseCount(c.salesRank)), rankIn: c.rankIn } : {}),
     category: c.category,
     notes: Array.isArray(c.notes) ? c.notes : [],
     buyUrl: affiliateUrl(`https://www.amazon.in/dp/${asin}`, tag),
@@ -65,7 +66,7 @@ const rejection = (c, seen) => {
   const asin = candidateAsin(c);
   if (!ASIN_RE.test(asin)) return 'no valid ASIN';
   if (seen.has(asin)) return 'already listed';
-  if (c.checked !== true) return 'not confirmed on the product page';
+  if (c.checked !== true) return 'not confirmed on Amazon';
   if (!c.image) return 'no product image';
   if (!c.category) return 'no category';
   const notes = Array.isArray(c.notes) ? c.notes : [];

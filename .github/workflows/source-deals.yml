@@ -1,10 +1,12 @@
 name: Source deals
 
-# Finds up to 15 popular Amazon.in deals from the Best Sellers lists with plain page
-# requests (no browser, no Amazon login, no proxy), adds the ones that pass the rules
-# in deals-admin/lib/deals.mjs and starts a deploy. The Telegram workflow then posts
-# them one every 30 minutes. If Amazon answers with a bot check, the run stops.
+# Every morning, finds up to 15 popular Amazon.in deals through the Amazon Creators API
+# (the official Associates product feed, no Amazon login and no page reading), adds the
+# ones that pass the rules in deals-admin/lib/deals.mjs and starts a deploy. The Telegram
+# workflow then posts them one every 30 minutes.
 on:
+  schedule:
+    - cron: '30 3 * * *'
   workflow_dispatch:
     inputs:
       dry:
@@ -17,28 +19,46 @@ permissions:
   actions: write
 
 concurrency:
-  group: source-deals
+  group: deal-data
   cancel-in-progress: false
 
 jobs:
   source:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
+    env:
+      AMAZON_CREATORS_ID: ${{ secrets.AMAZON_CREATORS_ID }}
+      AMAZON_CREATORS_SECRET: ${{ secrets.AMAZON_CREATORS_SECRET }}
+      AMAZON_CREATORS_VERSION: ${{ secrets.AMAZON_CREATORS_VERSION }}
     steps:
+      - name: Check the API keys
+        id: keys
+        run: |
+          if [ -z "$AMAZON_CREATORS_ID" ] || [ -z "$AMAZON_CREATORS_SECRET" ]; then
+            echo '::warning::Add AMAZON_CREATORS_ID and AMAZON_CREATORS_SECRET in Settings > Secrets and variables > Actions to turn on daily deals.'
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
+        if: steps.keys.outputs.ready == 'true'
         uses: actions/checkout@v4
         with:
           ref: main
 
       - name: Setup Node
+        if: steps.keys.outputs.ready == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Read Amazon pages
+      - name: Find deals through the API
+        if: steps.keys.outputs.ready == 'true'
         run: node deals-admin/fetch-deals.mjs "$RUNNER_TEMP/candidates.json"
 
       - name: Add the deals
+        if: steps.keys.outputs.ready == 'true'
         env:
           DRY: ${{ inputs.dry }}
         run: |
@@ -48,17 +68,9 @@ jobs:
             node deals-admin/import-deals.mjs "$RUNNER_TEMP/candidates.json"
           fi
 
-      # New deals get their lowest price before the first Telegram post
-      - name: Check offers on the new deals
-        if: inputs.dry != true
-        run: |
-          ASINS=$(node -e 'console.log(require(process.argv[1]).map((c) => c.asin).join(" "))' "$RUNNER_TEMP/candidates.json")
-          [ -z "$ASINS" ] && { echo 'No new deals to check.'; exit 0; }
-          node deals-admin/refresh-offers.mjs $ASINS || echo 'Offer check failed, the new deals keep their Amazon price.'
-
       # A push made with the workflow token doesn't start other workflows, so start the deploy here
       - name: Publish
-        if: inputs.dry != true
+        if: steps.keys.outputs.ready == 'true' && inputs.dry != true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

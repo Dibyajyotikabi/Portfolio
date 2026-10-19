@@ -1,24 +1,9 @@
-/* Reads Amazon.in Best Sellers and product pages as plain HTML and turns a product into
-   an import candidate with template notes. Pure functions only, so the parsing can be
-   tested on saved snippets. The fetching lives in deals-admin/fetch-deals.mjs. */
+/* Reads Amazon.in product pages as plain HTML (for the optional local offer check in
+   refresh-offers.mjs) and writes the template notes every deal uses. Pure functions only,
+   so the parsing can be tested on saved snippets. */
 import { parseCount } from './importer.mjs';
 
-/* Best Sellers lists to rotate through, with the category their products usually fit */
-export const LISTS = Object.freeze([
-  { path: 'electronics/92071051031', category: 'Phones & Tablets' },
-  { path: 'computers', category: 'Laptops & Computers' },
-  { path: 'kitchen', category: 'Home & Kitchen' },
-  { path: 'electronics/11599648031', category: 'Wearables' },
-  { path: 'electronics/1389375031', category: 'TVs & Projectors' },
-  { path: 'electronics/1388921031', category: 'Audio' },
-  { path: 'electronics/1458204031', category: 'Laptops & Computers' },
-  { path: 'electronics/1388867031', category: 'Accessories & Storage' },
-]);
-
-/* Rotates by day, so every list comes up every couple of days */
-export const listsFor = (day, count) => Array.from({ length: Math.min(count, LISTS.length) }, (_, i) => LISTS[(day * count + i) % LISTS.length]);
-
-/* One from each list in turn, so a run doesn't fill up from a single category */
+/* One from each queue in turn, so a run doesn't fill up from a single category */
 export const interleave = (queues) => {
   const longest = Math.max(0, ...queues.map((q) => q.length));
   return Array.from({ length: longest }, (_, i) => queues.map((q) => q[i])).flat().filter(Boolean);
@@ -61,13 +46,6 @@ const section = (html, id, size = 6000) => {
 };
 
 const first = (s, re) => (s.match(re) || [])[1] || '';
-
-/* Best Sellers pages carry the full ranked list as JSON in an attribute */
-export const parseBestSellers = (html) => {
-  const ids = [...decode(html).matchAll(/"id":"([A-Z0-9]{10})"/g)].map((m) => m[1]);
-  const links = [...html.matchAll(/\/dp\/([A-Z0-9]{10})/g)].map((m) => m[1]);
-  return [...new Set([...ids, ...links])];
-};
 
 export const parseProduct = (html) => {
   const price = section(html, 'corePriceDisplay_desktop_feature_div');
@@ -159,20 +137,3 @@ export const repriceNotes = (notes, price, mrp) => {
     return n;
   }).filter(Boolean);
 };
-
-/* Everything the importer needs. checked is true only when the page gave a real price and image. */
-export const toCandidate = (asin, product, listCategory) => ({
-  asin,
-  name: shortName(product.title),
-  fullName: product.title,
-  image: product.image,
-  price: product.price,
-  mrp: product.mrp,
-  rating: product.rating,
-  reviews: product.reviews,
-  bought: product.bought,
-  ...(product.badge ? { badge: product.badge } : {}),
-  category: categoryFor(product.title, listCategory),
-  notes: templateNotes(product),
-  checked: Boolean(product.title && product.price && /^https:\/\/m\.media-amazon\.com\//.test(product.image)),
-});

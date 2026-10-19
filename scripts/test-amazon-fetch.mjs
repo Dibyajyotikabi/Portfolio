@@ -1,10 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  LISTS, listsFor, interleave, isBlockPage, decode, parseBestSellers, parseProduct,
-  shortName, categoryFor, featureNote, templateNotes, toCandidate,
+  interleave, isBlockPage, decode, parseProduct, shortName, categoryFor, featureNote, templateNotes,
 } from '../deals-admin/lib/amazon.mjs';
-import { planImport } from '../deals-admin/lib/importer.mjs';
 
 const PRODUCT_HTML = `
 <span id="productTitle" class="a-size-large">  iQOO Z11 Lite 44W 5G (Solar Flame, 4GB RAM, 128GB Storage)  </span>
@@ -32,12 +30,6 @@ test('isBlockPage spots the bot check and passes a real product page', () => {
 
 test('decode handles named, decimal and hex entities', () => {
   assert.equal(decode('Tom &amp; Jerry &#39;s &#x27;x&#x27; &quot;q&quot;'), `Tom & Jerry 's 'x' "q"`);
-});
-
-test('parseBestSellers reads the JSON ids and the product links without repeats', () => {
-  const html = '<div data-client-recs-list="[{&quot;id&quot;:&quot;B0AAAAAAA1&quot;},{&quot;id&quot;:&quot;B0AAAAAAA2&quot;}]"></div>'
-    + '<a href="/x/dp/B0AAAAAAA2/ref=1">x</a><a href="/y/dp/B0AAAAAAA3">y</a>';
-  assert.deepEqual(parseBestSellers(html), ['B0AAAAAAA1', 'B0AAAAAAA2', 'B0AAAAAAA3']);
 });
 
 test('parseProduct reads the numbers, badge, image and bullets', () => {
@@ -84,17 +76,6 @@ test('templateNotes write the saving, a feature and the proof with no banned cha
   assert.ok(notes.every((n) => !/[–—…→←]/.test(n)));
 });
 
-test('toCandidate is only checked with a title, price and Amazon image, and passes the importer', () => {
-  const c = toCandidate('B0AAAAAAA1', parseProduct(PRODUCT_HTML), 'Phones & Tablets');
-  assert.equal(c.checked, true);
-  assert.equal(c.category, 'Phones & Tablets');
-  const { accepted } = planImport({ candidates: [c], listed: new Set(), tag: 'x-21' });
-  assert.equal(accepted.length, 1);
-  assert.equal(toCandidate('B0AAAAAAA1', { ...parseProduct(PRODUCT_HTML), image: 'https://evil.example/a.jpg' }, 'Audio').checked, false);
-});
-
-test('listsFor rotates through every list and interleave mixes the queues', () => {
-  const seen = new Set([0, 1].flatMap((day) => listsFor(day, 4).map((l) => l.path)));
-  assert.equal(seen.size, LISTS.length);
+test('interleave takes one from each queue in turn', () => {
   assert.deepEqual(interleave([[1, 2, 3], ['a'], []]), [1, 'a', 2, 3]);
 });

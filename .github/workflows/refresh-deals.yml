@@ -1,0 +1,85 @@
+name: Refresh deals
+
+# Every 4 hours, rechecks every deal through the Amazon Creators API (the official
+# Associates product feed, no Amazon login and no page reading). It saves the current
+# price, MRP, main image and sales rank, and takes off deals that are out of stock or
+# no longer a real discount. The deploy then updates the site, and the Telegram
+# workflow edits changed posts and marks ended ones.
+on:
+  schedule:
+    - cron: '15 */4 * * *'
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: "Only print the changes, save nothing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: deal-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      AMAZON_CREATORS_ID: ${{ secrets.AMAZON_CREATORS_ID }}
+      AMAZON_CREATORS_SECRET: ${{ secrets.AMAZON_CREATORS_SECRET }}
+      AMAZON_CREATORS_VERSION: ${{ secrets.AMAZON_CREATORS_VERSION }}
+    steps:
+      - name: Check the API keys
+        id: keys
+        run: |
+          if [ -z "$AMAZON_CREATORS_ID" ] || [ -z "$AMAZON_CREATORS_SECRET" ]; then
+            echo '::warning::Add AMAZON_CREATORS_ID and AMAZON_CREATORS_SECRET in Settings > Secrets and variables > Actions to turn on the refresh.'
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.keys.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        if: steps.keys.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check prices
+        if: steps.keys.outputs.ready == 'true'
+        env:
+          DRY: ${{ inputs.dry }}
+        run: |
+          if [ "$DRY" = "true" ]; then
+            node deals-admin/refresh-deals.mjs --dry
+          else
+            node deals-admin/refresh-deals.mjs
+          fi
+
+      # A push made with the workflow token doesn't start other workflows, so start the deploy here
+      - name: Publish
+        if: steps.keys.outputs.ready == 'true' && inputs.dry != true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          FILES=('Clean Portfolio/deals/deals.json' 'Clean Portfolio/deals/trending.json')
+          git diff --quiet -- "${FILES[@]}" && { echo 'No price changes to publish.'; exit 0; }
+          git config user.name 'Dibyajyoti Kabi'
+          git config user.email '166307538+Dibyajyotikabi@users.noreply.github.com'
+          git add "${FILES[@]}"
+          git commit -m "chore: refresh deal prices"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            [ "$attempt" = 3 ] && { echo 'Could not push the deal files'; exit 1; }
+            sleep $((attempt * 5))
+          done
+          gh workflow run deploy.yml --ref main

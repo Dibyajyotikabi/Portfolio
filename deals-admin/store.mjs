@@ -118,6 +118,16 @@ export const patchDeals = (patches) => {
   return { changed, failed };
 };
 
+/* Takes ended deals off both lists in one write per list. Returns the ids it removed. */
+export const removeDeals = (ids) => {
+  const drop = new Set(ids), removed = [];
+  for (const [name, body] of Object.entries(loadFeeds())) {
+    const next = body.data.deals.filter((d) => !drop.has(d.id) || !removed.push(d.id));
+    if (next.length !== body.data.deals.length) writeDeals(name, body, next);
+  }
+  return removed;
+};
+
 export const deleteDeal = ({ feed, id }) => {
   const body = readFeed(feedName(feed));
   const next = body.data.deals.filter((d) => d.id !== id);

@@ -1,79 +1,66 @@
-/* Finds popular Amazon.in deals without a browser, an Amazon account or any paid API.
-   It reads a few Best Sellers lists, opens each product page with a pause between
-   requests, writes template notes and saves the deals that pass the import rules.
-   Feed the file to import-deals.mjs to add them to the site.
+/* Finds popular Amazon.in deals through the Amazon Creators API, the official product
+   feed for Associates. It never opens an Amazon page or logs in to an account. A few
+   searches a day ask for Prime products at least 15% off and rated 4 or more, then the
+   import rules pick the ones with a top sales rank. Feed the file to import-deals.mjs.
 
    node deals-admin/fetch-deals.mjs candidates.json
 
-   When Amazon answers with a bot check, the run stops there. It never retries around
-   it or goes through a proxy. Exit code 2 means Amazon blocked it before any deal. */
+   Exit code 3 means the API keys are not set up. */
 import { writeFileSync } from 'node:fs';
 import { readState } from './store.mjs';
-import { listsFor, interleave, parseBestSellers, parseProduct, toCandidate } from './lib/amazon.mjs';
-import { BlockedError, get, pause } from './lib/amazon-http.mjs';
+import { interleave } from './lib/amazon.mjs';
 import { planImport, commonTag, existingAsins, DAILY } from './lib/importer.mjs';
+import { createClient, credentialsFromEnv, isFatal } from './lib/creators-api.mjs';
+import { RESOURCES, searchesFor, searchParams, toApiCandidate } from './lib/catalog.mjs';
 
-const LISTS_PER_RUN = 4;
-const MAX_PRODUCT_PAGES = 45;
+const SEARCHES_PER_RUN = 6;
 const DAY_MS = 24 * 60 * 60 * 1000;
-const EXIT_BLOCKED = 2;
+const EXIT_NO_KEYS = 3;
 
-/* Today's lists, minus the products the site already has */
-const readQueues = async (listed) => {
+/* Today's searches, one list of new candidates per search */
+const searchQueues = async (client, listed) => {
   const queues = [];
-  for (const list of listsFor(Math.floor(Date.now() / DAY_MS), LISTS_PER_RUN)) {
-    await pause();
+  for (const search of searchesFor(Math.floor(Date.now() / DAY_MS), SEARCHES_PER_RUN)) {
     try {
-      const asins = parseBestSellers(await get(`/gp/bestsellers/${list.path}`)).filter((a) => !listed.has(a));
-      console.log(`list ${list.path}: ${asins.length} new products`);
-      queues.push(asins.map((asin) => ({ asin, category: list.category })));
+      const found = (await client.searchItems(searchParams(search), RESOURCES))
+        .map((item) => toApiCandidate(item, search.category))
+        .filter((c) => c.asin && !listed.has(c.asin));
+      console.log(`search "${search.keywords}": ${found.length} new products`);
+      queues.push(found);
     } catch (err) {
-      if (err instanceof BlockedError) throw err;
-      console.log(`list ${list.path}: ${err.message}`);
+      if (isFatal(err)) throw err;
+      console.log(`search "${search.keywords}": ${err.message}`);
     }
   }
-  /* the same product often sits on two lists, so open its page once */
-  const once = new Set();
-  return interleave(queues).filter(({ asin }) => !once.has(asin) && once.add(asin));
-};
-
-/* Opens product pages until the daily cap, keeping only what the importer would accept */
-const checkProducts = async (queue, { listed, tag }) => {
-  const seen = new Set(listed), picked = [];
-  let blocked = null;
-  for (const { asin, category } of queue.slice(0, MAX_PRODUCT_PAGES)) {
-    if (picked.length >= DAILY.max) break;
-    await pause();
-    try {
-      const candidate = toCandidate(asin, parseProduct(await get(`/dp/${asin}`)), category);
-      const { accepted, skipped } = planImport({ candidates: [candidate], listed: seen, tag });
-      if (accepted.length) { picked.push(candidate); seen.add(asin); console.log(`keep  ${asin}  ${candidate.name}`); }
-      else console.log(`skip  ${asin}  ${candidate.name || '?'}  (${skipped[0]?.reason})`);
-    } catch (err) {
-      if (!(err instanceof BlockedError)) { console.log(`skip  ${asin}  (${err.message})`); continue; }
-      blocked = err;
-      break;
-    }
-  }
-  return { picked, blocked };
+  return queues;
 };
 
 const main = async () => {
   const out = process.argv[2];
   if (!out) throw new Error('Usage: node deals-admin/fetch-deals.mjs candidates.json');
+  const credentials = credentialsFromEnv();
+  if (!credentials) {
+    console.log('::warning::Creators API keys are not set (AMAZON_CREATORS_ID, AMAZON_CREATORS_SECRET). No deals were looked up.');
+    process.exitCode = EXIT_NO_KEYS;
+    return;
+  }
   const all = Object.values(readState().feeds).flatMap((f) => f.deals);
   const listed = existingAsins(all);
-  const queue = await readQueues(listed);
-  const { picked, blocked } = await checkProducts(queue, { listed, tag: commonTag(all) });
+  const tag = process.env.AMAZON_PARTNER_TAG || commonTag(all);
+  const client = createClient({ credentials, partnerTag: tag });
+  /* one from each search in turn, so a day doesn't fill up from a single category */
+  const once = new Set();
+  const queue = interleave(await searchQueues(client, listed)).filter((c) => !once.has(c.asin) && once.add(c.asin));
+  const { accepted, skipped } = planImport({ candidates: queue, listed, tag, limit: DAILY.max });
+  skipped.forEach((s) => console.log(`skip  ${s.asin}  ${s.name || '?'}  (${s.reason})`));
+  const keep = new Set(accepted.map((d) => d.id.slice(2)));
+  const picked = queue.filter((c) => keep.has(c.asin));
+  picked.forEach((c) => console.log(`keep  ${c.asin}  ${c.name}`));
   writeFileSync(out, JSON.stringify(picked, null, 1) + '\n');
   console.log(`\n${picked.length} deals saved to ${out} from ${queue.length} products.`);
-  if (blocked) {
-    console.log(`BLOCKED: ${blocked.message}. Stopped here.`);
-    if (!picked.length) process.exitCode = EXIT_BLOCKED;
-  }
 };
 
 main().catch((err) => {
-  console.error(err instanceof BlockedError ? `BLOCKED: ${err.message}. Stopped here.` : `Fetch failed: ${err.message}`);
-  process.exitCode = err instanceof BlockedError ? EXIT_BLOCKED : 1;
+  console.error(`Fetch failed: ${err.message}`);
+  process.exitCode = 1;
 });
