@@ -1,0 +1,69 @@
+name: Source deals
+
+# Finds up to 15 popular Amazon.in deals from the Best Sellers lists with plain page
+# requests (no browser, no Amazon login, no proxy), adds the ones that pass the rules
+# in deals-admin/lib/deals.mjs and starts a deploy. The Telegram workflow then posts
+# them one every 30 minutes. If Amazon answers with a bot check, the run stops.
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: "Only print what would be added"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: source-deals
+  cancel-in-progress: false
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Read Amazon pages
+        run: node deals-admin/fetch-deals.mjs "$RUNNER_TEMP/candidates.json"
+
+      - name: Add the deals
+        env:
+          DRY: ${{ inputs.dry }}
+        run: |
+          if [ "$DRY" = "true" ]; then
+            node deals-admin/import-deals.mjs "$RUNNER_TEMP/candidates.json" --dry
+          else
+            node deals-admin/import-deals.mjs "$RUNNER_TEMP/candidates.json"
+          fi
+
+      # A push made with the workflow token doesn't start other workflows, so start the deploy here
+      - name: Publish
+        if: inputs.dry != true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          FILE='Clean Portfolio/deals/deals.json'
+          git diff --quiet -- "$FILE" && { echo 'No new deals to publish.'; exit 0; }
+          ADDED=$(git diff -U0 -- "$FILE" | grep -c '^+ *"id": "a-' || true)
+          git config user.name 'Dibyajyoti Kabi'
+          git config user.email '166307538+Dibyajyotikabi@users.noreply.github.com'
+          git add "$FILE"
+          git commit -m "feat: add ${ADDED} new deals"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            [ "$attempt" = 3 ] && { echo 'Could not push deals.json'; exit 1; }
+            sleep $((attempt * 5))
+          done
+          gh workflow run deploy.yml --ref main
