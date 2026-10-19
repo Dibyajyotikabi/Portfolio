@@ -251,6 +251,15 @@ test('post text gives the Prime price and the price without Prime', () => {
   assert.match(text, /✅ Effective price <b>₹1,571<\/b> with Prime\n👤 Without Prime <b>₹1,603<\/b> with Amazon Pay ICICI card \(₹48 cashback\)/);
 });
 
+test('post text without Prime keeps the coupon', () => {
+  const offers = [{ type: 'coupon', save: 900 }, { type: 'cashback', card: 'Amazon Pay ICICI card (Prime)', save: 1443 }];
+  const nonPrime = { best: 27600, type: 'bank', card: 'SBI Credit Card', save: 1250 };
+  const text = postText(deal({ price: 29750, best: 27407, bestVia: 'Prime + coupon + Amazon Pay ICICI card', offers, nonPrime }), ON);
+  assert.match(text, /👤 Without Prime <b>₹27,600<\/b> with coupon \+ SBI Credit Card \(₹1,250 off\)/);
+  const couponOnly = postText(deal({ price: 29750, best: 27407, offers, nonPrime: { best: 28850 } }), ON);
+  assert.match(couponOnly, /👤 Without Prime <b>₹28,850<\/b> with coupon<\/blockquote>/);
+});
+
 test('validateDeal keeps the price without Prime only between the lowest and the Amazon price', () => {
   const nonPrime = { best: 1603, type: 'bank', card: 'SBI Credit Card', save: 48 };
   assert.deepEqual(validateDeal(deal({ best: 1571, nonPrime })).deal.nonPrime, nonPrime);

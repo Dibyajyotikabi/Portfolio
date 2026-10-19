@@ -60,11 +60,12 @@ const OFFER_LINE = {
   cashback: (o) => `💳 ${esc(o.card)}: ${rupees(o.save)} cashback`,
 };
 
-/* The price for buyers without Prime, and the card that gets them there */
-const nonPrimeLine = (np, best) => {
+/* The price for buyers without Prime: the same coupon, and the card that gets them there */
+const nonPrimeLine = (np, best, hasCoupon) => {
   if (!np || !(Number(np.best) > best)) return [];
-  const how = OFFER_LINE[np.type] && Number(np.save) > 0 ? ` with ${esc(np.card)} (${rupees(np.save)} ${np.type === 'bank' ? 'off' : 'cashback'})` : '';
-  return [`👤 Without Prime <b>${rupees(np.best)}</b>${how}`];
+  const card = OFFER_LINE[np.type] && Number(np.save) > 0 ? `${esc(np.card)} (${rupees(np.save)} ${np.type === 'bank' ? 'off' : 'cashback'})` : '';
+  const how = [hasCoupon ? 'coupon' : '', card].filter(Boolean).join(' + ');
+  return [`👤 Without Prime <b>${rupees(np.best)}</b>${how ? ` with ${how}` : ''}`];
 };
 
 /* How to get the lowest price, step by step, after the Amazon price */
@@ -73,7 +74,7 @@ const priceBlock = (d) => {
   const strike = mrp > price ? ` <s>${rupees(mrp)}</s>` : '';
   if (!best) return `<blockquote>💰 <b>${rupees(price)}</b>${strike}${strike ? ` · ${offPct(mrp, price)}% off` : ''}</blockquote>`;
   const offers = (Array.isArray(d.offers) ? d.offers : []).filter((o) => OFFER_LINE[o?.type] && Number(o.save) > 0);
-  const others = nonPrimeLine(d.nonPrime, best);
+  const others = nonPrimeLine(d.nonPrime, best, offers.some((o) => o.type === 'coupon'));
   const steps = offers.length
     ? [...offers.map((o) => OFFER_LINE[o.type](o)), `✅ Effective price <b>${rupees(best)}</b>${others.length ? ' with Prime' : ''}`, ...others]
     : [`✅ <b>${rupees(best)}</b> with ${esc(d.bestVia || 'bank and coupon offers')}`];

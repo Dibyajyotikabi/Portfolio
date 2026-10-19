@@ -81,22 +81,31 @@ const prevLine = (h, d) => {
 };
 
 /* the feed rarely carries notes, so build plain ones from the numbers we do have */
+const plainCard = (card) => card.replace(/\s*\(Prime\)$/, '');
 const STEP = {
   coupon: (o) => `clip the ₹${rupees(o.save)} coupon`,
   bank: (o) => `pay with ${/^any\b/i.test(o.card) ? '' : 'your '}${o.card} for ₹${rupees(o.save)} off`,
   cashback: (o) => {
-    const card = o.card.replace(/\s*\(Prime\)$/, '');
+    const card = plainCard(o.card);
     return `pay with your ${card} to get ₹${rupees(o.save)} back${card === o.card ? '' : ' as a Prime member'}`;
   },
 };
-const nonPrimeNote = (np) => (np.offer
-  ? ` Without Prime, ${STEP[np.offer.type](np.offer)} instead and it's ₹${rupees(np.best)}.`
-  : ` Without Prime it's ₹${rupees(np.best)}.`);
+/* What a buyer without Prime pays. The coupon still applies, only the card offer changes. */
+const nonPrimeNote = (d) => {
+  const { best, offer } = d.nonPrime;
+  const hasCoupon = d.offers.some((o) => o.type === 'coupon');
+  const prime = d.offers.find((o) => o.type === 'cashback');
+  if (!offer) return ` Without Prime you pay ₹${rupees(best)}${hasCoupon ? ' with the coupon alone' : ''}.`;
+  if (offer.type === 'cashback' && prime && plainCard(prime.card) === offer.card) {
+    return ` Without Prime the same card gives ₹${rupees(offer.save)} back, so you pay ₹${rupees(best)}.`;
+  }
+  return ` Without Prime, ${hasCoupon ? 'keep the coupon and ' : ''}${STEP[offer.type](offer)} instead. That comes to ₹${rupees(best)}.`;
+};
 const offerNote = (d) => {
   if (!d.offers.length) return `Amazon lists it at ₹${rupees(d.price)}. With ${d.bestVia} it comes to ₹${rupees(d.best)}.`;
   const steps = d.offers.map((o) => STEP[o.type](o)).join(', ');
   return `Amazon lists it at ₹${rupees(d.price)}. ${steps.charAt(0).toUpperCase() + steps.slice(1)} and it comes to ₹${rupees(d.best)}.`
-    + (d.nonPrime ? nonPrimeNote(d.nonPrime) : '');
+    + (d.nonPrime ? nonPrimeNote(d) : '');
 };
 
 const notesFor = (d) => {

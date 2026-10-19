@@ -45,7 +45,16 @@ test('a Prime only price also gives the price without Prime', () => {
   const offers = [{ type: 'cashback', card: 'Amazon Pay ICICI card (Prime)', save: 3000 }];
   const nonPrime = { best: 57750, type: 'bank', card: 'SBI Credit Card', save: 2250 };
   const [card] = views(h, h).page(feed([{ ...deal(1), price: 60000, best: 57000, bestVia: 'Amazon Pay ICICI card (Prime)', offers, nonPrime }])).cards;
-  assert.match(textOf(find(card, 'notes')), /Pay with your Amazon Pay ICICI card to get ₹3,000 back as a Prime member and it comes to ₹57,000\. Without Prime, pay with your SBI Credit Card for ₹2,250 off instead and it's ₹57,750\./);
+  assert.match(textOf(find(card, 'notes')), /Pay with your Amazon Pay ICICI card to get ₹3,000 back as a Prime member and it comes to ₹57,000\. Without Prime, pay with your SBI Credit Card for ₹2,250 off instead\. That comes to ₹57,750\./);
+});
+
+test('the price without Prime keeps the coupon and names the same card plainly', () => {
+  const prime = { type: 'cashback', card: 'Amazon Pay ICICI card (Prime)', save: 1443 };
+  const notesOf = (offers, nonPrime, best) => textOf(find(views(h, h).page(feed([{ ...deal(1), price: 29750, best, bestVia: 'Prime + coupon + Amazon Pay ICICI card', offers, nonPrime }])).cards[0], 'notes'));
+  const coupon = { type: 'coupon', save: 900 };
+  assert.match(notesOf([coupon, prime], { best: 27600, type: 'bank', card: 'SBI Credit Card', save: 1250 }, 27407), /Without Prime, keep the coupon and pay with your SBI Credit Card for ₹1,250 off instead\. That comes to ₹27,600\./);
+  assert.match(notesOf([prime], { best: 28858, type: 'cashback', card: 'Amazon Pay ICICI card', save: 892 }, 28307), /Without Prime the same card gives ₹892 back, so you pay ₹28,858\./);
+  assert.match(notesOf([coupon, prime], { best: 28850 }, 27407), /Without Prime you pay ₹28,850 with the coupon alone\./);
 });
 
 test('a best price that does not beat the Amazon price is ignored', () => {
