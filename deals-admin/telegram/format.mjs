@@ -44,11 +44,40 @@ export const mergeSettings = (saved) => ({ ...DEFAULT_SETTINGS, ...(saved || {})
 /* Bigger than the site's 400px card image, small enough to load fast in the app */
 const photoUrl = (url) => (url ? String(url).replace(/\._[A-Z]{2}\d+_\./, '._SL1000_.') : null);
 
+const lowest = (d) => (Number(d.best) > 0 && Number(d.best) < Number(d.price) ? Number(d.best) : 0);
+const offPct = (mrp, price) => (mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0);
+
+/* The first line people see in the channel and in notifications: the lowest price */
+const hookLine = (d) => {
+  const best = lowest(d), pct = offPct(Number(d.mrp), best);
+  const prime = d.nonPrime && Number(d.nonPrime.best) > best ? ' with Prime' : '';
+  return best ? `🔥 <b>${rupees(best)}</b> lowest price${prime}${pct ? ` · ${pct}% off` : ''}` : null;
+};
+
+const OFFER_LINE = {
+  coupon: (o) => `🎟️ Coupon: ${rupees(o.save)} off`,
+  bank: (o) => `💳 ${esc(o.card.charAt(0).toUpperCase() + o.card.slice(1))}: ${rupees(o.save)} off`,
+  cashback: (o) => `💳 ${esc(o.card)}: ${rupees(o.save)} cashback`,
+};
+
+/* The price for buyers without Prime, and the card that gets them there */
+const nonPrimeLine = (np, best) => {
+  if (!np || !(Number(np.best) > best)) return [];
+  const how = OFFER_LINE[np.type] && Number(np.save) > 0 ? ` with ${esc(np.card)} (${rupees(np.save)} ${np.type === 'bank' ? 'off' : 'cashback'})` : '';
+  return [`👤 Without Prime <b>${rupees(np.best)}</b>${how}`];
+};
+
+/* How to get the lowest price, step by step, after the Amazon price */
 const priceBlock = (d) => {
-  const mrp = Number(d.mrp), price = Number(d.price), best = Number(d.best);
-  const drop = mrp > price ? ` <s>${rupees(mrp)}</s> · ${Math.round(((mrp - price) / mrp) * 100)}% off` : '';
-  const bestLine = best > 0 && best < price ? `\n🔥 <b>${rupees(best)}</b> with bank and coupon offers` : '';
-  return `<blockquote>💰 <b>${rupees(price)}</b>${drop}${bestLine}</blockquote>`;
+  const mrp = Number(d.mrp), price = Number(d.price), best = lowest(d);
+  const strike = mrp > price ? ` <s>${rupees(mrp)}</s>` : '';
+  if (!best) return `<blockquote>💰 <b>${rupees(price)}</b>${strike}${strike ? ` · ${offPct(mrp, price)}% off` : ''}</blockquote>`;
+  const offers = (Array.isArray(d.offers) ? d.offers : []).filter((o) => OFFER_LINE[o?.type] && Number(o.save) > 0);
+  const others = nonPrimeLine(d.nonPrime, best);
+  const steps = offers.length
+    ? [...offers.map((o) => OFFER_LINE[o.type](o)), `✅ Effective price <b>${rupees(best)}</b>${others.length ? ' with Prime' : ''}`, ...others]
+    : [`✅ <b>${rupees(best)}</b> with ${esc(d.bestVia || 'bank and coupon offers')}`];
+  return `<blockquote>${[`💰 ${rupees(price)} on Amazon${strike}`, ...steps].join('\n')}</blockquote>`;
 };
 
 /* A deal's own Telegram text (set in the admin panel) replaces the bullet notes */
@@ -61,6 +90,7 @@ const bodyLines = (d, notes) => {
 };
 
 const assemble = (d, notes, footer) => [
+  ...(hookLine(d) ? [hookLine(d)] : []),
   `${emojiFor(d.category)} <b>${esc(d.fullName && d.fullName.length <= 90 ? d.fullName : d.name)}</b>`,
   '',
   priceBlock(d),

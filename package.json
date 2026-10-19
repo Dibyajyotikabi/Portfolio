@@ -10,7 +10,7 @@
     "cms": "npx decap-server",
     "admin": "node deals-admin/server.mjs",
     "telegram:sync": "node deals-admin/telegram/sync.mjs",
-    "test": "node --test scripts/test-ebook-checkout.mjs scripts/test-deals-admin.mjs scripts/test-amazon-fetch.mjs scripts/test-deals-render.mjs"
+    "test": "node --test scripts/test-ebook-checkout.mjs scripts/test-deals-admin.mjs scripts/test-amazon-fetch.mjs scripts/test-deal-offers.mjs scripts/test-deals-render.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

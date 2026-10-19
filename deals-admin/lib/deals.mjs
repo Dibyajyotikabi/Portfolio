@@ -60,6 +60,23 @@ export const popularity = (deal) => {
   return { ok: !misses.length, signals, misses };
 };
 
+/* How the best price is reached: a coupon and at most one card offer */
+const OFFER_TYPES = ['coupon', 'bank', 'cashback'];
+const MAX_OFFERS = 3;
+const cleanOffers = (list) => (Array.isArray(list) ? list : []).slice(0, MAX_OFFERS)
+  .map((o) => ({ type: String(o?.type || ''), save: num(o?.save), card: text(o?.card, 60) }))
+  .filter((o) => OFFER_TYPES.includes(o.type) && Number.isInteger(o.save) && o.save > 0 && (o.type === 'coupon' || o.card))
+  .map((o) => (o.type === 'coupon' ? { type: o.type, save: o.save } : o));
+
+/* The price for buyers without Prime, kept only when it sits between the lowest price and the
+   Amazon price. The card offer they'd use is optional. */
+const cleanNonPrime = (np, best, price) => {
+  const npBest = num(np?.best);
+  if (!(best > 0 && Number.isInteger(npBest) && npBest > best && npBest <= price)) return null;
+  const [card] = cleanOffers(np.type ? [np] : []).filter((o) => o.type !== 'coupon');
+  return { best: npBest, ...(card || {}) };
+};
+
 /* Returns { deal, errors }. The deal is a new, normalized object; the input is untouched. */
 export const validateDeal = (input, feed) => {
   const d = input && typeof input === 'object' ? input : {};
@@ -75,6 +92,7 @@ export const validateDeal = (input, feed) => {
   if (!(price > 0)) errors.push('Price must be more than 0');
   if (mrp !== null && !(mrp >= 0)) errors.push('MRP must be a number');
   if (best !== null && !(best >= 0)) errors.push('Best price must be a number');
+  if (best > 0 && price > 0 && best >= price) errors.push('Best buy price must be lower than the deal price');
   if (rating !== null && !(rating >= 0 && rating <= 5)) errors.push('Rating must be between 0 and 5');
   if (bought !== null && !(Number.isInteger(bought) && bought >= 0)) errors.push('Bought last month must be a whole number');
   if (reviews !== null && !(Number.isInteger(reviews) && reviews >= 0)) errors.push('Reviews must be a whole number');
@@ -93,6 +111,9 @@ export const validateDeal = (input, feed) => {
     mrp: mrp > 0 ? mrp : null,
     pct,
     best: best > 0 ? best : null,
+    ...(best > 0 && text(d.bestVia, 40) ? { bestVia: text(d.bestVia, 40) } : {}),
+    ...(best > 0 && cleanOffers(d.offers).length ? { offers: cleanOffers(d.offers) } : {}),
+    ...(cleanNonPrime(d.nonPrime, best, price) ? { nonPrime: cleanNonPrime(d.nonPrime, best, price) } : {}),
     atLow: Boolean(d.atLow),
     ...(d.atLow ? { lowLabel: text(d.lowLabel, 40) || 'tracked low' } : {}),
     ...(feed === 'trending' ? { trending: true } : {}),

@@ -97,6 +97,27 @@ export const saveDeal = ({ feed, deal, originalId }) => {
   return clean;
 };
 
+/* Applies { [id]: fields } to the deals in every list. A deal whose result fails the
+   checks keeps its old data. Returns the ids that changed and the ones that failed. */
+export const patchDeals = (patches) => {
+  const changed = [], failed = [];
+  for (const [name, body] of Object.entries(loadFeeds())) {
+    let touched = false;
+    const next = body.data.deals.map((d) => {
+      if (!Object.hasOwn(patches, d.id)) return d;
+      const { deal: clean, errors } = validateDeal({ ...d, ...patches[d.id] }, name);
+      if (errors.length) { failed.push({ id: d.id, errors }); return d; }
+      const merged = { ...clean, ...(d.rank ? { rank: d.rank } : {}) };
+      if (JSON.stringify(merged) === JSON.stringify(d)) return d;
+      touched = true;
+      changed.push(d.id);
+      return merged;
+    });
+    if (touched) writeDeals(name, body, next);
+  }
+  return { changed, failed };
+};
+
 export const deleteDeal = ({ feed, id }) => {
   const body = readFeed(feedName(feed));
   const next = body.data.deals.filter((d) => d.id !== id);

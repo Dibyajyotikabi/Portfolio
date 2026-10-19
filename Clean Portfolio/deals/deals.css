@@ -398,7 +398,7 @@
 
 .dz .best{ flex: 1 1 100%; display:flex; align-items:flex-end; height: 22px; margin: 0; font-size: 13.5px; line-height: 1.3; }
 
-.dz .best .hl{ font-weight: 700; white-space: nowrap; }
+.dz .best .hl{ max-width: 100%; overflow: hidden; text-overflow: ellipsis; font-weight: 700; white-space: nowrap; }
 
 .dz .cta{ flex: 1 1 100%; display:flex; align-items:center; justify-content:space-between; gap: 10px; margin-top: 8px; padding: 12px 12px 10px 14px; text-decoration:none;
   background: var(--ink-blue); color: var(--stock); font: 800 14.5px/1 var(--f-display); font-stretch: 90%; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; }

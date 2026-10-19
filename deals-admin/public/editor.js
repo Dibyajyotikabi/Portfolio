@@ -42,6 +42,7 @@ const priceSection = (d) => h('section', { class: 'card' }, [
     field('Best buy ₹', input('best', d.best, { type: 'number', min: '0', step: '1', inputmode: 'numeric' }), 'With bank or coupon'),
     field('Rating', input('rating', d.rating, { type: 'number', min: '0', max: '5', step: '0.1', inputmode: 'decimal' })),
   ]),
+  field('Best buy offer', input('bestVia', d.bestVia, { maxlength: '40', placeholder: 'coupon + SBI card' }), 'Shown as "With coupon + SBI card"'),
   h('div', { class: 'row wrap' }, [
     h('label', { class: 'check' }, [h('input', { type: 'checkbox', name: 'atLow', checked: d.atLow }), 'At its lowest price']),
     input('lowLabel', d.lowLabel || 'tracked low', { class: 'small', maxlength: '40', 'aria-label': 'Low price label' }),
@@ -95,7 +96,9 @@ const readForm = (form, base, ctx) => {
   return {
     ...rest,
     id: v('id'), name: v('name'), fullName: v('fullName'), category: v('category'), image: v('image') || null, buyUrl,
-    price: v('price'), mrp: v('mrp'), best: v('best'), rating: v('rating'),
+    price: v('price'), mrp: v('mrp'), best: v('best'), bestVia: v('bestVia'), rating: v('rating'),
+    /* the saved offer steps add up to the old best price, so a hand-typed one drops them */
+    ...(Number(v('best')) !== Number(base.best) ? { offers: [], nonPrime: null } : {}),
     bought: v('bought'), reviews: v('reviews'), badge: v('badge'),
     pct: mrp > price && price > 0 ? Math.round((1 - price / mrp) * 100) : 0,
     atLow: form.elements.atLow.checked, lowLabel: v('lowLabel'),

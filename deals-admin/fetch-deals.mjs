@@ -9,35 +9,14 @@
    it or goes through a proxy. Exit code 2 means Amazon blocked it before any deal. */
 import { writeFileSync } from 'node:fs';
 import { readState } from './store.mjs';
-import { listsFor, interleave, parseBestSellers, parseProduct, toCandidate, isBlockPage } from './lib/amazon.mjs';
+import { listsFor, interleave, parseBestSellers, parseProduct, toCandidate } from './lib/amazon.mjs';
+import { BlockedError, get, pause } from './lib/amazon-http.mjs';
 import { planImport, commonTag, existingAsins, DAILY } from './lib/importer.mjs';
 
-const BASE = 'https://www.amazon.in';
-const HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
-  'Accept-Language': 'en-IN,en;q=0.9',
-  Accept: 'text/html',
-};
 const LISTS_PER_RUN = 4;
 const MAX_PRODUCT_PAGES = 45;
-const PAUSE_MS = 4000;
-const JITTER_MS = 3000;
-const TIMEOUT_MS = 30000;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const EXIT_BLOCKED = 2;
-
-class BlockedError extends Error {}
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const pause = () => sleep(PAUSE_MS + Math.floor(Math.random() * JITTER_MS));
-
-const get = async (path) => {
-  const res = await fetch(BASE + path, { headers: HEADERS, signal: AbortSignal.timeout(TIMEOUT_MS) });
-  const html = await res.text();
-  if (res.status === 503 || isBlockPage(html)) throw new BlockedError(`Amazon blocked ${path} (HTTP ${res.status})`);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${path}`);
-  return html;
-};
 
 /* Today's lists, minus the products the site already has */
 const readQueues = async (listed) => {

@@ -223,3 +223,45 @@ test('commonTag and existingAsins read the current deal files', () => {
   assert.equal(commonTag([]), 'wwwbestdeal0d-21');
   assert.deepEqual([...existingAsins(deals)], ['B0C8MTWMK2', 'B07LB6K93N']);
 });
+
+test('validateDeal keeps the offer name for a best buy price and rejects one that is not lower', () => {
+  const { deal: ok, errors } = validateDeal(deal({ best: 1499, bestVia: ' coupon + SBI card ' }));
+  assert.deepEqual(errors, []);
+  assert.equal(ok.bestVia, 'coupon + SBI card');
+  assert.equal(validateDeal(deal({ bestVia: 'coupon' })).deal.bestVia, undefined);
+  assert.ok(validateDeal(deal({ best: 1651 })).errors.includes('Best buy price must be lower than the deal price'));
+});
+
+test('post text names the card offer behind the best buy price', () => {
+  assert.match(postText(deal({ best: 1499, bestVia: 'SBI <card>' }), ON), /₹1,499<\/b> with SBI &lt;card&gt;/);
+});
+
+test('post text leads with the lowest price and lists how to get it', () => {
+  const offers = [{ type: 'coupon', save: 100 }, { type: 'bank', card: 'SBI <Credit> Card', save: 52 }];
+  const text = postText(deal({ best: 1499, bestVia: 'coupon + SBI card', offers }), ON);
+  assert.ok(text.startsWith('🔥 <b>₹1,499</b> lowest price · 91% off\n'));
+  assert.match(text, /💰 ₹1,651 on Amazon <s>₹17,000<\/s>\n🎟️ Coupon: ₹100 off\n💳 SBI &lt;Credit&gt; Card: ₹52 off\n✅ Effective price <b>₹1,499<\/b>/);
+});
+
+test('post text gives the Prime price and the price without Prime', () => {
+  const offers = [{ type: 'cashback', card: 'Amazon Pay ICICI card (Prime)', save: 80 }];
+  const nonPrime = { best: 1603, type: 'cashback', card: 'Amazon Pay ICICI card', save: 48 };
+  const text = postText(deal({ best: 1571, bestVia: 'Amazon Pay ICICI card (Prime)', offers, nonPrime }), ON);
+  assert.ok(text.startsWith('🔥 <b>₹1,571</b> lowest price with Prime · 91% off\n'));
+  assert.match(text, /✅ Effective price <b>₹1,571<\/b> with Prime\n👤 Without Prime <b>₹1,603<\/b> with Amazon Pay ICICI card \(₹48 cashback\)/);
+});
+
+test('validateDeal keeps the price without Prime only between the lowest and the Amazon price', () => {
+  const nonPrime = { best: 1603, type: 'bank', card: 'SBI Credit Card', save: 48 };
+  assert.deepEqual(validateDeal(deal({ best: 1571, nonPrime })).deal.nonPrime, nonPrime);
+  assert.deepEqual(validateDeal(deal({ best: 1571, nonPrime: { best: 1651 } })).deal.nonPrime, { best: 1651 });
+  assert.equal(validateDeal(deal({ best: 1571, nonPrime: { best: 1500 } })).deal.nonPrime, undefined);
+  assert.equal(validateDeal(deal({ best: 1571, nonPrime: { best: 1700 } })).deal.nonPrime, undefined);
+  assert.equal(validateDeal(deal({ nonPrime })).deal.nonPrime, undefined);
+});
+
+test('validateDeal keeps a clean offer breakdown only with a best price', () => {
+  const offers = [{ type: 'coupon', save: 100 }, { type: 'bank', card: 'SBI Credit Card', save: 52 }, { type: 'bank', save: 5 }, { type: 'fake', save: 1 }];
+  assert.deepEqual(validateDeal(deal({ best: 1499, offers })).deal.offers, offers.slice(0, 2));
+  assert.equal(validateDeal(deal({ offers })).deal.offers, undefined);
+});

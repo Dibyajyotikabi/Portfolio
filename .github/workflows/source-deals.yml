@@ -23,7 +23,7 @@ concurrency:
 jobs:
   source:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,6 +47,14 @@ jobs:
           else
             node deals-admin/import-deals.mjs "$RUNNER_TEMP/candidates.json"
           fi
+
+      # New deals get their lowest price before the first Telegram post
+      - name: Check offers on the new deals
+        if: inputs.dry != true
+        run: |
+          ASINS=$(node -e 'console.log(require(process.argv[1]).map((c) => c.asin).join(" "))' "$RUNNER_TEMP/candidates.json")
+          [ -z "$ASINS" ] && { echo 'No new deals to check.'; exit 0; }
+          node deals-admin/refresh-offers.mjs $ASINS || echo 'Offer check failed, the new deals keep their Amazon price.'
 
       # A push made with the workflow token doesn't start other workflows, so start the deploy here
       - name: Publish

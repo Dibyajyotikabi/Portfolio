@@ -1,0 +1,68 @@
+name: Refresh offers
+
+# Twice a day, rechecks every deal on Amazon.in with plain page requests and saves its
+# current price and the lowest price with the coupon and the best card offer (bank
+# instant discount or cashback). The deploy then updates the site, and the Telegram
+# workflow edits the channel posts whose price changed.
+on:
+  schedule:
+    - cron: '30 2 * * *'
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: "Only print the prices, save nothing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: source-deals
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check prices and offers
+        env:
+          DRY: ${{ inputs.dry }}
+        run: |
+          if [ "$DRY" = "true" ]; then
+            node deals-admin/refresh-offers.mjs --dry
+          else
+            node deals-admin/refresh-offers.mjs
+          fi
+
+      # A push made with the workflow token doesn't start other workflows, so start the deploy here
+      - name: Publish
+        if: inputs.dry != true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          FILES=('Clean Portfolio/deals/deals.json' 'Clean Portfolio/deals/trending.json')
+          git diff --quiet -- "${FILES[@]}" && { echo 'No price changes to publish.'; exit 0; }
+          git config user.name 'Dibyajyoti Kabi'
+          git config user.email '166307538+Dibyajyotikabi@users.noreply.github.com'
+          git add "${FILES[@]}"
+          git commit -m "chore: refresh deal prices and offers"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            [ "$attempt" = 3 ] && { echo 'Could not push the deal files'; exit 1; }
+            sleep $((attempt * 5))
+          done
+          gh workflow run deploy.yml --ref main

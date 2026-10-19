@@ -8,7 +8,8 @@
 
    candidates.json is an array (or { "deals": [...] }) of
    { asin, name, fullName, image, price, mrp, rating, reviews, bought, badge,
-     category, notes: [2 to 4 lines], checked: true }
+     category, notes: [2 to 4 lines], checked: true,
+     best, bestVia }   best: lowest price with a card or coupon offer, bestVia: "coupon + SBI card"
    The first candidate ends up at the top of the page. */
 import { readFileSync } from 'node:fs';
 import { readState, saveDeal } from './store.mjs';

@@ -10,7 +10,21 @@
     "price": 94999,
     "mrp": 129999,
     "pct": 27,
-    "best": null,
+    "best": 90249,
+    "bestVia": "Prime + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "cashback",
+      "save": 4750,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 92149,
+     "type": "cashback",
+     "save": 2850,
+     "card": "Amazon Pay ICICI card"
+    },
     "atLow": false,
     "notes": [
      "Mega Festival Deal price, ₹35,000 below the list price",
@@ -35,7 +49,15 @@
     "price": 30999,
     "mrp": 57999,
     "pct": 47,
-    "best": null,
+    "best": 29249,
+    "bestVia": "SBI card",
+    "offers": [
+     {
+      "type": "bank",
+      "save": 1750,
+      "card": "SBI Credit Card"
+     }
+    ],
     "atLow": false,
     "notes": [
      "Great Indian Festival price, 47% below the list price",
@@ -57,13 +79,27 @@
     "name": "boAt Wave Call 3 Smartwatch",
     "fullName": "boAt Wave Call 3 Smartwatch 1.83 inch HD Display, BT Calling, Functional Crown, IP68, HR, SpO2",
     "image": "https://m.media-amazon.com/images/I/71UdDIKDlEL._SL1500_.jpg",
-    "price": 1099,
+    "price": 1399,
     "mrp": 6999,
-    "pct": 84,
-    "best": null,
+    "pct": 80,
+    "best": 1329,
+    "bestVia": "Prime + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "cashback",
+      "save": 70,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 1357,
+     "type": "cashback",
+     "save": 42,
+     "card": "Amazon Pay ICICI card"
+    },
     "atLow": false,
     "notes": [
-     "84% off, a calling smartwatch for just ₹1,099",
+     "80% off, a calling smartwatch for just ₹1,099",
      "Take calls from your wrist with the built-in dial pad and mic",
      "5K+ bought on Amazon in the past month",
      "Rated 4.1 by 27,107 buyers on Amazon"
@@ -85,7 +121,21 @@
     "price": 32999,
     "mrp": 49999,
     "pct": 34,
-    "best": null,
+    "best": 31349,
+    "bestVia": "Prime + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "cashback",
+      "save": 1650,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 32009,
+     "type": "cashback",
+     "save": 990,
+     "card": "Amazon Pay ICICI card"
+    },
     "atLow": false,
     "notes": [
      "Great Indian Festival price, 34% below the list price",
@@ -110,7 +160,25 @@
     "price": 29750,
     "mrp": 39900,
     "pct": 25,
-    "best": null,
+    "best": 27407,
+    "bestVia": "Prime + coupon + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "coupon",
+      "save": 900
+     },
+     {
+      "type": "cashback",
+      "save": 1443,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 27600,
+     "type": "bank",
+     "save": 1250,
+     "card": "SBI Credit Card"
+    },
     "atLow": false,
     "notes": [
      "Limited time deal, 25% off the 2026 model",
@@ -358,7 +426,8 @@
     "price": 17399,
     "mrp": 29999,
     "pct": 42,
-    "best": null,
+    "best": 15149,
+    "bestVia": "coupon + SBI card",
     "atLow": false,
     "notes": [
      "42% off Samsung's newest Pro earbuds",
@@ -2601,6 +2670,6 @@
    }
   ],
   "checked": 90,
-  "syncedAt": "2026-10-19T03:41:42+00:00"
+  "syncedAt": "2026-10-19T04:58:39+00:00"
  }
 }

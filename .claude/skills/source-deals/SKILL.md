@@ -77,6 +77,8 @@ const p = await tab.playwright.evaluate(() => {
 
 Only keep it when the page agrees with the search row. The image must be an `m.media-amazon.com` link. Set `checked: true` only after this step.
 
+If the page shows a coupon or a bank card offer (for example SBI or HDFC), work out the lowest price a buyer can actually pay and add it as `best` with a short `bestVia` like `"coupon + SBI card"`. Example: ₹17,399 minus a ₹1,000 coupon minus ₹1,250 SBI card discount gives `best: 15149`. The deals page shows that number as the big price. Leave both out when there is no offer or you can't read its terms. After the import, `node deals-admin/refresh-offers.mjs ASIN ...` reads the coupon, bank and cashback offers itself and fills in `best`, `bestVia` and the `offers` steps, and the Refresh offers workflow does the same for every deal twice a day.
+
 ## The popularity rules
 
 These live in `deals-admin/lib/deals.mjs` (`POPULAR`). The import script enforces them, but pick with them in mind:

@@ -46,6 +46,8 @@ export const toDeal = (c, { tag, date }) => {
     price: parseCount(c.price),
     mrp: parseCount(c.mrp),
     rating: parseCount(c.rating),
+    ...(parseCount(c.best) ? { best: parseCount(c.best) } : {}),
+    ...(c.bestVia ? { bestVia: String(c.bestVia) } : {}),
     ...(bought ? { bought: Math.round(bought) } : {}),
     ...(reviews ? { reviews: Math.round(reviews) } : {}),
     ...(c.badge ? { badge: c.badge } : {}),

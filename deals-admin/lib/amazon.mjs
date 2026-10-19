@@ -52,7 +52,7 @@ export const decode = (s) => String(s ?? '')
   .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
   .replace(/&([a-z]+);/gi, (m, n) => ENTITIES[n.toLowerCase()] ?? m);
 
-const stripTags = (s) => decode(String(s).replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+export const stripTags = (s) => decode(String(s).replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 
 /* The markup from an element's id to the next feature block, so lookups stay local */
 const section = (html, id, size = 6000) => {
@@ -144,6 +144,20 @@ export const templateNotes = (p) => {
     bought ? `${bought} bought on Amazon in the past month` : null,
     p.rating && reviews >= RATING_NOTE_MIN_REVIEWS ? `Rated ${p.rating} by ${reviews.toLocaleString('en-IN')} buyers on Amazon` : null,
   ].filter(Boolean).slice(0, MAX_NOTES);
+};
+
+/* Rewrites the notes that quote a price or a discount after the price changes. A savings
+   note is dropped when the product is no longer below its list price. */
+export const repriceNotes = (notes, price, mrp) => {
+  const pct = mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0;
+  return notes.map((n) => {
+    if (/^You save ₹[\d,]+ right now\. That's \d+% off the ₹[\d,]+ list price\.$/.test(n)) {
+      return pct ? `You save ${rupees(mrp - price)} right now. That's ${pct}% off the ${rupees(mrp)} list price.` : null;
+    }
+    if (/^\d+% below the list price of ₹[\d,]+$/.test(n)) return pct ? `${pct}% below the list price of ${rupees(mrp)}` : null;
+    if (/^\d+% off\b/.test(n)) return pct ? n.replace(/^\d+%/, `${pct}%`) : null;
+    return n;
+  }).filter(Boolean);
 };
 
 /* Everything the importer needs. checked is true only when the page gave a real price and image. */
