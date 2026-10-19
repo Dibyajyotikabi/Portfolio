@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { postText, postPayload, eligibility, planSync, fingerprint, messageLink, endedText, DEFAULT_SETTINGS } from '../deals-admin/telegram/format.mjs';
+import { postText, postPayload, eligibility, planSync, postSlots, fingerprint, messageLink, endedText, DEFAULT_SETTINGS } from '../deals-admin/telegram/format.mjs';
 import { validateDeal, liveDeals, affiliateUrl, asinOf, checkFeed, popularity } from '../deals-admin/lib/deals.mjs';
 
 const ON = { ...DEFAULT_SETTINGS, enabled: true, postSince: '2026-10-01T00:00:00+00:00' };
@@ -82,6 +82,17 @@ test('planSync posts new deals oldest first and respects the per-run cap', () =>
   assert.deepEqual(planSync(deals, {}, ON).map((x) => x.id), ['a', 'b', 'c']);
   assert.deepEqual(planSync(deals, {}, { ...ON, maxPerRun: 2 }).map((x) => x.id), ['a', 'b']);
   assert.deepEqual(planSync(deals, {}, { ...ON, enabled: false }), []);
+});
+
+test('with postEveryMinutes on, one deal goes out per slot and only once the last post is old enough', () => {
+  const DRIP = { ...ON, postEveryMinutes: 30, onRemove: 'keep' };
+  const deals = [deal({ id: 'b', date: '2026-10-16T00:00:00Z' }), deal({ id: 'a', date: '2026-10-15T00:00:00Z' })];
+  const now = Date.parse('2026-10-19T12:00:00Z');
+  const postedAt = (min) => ({ z: { state: 'posted', postedAt: new Date(now - min * 60e3).toISOString() } });
+  assert.deepEqual(planSync(deals, {}, DRIP, now).map((x) => x.id), ['a']);
+  assert.deepEqual(planSync(deals, postedAt(10), DRIP, now), [], 'too soon after the last post');
+  assert.deepEqual(planSync(deals, postedAt(26), DRIP, now).map((x) => x.id), ['a'], 'a late cron run still gets its slot');
+  assert.equal(postSlots(postedAt(10), { ...DRIP, postEveryMinutes: 0 }, now), 10);
 });
 
 test('planSync edits changed posts and ends or deletes removed ones', () => {

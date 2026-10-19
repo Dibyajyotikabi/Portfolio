@@ -1,8 +1,11 @@
 name: Telegram deals
 
-# After every successful deploy, post the new live deals to the Telegram channel and
-# save the post ids in deals-admin/data/posted.json so nothing is posted twice.
+# After every successful deploy, and every 30 minutes, post the next waiting deal to the
+# Telegram channel (one per slot, see postEveryMinutes in deals-admin/data/telegram.json)
+# and save the post ids in deals-admin/data/posted.json so nothing is posted twice.
 on:
+  schedule:
+    - cron: '*/30 * * * *'
   workflow_run:
     workflows: ["Deploy to GitHub Pages"]
     types: [completed]
@@ -22,7 +25,7 @@ concurrency:
 
 jobs:
   sync:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

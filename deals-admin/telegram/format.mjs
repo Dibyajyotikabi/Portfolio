@@ -14,6 +14,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
   skipTelegramSourced: true,
   popularOnly: true,
   maxPerRun: 10,
+  postEveryMinutes: 0,
   buttonText: 'Buy on Amazon',
   footer: 'More checked deals: https://dibyajyotikabi.com/deals/',
 });
@@ -22,6 +23,9 @@ export const ON_REMOVE = ['mark', 'delete', 'keep'];
 const CAPTION_LIMIT = 1024;
 const TEXT_LIMIT = 4096;
 const TRIM_STEP = 40;
+/* GitHub starts scheduled runs a few minutes late, so a slot opens a little early */
+const SLOT_SLACK_MIN = 5;
+const MINUTE_MS = 60e3;
 const ENDED_PREFIX = '❌ <b>Deal ended</b>\n\n';
 
 const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
@@ -132,9 +136,20 @@ const removeAction = (id, entry, mode) => (mode === 'delete'
   ? { type: 'delete', id }
   : { type: 'end', id, text: endedText(entry.text || '') });
 
+const lastPostAt = (posted) => Math.max(0, ...Object.values(posted).map((e) => Date.parse(e.postedAt) || 0));
+
+/* How many new deals this run may post. With "post every N minutes" on, that is one deal,
+   and only when the last post is old enough. Otherwise up to maxPerRun at once. */
+export const postSlots = (posted, settings, now = Date.now()) => {
+  const every = Math.max(0, Number(settings.postEveryMinutes) || 0);
+  if (!every) return Math.max(1, Math.min(50, Number(settings.maxPerRun) || DEFAULT_SETTINGS.maxPerRun));
+  const waited = (now - lastPostAt(posted)) / MINUTE_MS;
+  return waited >= Math.max(0, every - SLOT_SLACK_MIN) ? 1 : 0;
+};
+
 /* Compares the deals on the site with what is already in the channel and returns the
    Telegram calls to make: post new deals, edit changed ones, end or delete removed ones. */
-export const planSync = (deals, ledger, settings) => {
+export const planSync = (deals, ledger, settings, now = Date.now()) => {
   const s = mergeSettings(settings);
   const posted = ledger || {};
   const live = new Set(deals.map((d) => d.id));
@@ -154,8 +169,7 @@ export const planSync = (deals, ledger, settings) => {
   for (const [id, entry] of Object.entries(posted)) {
     if (!live.has(id) && entry.state === 'posted' && s.onRemove !== 'keep') removals.push(removeAction(id, entry, s.onRemove));
   }
-  const max = Math.max(1, Math.min(50, Number(s.maxPerRun) || DEFAULT_SETTINGS.maxPerRun));
-  const queued = posts.sort((a, b) => a.date - b.date).slice(0, max);
+  const queued = posts.sort((a, b) => a.date - b.date).slice(0, postSlots(posted, s, now));
   return [...queued, ...edits, ...removals];
 };
 

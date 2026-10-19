@@ -28,6 +28,8 @@ const settingsForm = () => h('form', { class: 'card settings', novalidate: true 
     'Leave empty to use the TELEGRAM_CHAT_ID secret. The bot must be an admin of this channel.'),
   field('Post deals found after', h('input', { name: 'postSince', type: 'datetime-local' }), 'Older deals already on the site are skipped, so turning this on does not flood the channel.'),
   field('New posts per deploy', h('input', { name: 'maxPerRun', type: 'number', min: '1', max: '50', step: '1', inputmode: 'numeric' }), 'Extra deals wait for the next deploy.'),
+  field('Post one deal every (minutes)', h('input', { name: 'postEveryMinutes', type: 'number', min: '0', max: '1440', step: '5', inputmode: 'numeric' }),
+    'GitHub checks every 30 minutes and posts the oldest waiting deal. 0 posts them all right after a deploy.'),
   h('h4', {}, ['Post style']),
   toggle('withPhoto', 'Send with the product photo', 'Captions are limited to 1024 characters'),
   toggle('silent', 'Send silently', 'Subscribers get the post without a sound'),
@@ -59,7 +61,7 @@ const read = (form, s) => {
   const since = e.postSince.value;
   return {
     ...s, enabled: e.enabled.checked, chatId: e.chatId.value.trim(), postSince: since ? new Date(since).toISOString() : '',
-    maxPerRun: Number(e.maxPerRun.value), withPhoto: e.withPhoto.checked, silent: e.silent.checked,
+    maxPerRun: Number(e.maxPerRun.value), postEveryMinutes: Number(e.postEveryMinutes.value), withPhoto: e.withPhoto.checked, silent: e.silent.checked,
     buttonText: e.buttonText.value.trim(), footer: e.footer.value.trim(), editOnChange: e.editOnChange.checked,
     skipTelegramSourced: e.skipTelegramSourced.checked, popularOnly: e.popularOnly.checked, onRemove: e.onRemove.value,
   };

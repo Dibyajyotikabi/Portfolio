@@ -136,12 +136,15 @@ export const saveSettings = (input) => {
   if (s.postSince && !Date.parse(s.postSince)) errors.push('The "post deals from" date is not valid');
   const max = Number(s.maxPerRun);
   if (!(Number.isInteger(max) && max >= 1 && max <= 50)) errors.push('Posts per deploy must be 1 to 50');
+  const every = Number(s.postEveryMinutes || 0);
+  if (!(Number.isInteger(every) && every >= 0 && every <= 1440)) errors.push('Post every must be 0 to 1440 minutes');
   if (errors.length) throw new InputError(errors.join('. '));
   const clean = {
     enabled: s.enabled === true, chatId,
     postSince: s.postSince ? isoDate(Date.parse(s.postSince)) : '',
     withPhoto: s.withPhoto !== false, silent: s.silent === true, editOnChange: s.editOnChange !== false,
     onRemove: s.onRemove, skipTelegramSourced: s.skipTelegramSourced !== false, popularOnly: s.popularOnly !== false, maxPerRun: max,
+    postEveryMinutes: every,
     buttonText: String(s.buttonText || DEFAULT_SETTINGS.buttonText).trim().slice(0, 40),
     footer: String(s.footer ?? '').trim().slice(0, 200),
   };

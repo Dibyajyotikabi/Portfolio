@@ -3,6 +3,85 @@
  "data": {
   "deals": [
    {
+    "id": "a-B0GMJLFCR7",
+    "name": "Samsung Galaxy Buds4 Pro",
+    "fullName": "Samsung Galaxy Buds4 Pro (Black) Wireless Earbuds with Hi-Fi Audio, Adaptive ANC 2.0, 360 Audio, IP57",
+    "image": "https://m.media-amazon.com/images/I/61kwphoTFzL._SL1500_.jpg",
+    "price": 17399,
+    "mrp": 29999,
+    "pct": 42,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "42% off Samsung's newest Pro earbuds",
+     "You get adaptive ANC, 24bit Hi-Fi audio and Live Translation with a Galaxy phone",
+     "2K+ bought on Amazon in the past month",
+     "Rated 4.3 by 637 buyers on Amazon"
+    ],
+    "rating": 4.3,
+    "bought": 2000,
+    "reviews": 637,
+    "badge": "Amazon's Choice",
+    "buyUrl": "https://www.amazon.in/dp/B0GMJLFCR7",
+    "store": "amazon",
+    "category": "Audio",
+    "confirmed": true,
+    "date": "2026-10-19T03:30:00+00:00",
+    "telegram": true
+   },
+   {
+    "id": "a-B0H751H8RS",
+    "name": "Xiaomi Power Bank 5i 20000mAh 67W",
+    "fullName": "Xiaomi Power Bank 5i 20000mAh 67W Turbo Charging, PD 3.0 and PPS, Built-in Cable, Digital Display",
+    "image": "https://m.media-amazon.com/images/I/51uahYFHZ5L._SL1500_.jpg",
+    "price": 3199,
+    "mrp": 5999,
+    "pct": 47,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "67W output is enough to charge a thin laptop, not just your phone",
+     "Has a built-in USB-C cable and a small display that shows the charge left",
+     "9K+ bought on Amazon in the past month",
+     "Rated 4.3 by 553 buyers on Amazon"
+    ],
+    "rating": 4.3,
+    "bought": 9000,
+    "reviews": 553,
+    "buyUrl": "https://www.amazon.in/dp/B0H751H8RS",
+    "store": "amazon",
+    "category": "Accessories & Storage",
+    "confirmed": true,
+    "date": "2026-10-19T03:29:00+00:00",
+    "telegram": true
+   },
+   {
+    "id": "a-B0DSC4YJRD",
+    "name": "Ambrane 20000mAh Pocket Power Bank",
+    "fullName": "Ambrane MiniCharge 20 20000mAh Small Pocket Size Power Bank, Built-in Type C Cable, 22.5W Fast Charging",
+    "image": "https://m.media-amazon.com/images/I/61Xh55+Wm0L._SL1500_.jpg",
+    "price": 1399,
+    "mrp": 3800,
+    "pct": 63,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "Mega Festival Deal price, 63% below the list price",
+     "The Type C cable is built in, so you never forget it at home",
+     "10K+ bought on Amazon in the past month",
+     "Rated 4.2 by 2,518 buyers on Amazon"
+    ],
+    "rating": 4.2,
+    "bought": 10000,
+    "reviews": 2518,
+    "buyUrl": "https://www.amazon.in/dp/B0DSC4YJRD",
+    "store": "amazon",
+    "category": "Accessories & Storage",
+    "confirmed": true,
+    "date": "2026-10-19T03:28:00+00:00",
+    "telegram": true
+   },
+   {
     "id": "a-B0F5HTR3QJ",
     "name": "LG 32-inch QHD IPS Monitor",
     "fullName": "LG 32U631A Smartchoice 32-inch QHD (2560x1440) IPS Monitor, sRGB 99%, HDR10, USB-C 15W PD, HDMI",
@@ -2174,6 +2253,6 @@
    }
   ],
   "checked": 90,
-  "syncedAt": "2026-10-18T15:02:02+00:00"
+  "syncedAt": "2026-10-19T03:27:57+00:00"
  }
 }
