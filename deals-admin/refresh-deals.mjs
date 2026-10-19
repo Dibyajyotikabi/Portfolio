@@ -6,11 +6,12 @@
    node deals-admin/refresh-deals.mjs [--dry] [ASIN ...]
 
    With ASINs it checks only those products. A deal Amazon sends no data for keeps its
-   old data. Exit code 3 means the API keys are not set up. */
+   old data. Exit code 3 means the API keys are not set up. While Amazon hasn't turned
+   on access for the keys yet, it warns and changes nothing. */
 import { readState, patchDeals, removeDeals } from './store.mjs';
 import { asinOf } from './lib/deals.mjs';
 import { commonTag, FALLBACK_TAG } from './lib/importer.mjs';
-import { createClient, credentialsFromEnv } from './lib/creators-api.mjs';
+import { createClient, credentialsFromEnv, isNotEligible } from './lib/creators-api.mjs';
 import { RESOURCES, refreshPlan } from './lib/catalog.mjs';
 
 const EXIT_NO_KEYS = 3;
@@ -70,6 +71,10 @@ const main = async () => {
 };
 
 main().catch((err) => {
+  if (isNotEligible(err)) {
+    console.log(`::warning::${err.message} Nothing was changed.`);
+    return;
+  }
   console.error(`Refresh failed: ${err.message}`);
   process.exitCode = 1;
 });

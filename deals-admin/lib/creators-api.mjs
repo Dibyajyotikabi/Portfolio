@@ -37,6 +37,10 @@ export class ApiError extends Error {
 /* Bad keys or no API access: every later call would fail the same way, so the run stops */
 export const isFatal = (err) => err instanceof ApiError && [401, 403].includes(err.status);
 
+/* The keys are fine but Amazon hasn't turned on API access yet (new keys wait up to
+   48 hours, and the account needs 10 qualified sales in 30 days). Not a broken run. */
+export const isNotEligible = (err) => err instanceof ApiError && err.status === 403;
+
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /* The keys from the environment, or null when they are not set up yet */

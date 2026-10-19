@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createClient, credentialsFromEnv, isFatal, ApiError } from '../deals-admin/lib/creators-api.mjs';
+import { createClient, credentialsFromEnv, isFatal, isNotEligible, ApiError } from '../deals-admin/lib/creators-api.mjs';
 import {
   RESOURCES, SEARCHES, searchesFor, searchParams, bigImage, readItem, refreshNotes, refreshPlan, toApiCandidate, OFFERS_TTL_MS,
 } from '../deals-admin/lib/catalog.mjs';
@@ -202,6 +202,12 @@ test('a 403 stops the run, and errors never repeat the secret', async () => {
   assert.match(err.message, /qualified sales/);
   assert.ok(!err.message.includes('sec'));
   assert.equal(isFatal(new ApiError('bad', { status: 400 })), false);
+});
+
+test('only a 403 counts as not eligible yet, bad keys still fail', () => {
+  assert.equal(isNotEligible(new ApiError('no access', { status: 403 })), true);
+  assert.equal(isNotEligible(new ApiError('bad keys', { status: 401 })), false);
+  assert.equal(isNotEligible(new Error('network')), false);
 });
 
 test('a 401 gets one new token before it gives up', async () => {

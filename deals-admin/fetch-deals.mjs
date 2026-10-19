@@ -5,12 +5,13 @@
 
    node deals-admin/fetch-deals.mjs candidates.json
 
-   Exit code 3 means the API keys are not set up. */
+   Exit code 3 means the API keys are not set up. While Amazon hasn't turned on access
+   for the keys yet, it warns and writes an empty list. */
 import { writeFileSync } from 'node:fs';
 import { readState } from './store.mjs';
 import { interleave } from './lib/amazon.mjs';
 import { planImport, commonTag, existingAsins, DAILY } from './lib/importer.mjs';
-import { createClient, credentialsFromEnv, isFatal } from './lib/creators-api.mjs';
+import { createClient, credentialsFromEnv, isFatal, isNotEligible } from './lib/creators-api.mjs';
 import { RESOURCES, searchesFor, searchParams, toApiCandidate } from './lib/catalog.mjs';
 
 const SEARCHES_PER_RUN = 6;
@@ -61,6 +62,12 @@ const main = async () => {
 };
 
 main().catch((err) => {
+  if (isNotEligible(err)) {
+    /* an empty list, so the import step adds nothing and the run stays green */
+    writeFileSync(process.argv[2], '[]\n');
+    console.log(`::warning::${err.message} No deals were added.`);
+    return;
+  }
   console.error(`Fetch failed: ${err.message}`);
   process.exitCode = 1;
 });
