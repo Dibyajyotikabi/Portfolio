@@ -34,6 +34,12 @@ const scissors = () => s('svg', { viewBox: '0 0 46 32', 'aria-hidden': 'true' },
 ]);
 
 const REFRESH_MS = 75e3;
+const SORT_KEY = 'deals-sort';
+const DEFAULT_SORT = 'new';
+
+/* the visitor's last sort is their default next time; storage can be blocked, so it's optional */
+const savedSort = () => { try { return localStorage.getItem(SORT_KEY); } catch { return null; } };
+const saveSort = (value) => { try { localStorage.setItem(SORT_KEY, value); } catch { /* private mode or blocked storage */ } };
 const REFRESH_GAP_MS = 20e3;
 
 const setMeta = (count, data) => {
@@ -55,8 +61,8 @@ const build = (deals, data) => {
   return cats;
 };
 
-/* what a shopper would notice changing on a card */
-const cardKey = (li) => [li.querySelector('.cta')?.href, li.dataset.p, li.dataset.l, li.querySelector('.name')?.textContent,
+/* what a shopper would notice changing on a card, plus what the sorts read */
+const cardKey = (li) => [li.querySelector('.cta')?.href, li.dataset.r, li.dataset.t, li.dataset.p, li.dataset.l, li.querySelector('.name')?.textContent,
   li.querySelector('img')?.getAttribute('src'), li.querySelector('.notes')?.textContent].join('|');
 const coupons = () => [...$('deals').children].filter((li) => li.classList.contains('coupon'));
 
@@ -88,6 +94,7 @@ function filters(cats) {
   const deskMQ = matchMedia('(min-width:900px)'), reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
   const smooth = () => (reduceMQ.matches ? 'auto' : 'smooth');
   const SORTS = {
+    new: (a, b) => b.t - a.t || a.r - b.r,
     rank: (a, b) => a.r - b.r,
     pct: (a, b) => b.p - a.p || a.r - b.r,
     low: (a, b) => a.l - b.l || a.r - b.r,
@@ -95,12 +102,15 @@ function filters(cats) {
   };
   const index = () => coupons().map((el) => {
     const n = el.querySelector('.name');
-    return { el, c: el.dataset.c, r: +el.dataset.r, p: +el.dataset.p, l: +el.dataset.l,
+    return { el, c: el.dataset.c, r: +el.dataset.r, t: +el.dataset.t || 0, p: +el.dataset.p, l: +el.dataset.l,
       hay: `${n.textContent} ${n.title} ${cats[+el.dataset.c] || ''}`.toLowerCase() };
   });
   let items = index();
-  const state = { q: '', cat: 'all', sort: 'rank' };
-  let domSort = 'rank', current = [], shown = 0, page = 24;
+  const saved = savedSort();
+  const state = { q: '', cat: 'all', sort: Object.hasOwn(SORTS, saved) ? saved : DEFAULT_SORT };
+  sortEl.value = state.sort;
+  /* render.js lays the cards out newest first */
+  let domSort = DEFAULT_SORT, current = [], shown = 0, page = 24;
 
   const pageSize = () => {
     const cols = getComputedStyle(list).gridTemplateColumns.split(' ').filter(Boolean).length || 1;
@@ -184,7 +194,12 @@ function filters(cats) {
     pressCat(state.cat);
     apply(true);
   });
-  sortEl.addEventListener('change', () => { state.sort = sortEl.value; apply(true); });
+  sortEl.addEventListener('change', () => {
+    if (!Object.hasOwn(SORTS, sortEl.value)) return;
+    state.sort = sortEl.value;
+    saveSort(state.sort);
+    apply(true);
+  });
   $('more').addEventListener('click', more);
   $('clear').addEventListener('click', () => {
     state.q = ''; qEl.value = ''; state.cat = 'all';
@@ -233,7 +248,7 @@ function filters(cats) {
     chips = [...chipsEl.children];
     pressCat(state.cat);
     items = index();
-    domSort = 'rank';
+    domSort = DEFAULT_SORT;
     const before = shown;
     apply(false);
     if (before > shown) { shown = Math.min(before, current.length); paint(); }
@@ -292,7 +307,9 @@ const live = (ctl, isFresh) => {
       const known = new Set(coupons().map((li) => li.querySelector('.cta')?.href));
       setMeta(deals.length, data);
       stale();
-      if (view.cards.map(cardKey).join('\n') === coupons().map(cardKey).join('\n')) return;
+      /* compared as sets, since the reader's sort may have reordered the cards on the page */
+      const keys = (cards) => cards.map(cardKey).sort().join('\n');
+      if (keys(view.cards) === keys(coupons())) return;
       view.cards.forEach((li) => { if (!known.has(li.querySelector('.cta')?.href)) li.classList.add('fresh'); });
       keepPlace(() => {
         $('chips').replaceChildren(...view.chips);

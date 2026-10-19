@@ -45,6 +45,9 @@ export const mergeDeals = (main, top) => {
   return [...top.list, ...main.list.filter((d) => !seen.has(asin(d.buyUrl)))];
 };
 
+/* indexes of the deals, newest first, with rank breaking ties */
+export const newestFirst = (deals) => deals.map((_, i) => i).sort((a, b) => deals[b].time - deals[a].time || a - b);
+
 export const categories = (deals) => {
   const counts = deals.reduce((m, d) => ({ ...m, [d.category]: (m[d.category] || 0) + 1 }), {});
   const cats = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
@@ -84,11 +87,12 @@ export const views = (h, s) => {
     ]),
   ]);
 
-  const card = (d, i, cat) => {
+  /* i is the deal's rank in the merged list, pos is where the card sits on the page */
+  const card = (d, i, cat, pos) => {
     const nameId = 'n' + i;
     const pic = h('figure', { class: 'pic' + (d.image ? ' has-img' : '') }, d.image ? [h('img', {
-      src: d.image, alt: '', decoding: 'async', loading: i < 8 ? 'eager' : 'lazy', width: '240', height: '240', referrerpolicy: 'no-referrer',
-      ...(i < 2 ? { fetchpriority: 'high' } : {}),
+      src: d.image, alt: '', decoding: 'async', loading: pos < 8 ? 'eager' : 'lazy', width: '240', height: '240', referrerpolicy: 'no-referrer',
+      ...(pos < 2 ? { fetchpriority: 'high' } : {}),
     })] : []);
     const body = h('div', { class: 'body' }, [
       h('div', { class: 'b-main' }, [
@@ -107,21 +111,21 @@ export const views = (h, s) => {
     ]);
     const article = h('article', { class: 'cp', 'aria-labelledby': nameId }, [body,
       h('div', { class: 'perf-wrap', 'aria-hidden': 'true' }, [h('div', { class: 'perf' })]), stub]);
-    return h('li', { class: 'coupon st-' + STOCKS[i % STOCKS.length], 'data-c': String(cat), 'data-r': String(i + 1),
-      'data-p': String(d.pct), 'data-l': String(d.best || d.price) }, [article]);
+    return h('li', { class: 'coupon st-' + STOCKS[pos % STOCKS.length], 'data-c': String(cat), 'data-r': String(i + 1),
+      'data-p': String(d.pct), 'data-l': String(d.best || d.price), 'data-t': String(d.time) }, [article]);
   };
 
   const chip = (label, key, n, i, on) => h('button', {
     type: 'button', class: 'chip ticket st-' + STOCKS[i % STOCKS.length], 'data-cat': key, 'aria-pressed': String(on),
   }, [label + ' ', h('span', { class: 'n' }, [String(n)])]);
 
-  /* every chip and card for a merged list, in page order */
+  /* every chip and card for a merged list, newest deal first since that's the page's default sort */
   const page = (deals) => {
     const { cats, counts } = categories(deals);
     return {
       cats,
       chips: [chip('All', 'all', deals.length, 0, true), ...cats.map((c, i) => chip(c, String(i), counts[c], i + 1, false))],
-      cards: deals.map((d, i) => card(d, i, cats.indexOf(d.category))),
+      cards: newestFirst(deals).map((i, pos) => card(deals[i], i, cats.indexOf(deals[i].category), pos)),
     };
   };
 
