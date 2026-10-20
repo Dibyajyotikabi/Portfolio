@@ -253,6 +253,7 @@
   }
 
   const postCountKey = "portfolio-post-total";
+  const minLatestPosts = 3;
   const validPostCount = (value) => Number.isSafeInteger(value) && value > 0;
 
   // Every page shows the article count, so it has to follow the blog
@@ -281,9 +282,69 @@
     row.append(link, meta); return row;
   }
 
+  const postsPerPage = 4;
+
+  function pagerButton(label, className) {
+    const button = document.createElement("button");
+    button.type = "button"; button.className = className; button.textContent = label;
+    return button;
+  }
+
+  // The homepage links every recent story so crawlers find them, but a reader
+  // sees four at a time. Other pages are only hidden, never removed, and with
+  // no script the whole list simply shows.
+  function paginateWriting(list) {
+    if (list.nextElementSibling?.matches(".writing-pager")) list.nextElementSibling.remove();
+    list.style.minHeight = "";
+    const rows = [...list.children];
+    const pages = Math.ceil(rows.length / postsPerPage);
+    if (pages < 2) { rows.forEach(row => { row.hidden = false; }); return; }
+
+    const pager = document.createElement("nav");
+    pager.className = "writing-pager"; pager.setAttribute("aria-label", "Latest posts pages");
+    const newer = pagerButton("Newer", "pager-step");
+    const older = pagerButton("Older", "pager-step");
+    const numbers = document.createElement("div"); numbers.className = "pager-pages";
+    const pageButtons = Array.from({ length: pages }, (_, index) => {
+      const button = pagerButton(String(index + 1), "pager-page");
+      button.setAttribute("aria-label", `Page ${index + 1}`);
+      return button;
+    });
+    numbers.append(...pageButtons);
+    pager.append(newer, numbers, older);
+    list.after(pager);
+
+    // A live refresh of the list keeps the reader on the page they chose.
+    let current = Number(list.dataset.page) || 0;
+    const show = (page) => {
+      // The list only grows while a reader pages through it, so the buttons
+      // never jump away from the pointer on a shorter last page.
+      const before = list.offsetHeight;
+      current = Math.min(Math.max(page, 0), pages - 1);
+      list.dataset.page = String(current);
+      rows.forEach((row, index) => { row.hidden = Math.floor(index / postsPerPage) !== current; });
+      pageButtons.forEach((button, index) => {
+        if (index === current) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
+      });
+      newer.disabled = current === 0; older.disabled = current === pages - 1;
+      if (before) list.style.minHeight = `${Math.max(before, list.offsetHeight)}px`;
+    };
+    newer.addEventListener("click", () => show(current - 1));
+    older.addEventListener("click", () => show(current + 1));
+    pageButtons.forEach((button, index) => button.addEventListener("click", () => show(index)));
+    show(current);
+    list.style.minHeight = "";
+  }
+
+  addEventListener("resize", () => {
+    const list = document.querySelector("[data-latest-writing]");
+    if (list) list.style.minHeight = "";
+  }, { passive: true });
+
   async function loadWriting() {
     const list = document.querySelector("[data-latest-writing]");
     if (!list && !document.querySelector("[data-post-count]")) return;
+    if (list) paginateWriting(list);
     try {
       const cached = Number(localStorage.getItem(postCountKey));
       if (validPostCount(cached)) showPostCount(cached);
@@ -300,10 +361,12 @@
         try { localStorage.setItem(postCountKey, String(data.total)); } catch { /* The live count is already visible. */ }
       }
       if (!list) return;
-      const shown = data.posts.slice(0, 3);
+      // The homepage is the strongest page on the domain, so the live list keeps
+      // every story the static HTML links to instead of trimming it.
+      const shown = data.posts.slice(0, Math.max(list.children.length, minLatestPosts));
       const total = validPostCount(data.total) ? data.total : shown.length;
       const rows = shown.map((post, index) => writingRow(post, total - index));
-      if (rows.length) list.replaceChildren(...rows);
+      if (rows.length >= Math.min(list.children.length, total)) { list.replaceChildren(...rows); paginateWriting(list); }
     } catch { /* Keep the published article links available if the blog cannot be reached. */ }
     finally { clearTimeout(timeout); }
   }

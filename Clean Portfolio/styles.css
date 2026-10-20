@@ -210,6 +210,18 @@ mark.lavender { background: var(--lavender); }
 .entry-kind-note { background: transparent; border: 1.5px solid var(--peach-ink); }
 .entry-kind-blog { background: var(--green-ink); border: 1.5px solid var(--green-ink); }
 .writing-row p { color: var(--muted); font-size: 15px; margin-top: .34rem; }
+.writing-row[hidden] { display: none; }
+/* Pages the homepage story list. Quiet like the section links: colour is the
+   affordance, and the current page is the only filled shape. */
+.writing-pager { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: -.5rem 0 0; padding-left: 2.5rem; font-size: 14px; }
+.writing-pager button { min-height: 32px; border: 0; background: none; color: var(--link); font-weight: 500; }
+.writing-pager button:hover:not(:disabled) { color: var(--link-hover); }
+.writing-pager button:disabled { color: var(--soft); opacity: .55; cursor: default; }
+.pager-step { padding: 0 2px; }
+.pager-pages { display: flex; gap: 4px; }
+.pager-page { min-width: 32px; padding: 0 6px; border-radius: 999px; font-variant-numeric: tabular-nums; transition: background-color 160ms; }
+.pager-page:hover { background: var(--surface-hover); }
+.pager-page[aria-current="page"] { background: var(--surface-hover); color: var(--ink); font-weight: 700; }
 .site-footer { padding: 27px 16px 30px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 14px; }
 .newsletter { margin-bottom: 26px; }
 .newsletter h2 { font-size: 16px; letter-spacing: 0; margin-bottom: 8px; color: var(--ink); }
@@ -388,6 +400,8 @@ picture { display: block; }
   .writing-row a { flex-direction: column; gap: 7px; }
   .writing-row time { font-size: 13px; }
   .writing-row p { font-size: 15px; }
+  .writing-pager button { min-height: 40px; }
+  .pager-page { min-width: 40px; }
   .section-heading > a { font-size: 14px; }
   .location { font-size: 14px; }
   .back-link { font-size: 14px; }
