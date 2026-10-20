@@ -3,6 +3,460 @@
  "data": {
   "deals": [
    {
+    "id": "a-B0G6LTHMLF",
+    "name": "PHILIPS 55\" 4K QD-Mini LED Google TV",
+    "fullName": "PHILIPS 55 inch 4K QD-Mini LED Google TV 55MLED610/94",
+    "image": "https://m.media-amazon.com/images/I/81Ws1OwXz1L._SL1500_.jpg",
+    "price": 44999,
+    "mrp": 84999,
+    "pct": 47,
+    "best": 41562,
+    "bestVia": "Prime + coupon + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "coupon",
+      "save": 1250
+     },
+     {
+      "type": "cashback",
+      "save": 2187,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 41749,
+     "type": "bank",
+     "save": 2000,
+     "card": "any bank card"
+    },
+    "offersAt": "2026-10-20T04:06:35+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, 47% below the list price",
+     "Mini LED with a 120Hz panel, Dolby Vision and Dolby Atmos, so movies and sports both look great",
+     "500+ bought on Amazon in the past month",
+     "Rated 4.2 by 319 buyers on Amazon"
+    ],
+    "rating": 4.2,
+    "bought": 500,
+    "reviews": 319,
+    "buyUrl": "https://www.amazon.in/dp/B0G6LTHMLF?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "TVs & Projectors",
+    "confirmed": true,
+    "date": "2026-10-20T04:06:23+00:00"
+   },
+   {
+    "id": "a-B07VHFMZHJ",
+    "name": "Instant Vortex Plus 6L Air Fryer",
+    "fullName": "Instant Vortex Plus 6L Air Fryer, 6-in-1 with EvenCrisp Technology",
+    "image": "https://m.media-amazon.com/images/I/71CF5G0v0nL._SL1500_.jpg",
+    "price": 9999,
+    "mrp": 20999,
+    "pct": 52,
+    "best": 9499,
+    "bestVia": "Prime + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "cashback",
+      "save": 500,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 9699,
+     "type": "cashback",
+     "save": 300,
+     "card": "Amazon Pay ICICI card"
+    },
+    "offersAt": "2026-10-20T04:06:47+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, 52% below the list price",
+     "The 5.7L basket is big enough to cook for the whole family in one go",
+     "700+ bought on Amazon in the past month",
+     "Rated 4.8 by 21,492 buyers on Amazon"
+    ],
+    "rating": 4.8,
+    "bought": 700,
+    "reviews": 21492,
+    "buyUrl": "https://www.amazon.in/dp/B07VHFMZHJ?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-10-20T04:05:23+00:00"
+   },
+   {
+    "id": "a-B0GPVLKNN4",
+    "name": "Xiaomi Pad 8 (8GB, 128GB)",
+    "fullName": "Xiaomi Pad 8 with Snapdragon 8s Gen 4, 11.2 inch 3.2K 144Hz display, 8GB RAM, 128GB",
+    "image": "https://m.media-amazon.com/images/I/71bh4WOxGkL._SL1500_.jpg",
+    "price": 35990,
+    "mrp": 51999,
+    "pct": 31,
+    "best": 32990,
+    "bestVia": "SBI card",
+    "offers": [
+     {
+      "type": "bank",
+      "save": 3000,
+      "card": "SBI Credit Card"
+     }
+    ],
+    "offersAt": "2026-10-20T04:07:00+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, ₹16,009 below the list price",
+     "Snapdragon 8s Gen 4 and a 3.2K 144Hz screen, so games and videos run smooth",
+     "500+ bought on Amazon in the past month",
+     "Rated 4.6 by 118 buyers on Amazon"
+    ],
+    "rating": 4.6,
+    "bought": 500,
+    "reviews": 118,
+    "buyUrl": "https://www.amazon.in/dp/B0GPVLKNN4?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-10-20T04:04:23+00:00"
+   },
+   {
+    "id": "a-B0GYRQ79V4",
+    "name": "Samsung 50\" Crystal UHD 4K Vision AI Smart TV",
+    "fullName": "Samsung 50 inch Crystal UHD 4K Vision AI Smart TV 2026 UA50UE83AHULXL",
+    "image": "https://m.media-amazon.com/images/I/81AIsrIGCGL._SL1500_.jpg",
+    "price": 37490,
+    "mrp": 49900,
+    "pct": 25,
+    "best": 35140,
+    "bestVia": "Prime + coupon + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "coupon",
+      "save": 500
+     },
+     {
+      "type": "cashback",
+      "save": 1850,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 35490,
+     "type": "bank",
+     "save": 1500,
+     "card": "SBI Credit Card"
+    },
+    "offersAt": "2026-10-20T04:07:14+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, ₹12,410 below the list price",
+     "Samsung promises 7 years of OS upgrades, so this TV stays current for a long time",
+     "2K+ bought on Amazon in the past month",
+     "Rated 4.2 by 923 buyers on Amazon"
+    ],
+    "rating": 4.2,
+    "bought": 2000,
+    "reviews": 923,
+    "buyUrl": "https://www.amazon.in/dp/B0GYRQ79V4?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "TVs & Projectors",
+    "confirmed": true,
+    "date": "2026-10-20T04:03:23+00:00"
+   },
+   {
+    "id": "a-B0GWHYQW77",
+    "name": "Lenovo Idea Tab Pro Gen 2 with Pen Plus",
+    "fullName": "Lenovo Idea Tab Pro Gen 2, 13 inch 3.5K 144Hz, Snapdragon 8s Gen 4, 8GB, 256GB, with Pen Plus",
+    "image": "https://m.media-amazon.com/images/I/813eHHs+oZL._SL1500_.jpg",
+    "price": 41999,
+    "mrp": 70000,
+    "pct": 40,
+    "best": 39749,
+    "bestVia": "SBI card",
+    "offers": [
+     {
+      "type": "bank",
+      "save": 2250,
+      "card": "SBI Credit Card"
+     }
+    ],
+    "offersAt": "2026-10-20T04:07:26+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, 40% below the list price",
+     "Big 13 inch 3.5K screen with four JBL speakers, and the pen and 45W charger come in the box",
+     "2K+ bought on Amazon in the past month",
+     "Rated 4.2 by 204 buyers on Amazon"
+    ],
+    "rating": 4.2,
+    "bought": 2000,
+    "reviews": 204,
+    "buyUrl": "https://www.amazon.in/dp/B0GWHYQW77?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-10-20T04:02:23+00:00"
+   },
+   {
+    "id": "a-B0H25X3W7F",
+    "name": "ASUS TUF A15 (2026) RTX 3050 Gaming Laptop",
+    "fullName": "ASUS TUF A15 2026, AMD Ryzen 7 8845HS, RTX 3050, 16GB RAM, 512GB SSD, 15.6 inch FHD 144Hz",
+    "image": "https://m.media-amazon.com/images/I/81fyeRNwpKL._SL1500_.jpg",
+    "price": 99990,
+    "mrp": 155990,
+    "pct": 36,
+    "best": 94990,
+    "bestVia": "SBI card",
+    "offers": [
+     {
+      "type": "bank",
+      "save": 5000,
+      "card": "SBI Credit Card"
+     }
+    ],
+    "offersAt": "2026-10-20T04:07:40+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, ₹56,000 below the list price",
+     "Ryzen 7 8845HS with an RTX 3050 and a 144Hz screen, and the RAM goes up to 64GB later",
+     "500+ bought on Amazon in the past month",
+     "Comes with Office Home 2024 for life"
+    ],
+    "rating": 4.8,
+    "bought": 500,
+    "reviews": 8,
+    "buyUrl": "https://www.amazon.in/dp/B0H25X3W7F?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Laptops & Computers",
+    "confirmed": true,
+    "date": "2026-10-20T04:01:23+00:00"
+   },
+   {
+    "id": "a-B097RJ867P",
+    "name": "PHILIPS Digital Airfryer HD9252/90 (4.1L)",
+    "fullName": "PHILIPS Digital Airfryer HD9252/90, Touch Panel, 4.1L",
+    "image": "https://m.media-amazon.com/images/I/51kxBUJZNUL._SL1000_.jpg",
+    "price": 7299,
+    "mrp": 11995,
+    "pct": 39,
+    "best": 6934,
+    "bestVia": "Prime + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "cashback",
+      "save": 365,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 7080,
+     "type": "cashback",
+     "save": 219,
+     "card": "Amazon Pay ICICI card"
+    },
+    "offersAt": "2026-10-20T04:07:50+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, 39% below the list price",
+     "Seven presets on the touch panel, so fries and snacks come out right without guesswork",
+     "5K+ bought on Amazon in the past month",
+     "Rated 4.3 by 7,754 buyers on Amazon"
+    ],
+    "rating": 4.3,
+    "bought": 5000,
+    "reviews": 7754,
+    "buyUrl": "https://www.amazon.in/dp/B097RJ867P?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-10-20T04:00:23+00:00"
+   },
+   {
+    "id": "a-B0FWY8R9W8",
+    "name": "Ninja Air Fryer MAX PRO 6.2L",
+    "fullName": "Ninja Air Fryer MAX PRO 6.2L, Max Crisp Technology, 6-in-1, 2-Year Warranty",
+    "image": "https://m.media-amazon.com/images/I/61NEz27pw3L._SL1086_.jpg",
+    "price": 9998,
+    "mrp": 14990,
+    "pct": 33,
+    "best": 8998,
+    "bestVia": "SBI card",
+    "offers": [
+     {
+      "type": "bank",
+      "save": 1000,
+      "card": "SBI Credit Card"
+     }
+    ],
+    "offersAt": "2026-10-20T04:08:04+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, 33% below the list price",
+     "Goes up to 240 degrees for extra crispy results, and you get a 2-year warranty",
+     "4K+ bought on Amazon in the past month",
+     "Rated 4.4 by 2,484 buyers on Amazon"
+    ],
+    "rating": 4.4,
+    "bought": 4000,
+    "reviews": 2484,
+    "buyUrl": "https://www.amazon.in/dp/B0FWY8R9W8?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-10-20T03:59:23+00:00"
+   },
+   {
+    "id": "a-B0F6ZLFNVT",
+    "name": "Xiaomi 43\" Smartchoice X 4K Google TV",
+    "fullName": "Xiaomi 43 inch Smartchoice X 4K Google TV L43MB-AIN",
+    "image": "https://m.media-amazon.com/images/I/81jqJ8elaHL._SL1500_.jpg",
+    "price": 24999,
+    "mrp": 37999,
+    "pct": 34,
+    "best": 23499,
+    "bestVia": "any bank card",
+    "offers": [
+     {
+      "type": "bank",
+      "save": 1500,
+      "card": "any bank card"
+     }
+    ],
+    "offersAt": "2026-10-20T04:08:17+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, 34% below the list price",
+     "Dolby Vision with 30W Dolby Audio and eARC, a solid 4K TV for a bedroom or small hall",
+     "2K+ bought on Amazon in the past month",
+     "Rated 4.0 by 416 buyers on Amazon"
+    ],
+    "rating": 4,
+    "bought": 2000,
+    "reviews": 416,
+    "buyUrl": "https://www.amazon.in/dp/B0F6ZLFNVT?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "TVs & Projectors",
+    "confirmed": true,
+    "date": "2026-10-20T03:58:23+00:00"
+   },
+   {
+    "id": "a-B0GDQ26XZB",
+    "name": "Redmi Pad 2 Pro (8GB, 128GB)",
+    "fullName": "Redmi Pad 2 Pro, 12.1 inch 2.5K 120Hz display, 8GB RAM, 128GB",
+    "image": "https://m.media-amazon.com/images/I/71SIULlPnYL._SL1500_.jpg",
+    "price": 26999,
+    "mrp": 39999,
+    "pct": 33,
+    "best": 23999,
+    "bestVia": "SBI card",
+    "offers": [
+     {
+      "type": "bank",
+      "save": 3000,
+      "card": "SBI Credit Card"
+     }
+    ],
+    "offersAt": "2026-10-20T04:08:30+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, 33% below the list price",
+     "A 12.1 inch 120Hz screen with quad Dolby Atmos speakers, and storage expands up to 2TB",
+     "2K+ bought on Amazon in the past month",
+     "Rated 4.0 by 361 buyers on Amazon"
+    ],
+    "rating": 4,
+    "bought": 2000,
+    "reviews": 361,
+    "buyUrl": "https://www.amazon.in/dp/B0GDQ26XZB?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-10-20T03:57:23+00:00"
+   },
+   {
+    "id": "a-B0HG96MZ9P",
+    "name": "iQOO Z11xa 5G (8GB, 128GB)",
+    "fullName": "iQOO Z11xa 5G, 8GB RAM, 128GB, 7200mAh battery, Dimensity 7400 Turbo",
+    "image": "https://m.media-amazon.com/images/I/61KRgiSiB0L._SL1200_.jpg",
+    "price": 28998,
+    "mrp": 40999,
+    "pct": 29,
+    "best": 23748,
+    "bestVia": "Prime + coupon + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "coupon",
+      "save": 4000
+     },
+     {
+      "type": "cashback",
+      "save": 1250,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 23998,
+     "type": "bank",
+     "save": 1000,
+     "card": "SBI Credit Card"
+    },
+    "offersAt": "2026-10-20T04:08:42+00:00",
+    "atLow": false,
+    "notes": [
+     "Great Indian Festival price, ₹12,001 below the list price",
+     "The 7200mAh battery easily lasts more than a day, with 44W fast charging",
+     "5K+ bought on Amazon in the past month",
+     "Rated 4.2 by 92 buyers on Amazon"
+    ],
+    "rating": 4.2,
+    "bought": 5000,
+    "reviews": 92,
+    "buyUrl": "https://www.amazon.in/dp/B0HG96MZ9P?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-10-20T03:56:23+00:00"
+   },
+   {
+    "id": "a-B0H3BXLJ3T",
+    "name": "Noise ColorFit Pulse Air Smartwatch",
+    "fullName": "Noise ColorFit Pulse Air Smartwatch with Bluetooth Calling, 1.85 inch Display",
+    "image": "https://m.media-amazon.com/images/I/61Vz7+rNAxL._SL1500_.jpg",
+    "price": 1099,
+    "mrp": 4999,
+    "pct": 78,
+    "best": 1044,
+    "bestVia": "Prime + Amazon Pay ICICI card",
+    "offers": [
+     {
+      "type": "cashback",
+      "save": 55,
+      "card": "Amazon Pay ICICI card (Prime)"
+     }
+    ],
+    "nonPrime": {
+     "best": 1066,
+     "type": "cashback",
+     "save": 33,
+     "card": "Amazon Pay ICICI card"
+    },
+    "offersAt": "2026-10-20T04:08:55+00:00",
+    "atLow": false,
+    "notes": [
+     "78% off, a calling smartwatch for just ₹1,099",
+     "The rotating crown lets you scroll menus without touching the screen",
+     "Rated 4.2 by 8,512 buyers on Amazon"
+    ],
+    "rating": 4.2,
+    "reviews": 8512,
+    "buyUrl": "https://www.amazon.in/dp/B0H3BXLJ3T?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Wearables",
+    "confirmed": true,
+    "date": "2026-10-20T03:55:23+00:00"
+   },
+   {
     "id": "a-B0DSKNQW8F",
     "name": "Samsung Galaxy S25 Ultra (12GB, 256GB)",
     "fullName": "Samsung Galaxy S25 Ultra 5G AI Smartphone (Titanium Black, 12GB RAM, 256GB Storage), 200MP Camera, 5000mAh Battery",
@@ -2679,6 +3133,6 @@
    }
   ],
   "checked": 90,
-  "syncedAt": "2026-10-19T05:35:31+00:00"
+  "syncedAt": "2026-10-20T04:08:55+00:00"
  }
 }
