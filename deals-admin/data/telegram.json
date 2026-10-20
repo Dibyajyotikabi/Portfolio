@@ -9,7 +9,7 @@
  "skipTelegramSourced": true,
  "popularOnly": true,
  "maxPerRun": 10,
- "postEveryMinutes": 10,
+ "postEveryMinutes": 30,
  "buttonText": "Buy on Amazon",
  "footer": "More checked deals: https://dibyajyotikabi.com/deals/"
 }
