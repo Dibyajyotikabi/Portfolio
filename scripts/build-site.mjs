@@ -39,7 +39,7 @@ writeFileSync(path.join(dist, '404.html'), `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, follow">
-<title>Page not found — Dibyajyoti Kabi</title>
+<title>Page not found | Dibyajyoti Kabi</title>
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="/styles.css">
 </head><body><main class="shell hero"><h1>Page not found</h1>
