@@ -3,6 +3,244 @@
  "data": {
   "deals": [
    {
+    "id": "a-B0H1WY466V",
+    "name": "Samsung Galaxy A56 5G Mobile",
+    "fullName": "Samsung Galaxy A56 5G Mobile (Awesome Violet Glow, 8GB, 256GB) | Segment Most Complete Triple Camera | 50MP | AI Editing | 4nm Processor | sAMOLED | 5000mAh | Gorilla Glass Victus+| Knox Security",
+    "image": "https://m.media-amazon.com/images/I/41glZk0BMcL._SL1500_.jpg",
+    "price": 36999,
+    "mrp": 52999,
+    "pct": 30,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹16,000 right now. That's 30% off the ₹52,999 list price.",
+     "𝐒𝐄𝐆𝐌𝐄𝐍𝐓 𝐌𝐎𝐒𝐓 𝐂𝐎𝐌𝐏𝐋𝐄𝐓𝐄 𝐂𝐀𝐌𝐄𝐑𝐀 - Capture every detail with the 50MP Main camera.",
+     "It's #8 in Smartphones on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 8,
+    "rankIn": "Smartphones",
+    "buyUrl": "https://www.amazon.in/dp/B0H1WY466V?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-11-01T10:40:18+00:00"
+   },
+   {
+    "id": "a-B0HFMTRGZL",
+    "name": "Noise Air Clips V2 Wireless Open Ear Earbuds",
+    "fullName": "Noise Air Clips V2 Wireless Open Ear Earbuds with Chrome Finish, AirWave™ Technology,Up-to 40H Playtime, Dual Device Pairing, Quad Mic with ENC,12mm Driver,BTv5.4 (Pearl Purple)",
+    "image": "https://m.media-amazon.com/images/I/31HCEU-JaBL._SL1500_.jpg",
+    "price": 2499,
+    "mrp": 3999,
+    "pct": 38,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹1,500 right now. That's 38% off the ₹3,999 list price.",
+     "It's not just a new look; it's a whole new generation of aesthetics - clip it on and get stylish.",
+     "It's #5 in Open-Ear Headphones on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 5,
+    "rankIn": "Open-Ear Headphones",
+    "buyUrl": "https://www.amazon.in/dp/B0HFMTRGZL?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Audio",
+    "confirmed": true,
+    "date": "2026-11-01T10:39:18+00:00"
+   },
+   {
+    "id": "a-B0H2DHYFQZ",
+    "name": "ASUS Chromebook CM32 Detachable",
+    "fullName": "ASUS Chromebook CM32 Detachable (2026),Smartchoice,MediaTek Kompanio 540 Processor,4GB RAM,64GB SSD,Touchscreen,12.1\"(30.7 cm),Chrome OS,Cloud Titanium,0.64 Kg,CM3206DM4A-TR0118,Thin & Light Laptop",
+    "image": "https://m.media-amazon.com/images/I/41a0sFXqmLL._SL1500_.jpg",
+    "price": 24990,
+    "mrp": 51990,
+    "pct": 52,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹27,000 right now. That's 52% off the ₹51,990 list price.",
+     "It's #2 in 2 in 1 Laptops on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 2,
+    "rankIn": "2 in 1 Laptops",
+    "buyUrl": "https://www.amazon.in/dp/B0H2DHYFQZ?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Laptops & Computers",
+    "confirmed": true,
+    "date": "2026-11-01T10:38:18+00:00"
+   },
+   {
+    "id": "a-B0FQG8WC31",
+    "name": "Apple Watch Series 11 GPS 42mm Rose Gold Aluminium Case",
+    "fullName": "Apple Watch Series 11 GPS 42mm Rose Gold Aluminium Case with Light Blush Sport Band - S/M",
+    "image": "https://m.media-amazon.com/images/I/31TU9aa8QnL._SL1500_.jpg",
+    "price": 34599,
+    "mrp": 46900,
+    "pct": 26,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹12,301 right now. That's 26% off the ₹46,900 list price.",
+     "Sleep score provides an easy way to help track and understand the quality of your sleep, so you can make it more restorative.",
+     "It's #12 in Smart Watches on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 12,
+    "rankIn": "Smart Watches",
+    "buyUrl": "https://www.amazon.in/dp/B0FQG8WC31?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Wearables",
+    "confirmed": true,
+    "date": "2026-11-01T10:37:18+00:00"
+   },
+   {
+    "id": "a-B0HBQXJY84",
+    "name": "Vu California 108cm Smartchoice Glo MiniLED Google 4K TV",
+    "fullName": "Vu California 108cm (43 inches) Smartchoice Glo MiniLED Google 4K TV VUGLOMINILED 2026",
+    "image": "https://m.media-amazon.com/images/I/41K1Jw41c9L._SL1500_.jpg",
+    "price": 32490,
+    "mrp": 40000,
+    "pct": 19,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹7,510 right now. That's 19% off the ₹40,000 list price.",
+     "It's #26 in Smart Televisions on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 26,
+    "rankIn": "Smart Televisions",
+    "buyUrl": "https://www.amazon.in/dp/B0HBQXJY84?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "TVs & Projectors",
+    "confirmed": true,
+    "date": "2026-11-01T10:36:18+00:00"
+   },
+   {
+    "id": "a-B0H6HY2C29",
+    "name": "realme narzo 80 Lite 4G 2026",
+    "fullName": "realme narzo 80 Lite 4G (See Blue,4GB+64GB) 2026 | 6300mAh Segment's Biggest Battery | 7.94mm Slim Design | 300% Ultra Volume | Pulse Light: 9 Colors, 5 Glow Modes | Ai Assist",
+    "image": "https://m.media-amazon.com/images/I/41lQHcLis9L._SL1500_.jpg",
+    "price": 11998,
+    "mrp": 16999,
+    "pct": 29,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹5,001 right now. That's 29% off the ₹16,999 list price.",
+     "Stay powered all day with a long-lasting battery built for nonstop performance.",
+     "It's #27 in Smartphones on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 27,
+    "rankIn": "Smartphones",
+    "buyUrl": "https://www.amazon.in/dp/B0H6HY2C29?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-11-01T10:35:18+00:00"
+   },
+   {
+    "id": "a-B0H1BMBX9R",
+    "name": "realme NARZO 80 Lite 4G",
+    "fullName": "realme NARZO 80 Lite 4G (Obsidian Black 2026, 4GB+64GB) | 6300mAh Segment's Biggest Battery | 7.94mm Slim Design | 300% Ultra Volume | Pulse Light: 9 Colors, 5 Glow Modes | Ai Assist",
+    "image": "https://m.media-amazon.com/images/I/41lq7JQL15L._SL1500_.jpg",
+    "price": 11998,
+    "mrp": 16999,
+    "pct": 29,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹5,001 right now. That's 29% off the ₹16,999 list price.",
+     "Stay powered all day with a long-lasting battery built for nonstop performance.",
+     "It's #27 in Smartphones on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 27,
+    "rankIn": "Smartphones",
+    "buyUrl": "https://www.amazon.in/dp/B0H1BMBX9R?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-11-01T10:34:18+00:00"
+   },
+   {
+    "id": "a-B0DYDQ849T",
+    "name": "Samsung Galaxy A56 5G Mobile",
+    "fullName": "Samsung Galaxy A56 5G Mobile (Awesome Olive, 8GB, 256GB) | Segment Most Complete Triple Camera | 50MP | AI Editing | 4nm Processor | sAMOLED | 5000mAh | Gorilla Glass Victus+| Knox Security",
+    "image": "https://m.media-amazon.com/images/I/41fBwFLcOTL._SL1500_.jpg",
+    "price": 36999,
+    "mrp": 54999,
+    "pct": 33,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹18,000 right now. That's 33% off the ₹54,999 list price.",
+     "𝐒𝐄𝐆𝐌𝐄𝐍𝐓 𝐌𝐎𝐒𝐓 𝐂𝐎𝐌𝐏𝐋𝐄𝐓𝐄 𝐂𝐀𝐌𝐄𝐑𝐀 - Capture every detail with the 50MP Main camera.",
+     "It's #8 in Smartphones on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 8,
+    "rankIn": "Smartphones",
+    "buyUrl": "https://www.amazon.in/dp/B0DYDQ849T?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-11-01T10:33:18+00:00"
+   },
+   {
+    "id": "a-B0FDL5K6SV",
+    "name": "Samsung Galaxy Z Fold7 5G Mobile",
+    "fullName": "Samsung Galaxy Z Fold7 5G Mobile with Galaxy AI (JetBlack, 12GB RAM, 256GB Storage), Ultra Sleek Design with 200MP Camera, Ultra-Smooth Gaming with Powerful Snapdragon 8 Elite, Google Gemini",
+    "image": "https://m.media-amazon.com/images/I/31wxzf2IWAL._SL1500_.jpg",
+    "price": 128999,
+    "mrp": 184999,
+    "pct": 30,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹56,000 right now. That's 30% off the ₹1,84,999 list price.",
+     "Folded or Unfolded, the ultra light Galaxy Z Fold7 with next-gen Galaxy AI exceeds your expectations of a 5G smartphone.",
+     "It's #36 in Smartphones on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 36,
+    "rankIn": "Smartphones",
+    "buyUrl": "https://www.amazon.in/dp/B0FDL5K6SV?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-11-01T10:32:18+00:00"
+   },
+   {
+    "id": "a-B0DHHB2YS7",
+    "name": "Samsung Galaxy Tab S10+",
+    "fullName": "Samsung Galaxy Tab S10+ [Smartchoice], 12.4-inch (31.5 CM), Dynamic AMOLED 2X Display, 12GB RAM, 256GB ROM, Wi-Fi, Quad Speakers, S Pen, Platinum Silver, AI Enabled",
+    "image": "https://m.media-amazon.com/images/I/41ojqPSL8eL._SL1500_.jpg",
+    "price": 79999,
+    "mrp": 153999,
+    "pct": 48,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹74,000 right now. That's 48% off the ₹1,53,999 list price.",
+     "Lose yourself in a 12.4-inch (31.5 CM) Dynamic AMOLED 2X touch display.",
+     "It's #24 in Tablets on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 24,
+    "rankIn": "Tablets",
+    "buyUrl": "https://www.amazon.in/dp/B0DHHB2YS7?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Laptops & Computers",
+    "confirmed": true,
+    "date": "2026-11-01T10:31:18+00:00"
+   },
+   {
     "id": "a-B0HDC5G125",
     "name": "boAt New Launch Apex PB332 Magnacharge; Magsafe Wireless",
     "fullName": "boAt New Launch Apex PB332 Magnacharge; Magsafe Wireless 10000 mAh Fast Charging Powerbank; 15W Wireless & 22.5W Wired Charging (Type C); for Android, iPhone 17/16/Pro, Samsung (Noir Black)",
@@ -6851,6 +7089,6 @@
    }
   ],
   "checked": 90,
-  "syncedAt": "2026-10-31T09:50:38+00:00"
+  "syncedAt": "2026-11-01T10:40:18+00:00"
  }
 }
