@@ -3,6 +3,102 @@
  "data": {
   "deals": [
    {
+    "id": "a-B09B917Z8D",
+    "name": "Amazon Echo Dot",
+    "fullName": "Amazon Echo Dot (5th Gen), smart speaker with Alexa+, vibrant sound, motion detection, temperature sensor, bluetooth, Black",
+    "image": "https://m.media-amazon.com/images/I/31SetrTpeTL._SL1500_.jpg",
+    "price": 4499,
+    "mrp": 5499,
+    "pct": 18,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹1,000 right now. That's 18% off the ₹5,499 list price.",
+     "5th (Latest) Generation Echo Dot-The best sounding Echo Dot yet with clearer vocals and deeper bass.",
+     "It's #1 in Smart Speakers on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 1,
+    "rankIn": "Smart Speakers",
+    "buyUrl": "https://www.amazon.in/dp/B09B917Z8D?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Audio",
+    "confirmed": true,
+    "date": "2026-11-02T11:28:55+00:00"
+   },
+   {
+    "id": "a-B0HKRP51KP",
+    "name": "DOMO Slate SL39 10.1-Inch 4G Tablet PC",
+    "fullName": "DOMO Slate SL39 10.1-Inch 4G Tablet PC, 4GB RAM + 32GB inbuilt Storage, Dual SIM Slot,1TB Expandable, Octa Core CPU GPS, Bluetooth (Grey)",
+    "image": "https://m.media-amazon.com/images/I/419Ls8IXSUL._SL1500_.jpg",
+    "price": 7499,
+    "mrp": 24990,
+    "pct": 70,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹17,491 right now. That's 70% off the ₹24,990 list price.",
+     "10.1 Inch IPS 1280800 pixels HD LCD Display.",
+     "It's #29 in Tablets on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 29,
+    "rankIn": "Tablets",
+    "buyUrl": "https://www.amazon.in/dp/B0HKRP51KP?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-11-02T11:27:55+00:00"
+   },
+   {
+    "id": "a-B09B8XJDW5",
+    "name": "Amazon Echo Dot",
+    "fullName": "Amazon Echo Dot (5th Gen), smart speaker with Alexa+, vibrant sound, motion detection, temperature sensor, bluetooth, Blue",
+    "image": "https://m.media-amazon.com/images/I/31K1sgneCuL._SL1500_.jpg",
+    "price": 4499,
+    "mrp": 5499,
+    "pct": 18,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹1,000 right now. That's 18% off the ₹5,499 list price.",
+     "Just ask Alexa to play music from Amazon Music, Spotify, Jio Saavn, Apple Music.(some apps may require subscription).",
+     "It's #1 in Smart Speakers on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 1,
+    "rankIn": "Smart Speakers",
+    "buyUrl": "https://www.amazon.in/dp/B09B8XJDW5?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Audio",
+    "confirmed": true,
+    "date": "2026-11-02T11:26:55+00:00"
+   },
+   {
+    "id": "a-B0CV7XPC59",
+    "name": "Oboe Silicone Cover Pencil Case Sleeve Compatible",
+    "fullName": "Oboe Silicone Cover Pencil Case Sleeve Compatible with Apple Pencil (USB-C) for iPad Pro 11/12.9 inch Skin (B-Lavender Purple) [Stylus Pencil is NOT Included]",
+    "image": "https://m.media-amazon.com/images/I/2141hlID1JL._SL1500_.jpg",
+    "price": 371,
+    "mrp": 999,
+    "pct": 63,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹628 right now. That's 63% off the ₹999 list price.",
+     "【Compatibility】 The silicone skin is ONLY compatible with Apple Pencil (USB-C) and makes the pencil easy to hold.",
+     "It's #2 in Stylus Parts & Accessories on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 2,
+    "rankIn": "Stylus Parts & Accessories",
+    "buyUrl": "https://www.amazon.in/dp/B0CV7XPC59?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Phones & Tablets",
+    "confirmed": true,
+    "date": "2026-11-02T11:25:55+00:00"
+   },
+   {
     "id": "a-B0H1WY466V",
     "name": "Samsung Galaxy A56 5G Mobile",
     "fullName": "Samsung Galaxy A56 5G Mobile (Awesome Violet Glow, 8GB, 256GB) | Segment Most Complete Triple Camera | 50MP | AI Editing | 4nm Processor | sAMOLED | 5000mAh | Gorilla Glass Victus+| Knox Security",
@@ -7089,6 +7185,6 @@
    }
   ],
   "checked": 90,
-  "syncedAt": "2026-11-01T10:40:18+00:00"
+  "syncedAt": "2026-11-02T11:28:55+00:00"
  }
 }
