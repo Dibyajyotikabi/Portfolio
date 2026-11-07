@@ -3,6 +3,222 @@
  "data": {
   "deals": [
    {
+    "id": "a-B0FDQKRGZD",
+    "name": "Samsung Galaxy Watch8",
+    "fullName": "Samsung Galaxy Watch8 (40mm, Bluetooth, Silver) with 3nm Processor | Dual GPS | Sapphire Glass & Armor Aluminum | 5ATM & IP68 | BP, ECG, IHRN & Vascular Load Monitoring | Anti-oxidant Index",
+    "image": "https://m.media-amazon.com/images/I/31dTmksbJaL._SL1500_.jpg",
+    "price": 19499,
+    "mrp": 38999,
+    "pct": 50,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹19,500 right now. That's 50% off the ₹38,999 list price.",
+     "Galaxy Watch 8 comes with an ergonomic, versatile & ultra-sleek (8.6mm slim-fit) design that’s built to last with Sapphire glass and Armor Aluminum.",
+     "It's #7 in Smart Watches on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 7,
+    "rankIn": "Smart Watches",
+    "buyUrl": "https://www.amazon.in/dp/B0FDQKRGZD?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Wearables",
+    "confirmed": true,
+    "date": "2026-11-07T10:29:47+00:00"
+   },
+   {
+    "id": "a-B091V8HK8Z",
+    "name": "Milton Appliances Go Electric Kettle 1.8 Litre I 3X",
+    "fullName": "Milton Appliances Go Electric Kettle 1.8 Litre I 3X Protection - Dry Boil, Auto Shut Off, Overheat I 1350 Watt I Super Fast Boiling I Stainless Steel I 360° Power Base I 1 Year Warranty",
+    "image": "https://m.media-amazon.com/images/I/41o9zcFiv-L._SL1500_.jpg",
+    "price": 799,
+    "mrp": 1599,
+    "pct": 50,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹800 right now. That's 50% off the ₹1,599 list price.",
+     "Boil dry protection with smart auto cut-off that activates when no water is detected, preventing damage and ensuring safe, reliable operation.",
+     "It's #2 in Electric Kettles on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 2,
+    "rankIn": "Electric Kettles",
+    "buyUrl": "https://www.amazon.in/dp/B091V8HK8Z?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-11-07T10:28:47+00:00"
+   },
+   {
+    "id": "a-B0H9YWCNVG",
+    "name": "ASUS TUF A16",
+    "fullName": "ASUS TUF A16 (2026),AMD Ryzen 7 260 Processor,RTX 5050-8GB,16GB RAM (Upgradeable),512GB SSD,FHD+,16\"(40 cm),Windows 11,M365 Basic(1 Year),Office 2024,Jaeger Gray,2.2 Kg,FA608UHI-TU238WS,Gaming Laptop",
+    "image": "https://m.media-amazon.com/images/I/41-a+pIFsCL._SL1500_.jpg",
+    "price": 159990,
+    "mrp": 259990,
+    "pct": 38,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹1,00,000 right now. That's 38% off the ₹2,59,990 list price.",
+     "Xbox Game Pass Premium_2 months (Terms and exclusions apply.",
+     "It's #37 in Traditional Laptops on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 37,
+    "rankIn": "Traditional Laptops",
+    "buyUrl": "https://www.amazon.in/dp/B0H9YWCNVG?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Monitors & Gaming",
+    "confirmed": true,
+    "date": "2026-11-07T10:27:47+00:00"
+   },
+   {
+    "id": "a-B0G1T1WBXN",
+    "name": "boAt Lunar Discovery Neo",
+    "fullName": "boAt Lunar Discovery Neo, 1.39\" (3.5 cm) Round HD Display, Premium Metallic Finish, Animated Watchfaces, 100+ Sports Mode, Bluetooth Calling, Smart Watch for Men & Women (Ocean Blue)",
+    "image": "https://m.media-amazon.com/images/I/41fkLxV4n5L._SL1500_.jpg",
+    "price": 1499,
+    "mrp": 6999,
+    "pct": 79,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹5,500 right now. That's 79% off the ₹6,999 list price.",
+     "Introducing the boAt Lunar Discovery Neo, the next-gen smartwatch with a large 1.39” (3.53 cm) display for crystal-clear readability, indoors or out.",
+     "It's #6 in Smart Watches on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 6,
+    "rankIn": "Smart Watches",
+    "buyUrl": "https://www.amazon.in/dp/B0G1T1WBXN?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Wearables",
+    "confirmed": true,
+    "date": "2026-11-07T10:26:47+00:00"
+   },
+   {
+    "id": "a-B09J2T124D",
+    "name": "NutriPro Juicer Mixer Grinder Stainless Steel",
+    "fullName": "NutriPro Juicer Mixer Grinder Stainless Steel - Smoothie Maker - 500 Watts (2 Jars & 1 Blade, Silver) - 2 Year Warranty",
+    "image": "https://m.media-amazon.com/images/I/41PFfgE1TxL._SL1500_.jpg",
+    "price": 1499,
+    "mrp": 5000,
+    "pct": 70,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹3,501 right now. That's 70% off the ₹5,000 list price.",
+     "Make Smoothies and Juices within seconds.",
+     "It's #1 in Juicer Mixer Grinders on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 1,
+    "rankIn": "Juicer Mixer Grinders",
+    "buyUrl": "https://www.amazon.in/dp/B09J2T124D?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-11-07T10:25:47+00:00"
+   },
+   {
+    "id": "a-B0DN1Q4NSJ",
+    "name": "GOBOULT Mustang Torq Wireless in Ear Earbuds",
+    "fullName": "GOBOULT Mustang Torq Wireless in Ear Earbuds with 60H Playtime, App Support, Quad Mic ENC, 45ms Low Latency, 13mm Driver, Breathing LEDs, Made in India Ear Buds Wireless (Yellow)",
+    "image": "https://m.media-amazon.com/images/I/41ytlK75rKL._SL1500_.jpg",
+    "price": 1499,
+    "mrp": 5999,
+    "pct": 75,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹4,500 right now. That's 75% off the ₹5,999 list price.",
+     "Personalize your sound with the Amp App.",
+     "It's #27 in In-Ear on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 27,
+    "rankIn": "In-Ear",
+    "buyUrl": "https://www.amazon.in/dp/B0DN1Q4NSJ?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Audio",
+    "confirmed": true,
+    "date": "2026-11-07T10:24:47+00:00"
+   },
+   {
+    "id": "a-B0H885WPD3",
+    "name": "Cüraa by YFL Home Milk Frother",
+    "fullName": "Cüraa by YFL Home Milk Frother for Coffee | 3 Speed Electric Milk Frother Perfect for Coffee, Lattes, Milk, Hot Chocolates & Cream | Handheld, Portable, Rechargeable Frother with Stand & Whisker",
+    "image": "https://m.media-amazon.com/images/I/31-XCs8wHfL._SL1500_.jpg",
+    "price": 899,
+    "mrp": 1999,
+    "pct": 55,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹1,100 right now. That's 55% off the ₹1,999 list price.",
+     "Customize frothing intensity for lattes, cappuccinos, and hot chocolate.",
+     "It's #4 in Handheld Milk Frothers on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 4,
+    "rankIn": "Handheld Milk Frothers",
+    "buyUrl": "https://www.amazon.in/dp/B0H885WPD3?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-11-07T10:23:47+00:00"
+   },
+   {
+    "id": "a-B0000AN3QH",
+    "name": "Bialetti Moka Express Iconic Italian Stovetop Espresso Maker",
+    "fullName": "Bialetti Moka Express Iconic Italian Stovetop Espresso Maker, Italian Made; Moka Pot/Percolator/Coffee Maker/Mocha Pot for an Authentic Italian Coffee (Silver, 1 Cup)",
+    "image": "https://m.media-amazon.com/images/I/41LWmxXGQmL._SL1500_.jpg",
+    "price": 2699,
+    "mrp": 3999,
+    "pct": 33,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹1,300 right now. That's 33% off the ₹3,999 list price.",
+     "Made with high-quality aluminum, this moka pot ensures long-lasting performance.",
+     "It's #2 in Stovetop Espresso Pots on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 2,
+    "rankIn": "Stovetop Espresso Pots",
+    "buyUrl": "https://www.amazon.in/dp/B0000AN3QH?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-11-07T10:22:47+00:00"
+   },
+   {
+    "id": "a-B0G4XBP2NV",
+    "name": "HomeWiz Oil Dispenser For Kitchen Glass Bottle 500 ml",
+    "fullName": "HomeWiz Oil Dispenser For Kitchen Glass Bottle 500 ml | 3-in-1 Mode Oil Sprayer, Cooking, Salad & BBQ | Stream, Spray & Pour Mist | Precision Refillable Bottle for Olive & Vinegar | Leakproof | Black",
+    "image": "https://m.media-amazon.com/images/I/513ZqB2o+IL._SL1500_.jpg",
+    "price": 249,
+    "mrp": 699,
+    "pct": 64,
+    "best": null,
+    "atLow": false,
+    "notes": [
+     "You save ₹450 right now. That's 64% off the ₹699 list price.",
+     "THE SAME MATERIAL USED IN LABORATORY EQUIPMENT: This is not regular glass.",
+     "It's #3 in Oil Sprayers on Amazon.in right now."
+    ],
+    "rating": null,
+    "salesRank": 3,
+    "rankIn": "Oil Sprayers",
+    "buyUrl": "https://www.amazon.in/dp/B0G4XBP2NV?tag=wwwbestdeal0d-21",
+    "store": "amazon",
+    "category": "Home & Kitchen",
+    "confirmed": true,
+    "date": "2026-11-07T10:21:47+00:00"
+   },
+   {
     "id": "a-B0F53KGSFZ",
     "name": "Amazon Basics 20000mAh Power Bank",
     "fullName": "Amazon Basics 20000mAh Power Bank, 35W Super Fast Charging, Type-C & USB-A Ports, 9-Layer Protection, Portable, Silver",
@@ -8063,6 +8279,6 @@
    }
   ],
   "checked": 90,
-  "syncedAt": "2026-11-06T11:13:25+00:00"
+  "syncedAt": "2026-11-07T10:29:48+00:00"
  }
 }
